@@ -1,0 +1,4 @@
+exclude_paths:
+  - ./meta/version.yml
+  - ./meta/exception.yml
+  - ./meta/preferences.yml

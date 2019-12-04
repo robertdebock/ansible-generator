@@ -1,0 +1,180 @@
+#!/usr/bin/env ansible-playbook
+---
+- name: generate all files
+  hosts: localhost
+  become: no
+  gather_facts: yes
+  vars_files:
+    - vars/main.yml
+
+  tasks:
+    - name: set role_path and role_name
+      set_fact:
+        role_path: "{{ lookup('env', 'PWD') }}"
+        role_name: "{{ lookup('env', 'PWD') | basename | regex_replace('ansible-role-') }}"
+
+    - name: load meta/main.yml
+      include_vars:
+        file: "{{ role_path }}/meta/main.yml"
+        name: meta
+
+    - name: see if meta/version.yml exists
+      stat:
+        path: "{{ role_path }}/meta/version.yml"
+      register: versionymlstat
+
+    - name: load meta/version.yml
+      include_vars:
+        file: "{{ role_path }}/meta/version.yml"
+      register: versionyml
+      when:
+        - versionymlstat.stat.exists | bool
+    - name: see if meta/exception.yml exists
+      stat:
+        path: "{{ role_path }}/meta/exception.yml"
+      register: exceptionymlstat
+
+    - name: load meta/exception.yml
+      include_vars:
+        file: "{{ role_path }}/meta/exception.yml"
+      register: exceptionyml
+      when:
+        - exceptionymlstat.stat.exists | bool
+
+    - name: see if meta/logo.png exists
+      stat:
+        path: "{{ role_path }}/meta/logo.png"
+      register: logo
+
+    - name: see if meta/preferences.yml exists
+      stat:
+        path: "{{ role_path }}/meta/preferences.yml"
+      register: preferencesymlstat
+
+    - name: load meta/preferences.yml
+      include_vars:
+        file: "{{ role_path }}/meta/preferences.yml"
+      when:
+      - preferencesymlstat.stat.exists | bool
+
+    - name: see if defaults/main.yml exists
+      stat:
+        path: "{{ role_path }}/defaults/main.yml"
+      register: defaultsmainyml
+
+    - name: load defaults/main.yml
+      slurp:
+        src: "{{ role_path }}/defaults/main.yml"
+      register: variables
+      when:
+        - defaultsmainyml.stat.exists | bool
+
+    - name: check if requirements.yml exists
+      stat:
+        path: "{{ role_path }}/requirements.yml"
+      register: check_requirements
+
+    - name: load requirements.yml
+      slurp:
+        src: "{{ role_path }}/requirements.yml"
+      register: requirements
+      when:
+        - check_requirements.stat.exists | bool
+
+    - name: set no requirements when none exist
+      set_fact:
+        requirements:
+          content: "{{ '- none' | b64encode }}"
+      when:
+        - not check_requirements.stat.exists
+
+    - name: load molecule/default/playbook.yml
+      slurp:
+        src: "{{ role_path }}/molecule/default/playbook.yml"
+      register: example
+
+    - name: check if molecule/default/prepare.yml exists
+      stat:
+        path: "{{ role_path }}/molecule/default/prepare.yml"
+      register: check_prepare
+
+    - name: load molecule/default/prepare.yml
+      slurp:
+        src: "{{ role_path }}/molecule/default/prepare.yml"
+      register: prepare
+      when:
+        - check_prepare.stat.exists | bool
+
+    - name: see if molecule/default/verify.yml exists
+      stat:
+        path: "{{ role_path }}/molecule/default/verify.yml"
+      register: verify
+
+    - name: load molecule/default/verify.yml
+      slurp:
+        src: "{{ role_path }}/molecule/default/verify.yml"
+      register: verifyyml
+      when:
+        - verify.stat.exists | bool
+
+    - name: generate modules list
+      command: "{{ playbook_dir }}/scripts/modules.sh"
+      args:
+        chdir: "{{ role_path }}"
+      register: modules
+      changed_when: no
+
+    - name: load ansible galaxy_id
+      shell: "ansible-galaxy info robertdebock.{{ role_name }} | grep '	id: ' | awk '{print $NF}'"
+      register: galaxy_id
+      changed_when: no
+
+    - name: load .travis.yml
+      include_vars:
+        file: "{{ role_path }}/.travis.yml"
+        name: travis
+
+    - name: load compatibility
+      command: "{{ playbook_dir }}/scripts/compatibility.sh"
+      args:
+        chdir: "{{ role_path }}"
+      register: compatibility
+      changed_when: no
+
+    - name: create .github directory
+      file:
+        path: "{{ role_path }}/.github"
+        state: directory
+
+    - name: copy file
+      copy:
+        src: "{{ playbook_dir }}/files/{{ item.source }}"
+        dest: "{{ role_path }}/{{ item.dest | default(item.source) }}"
+      with_items:
+        - source: CONTRIBUTING.md
+        - source: ansible-lint
+          dest: .ansible-lint
+        - source: bug_report.md
+          dest: .github/ISSUE_TEMPLATE/bug_report.md
+        - source: feature_request.md
+          dest: .github/ISSUE_TEMPLATE/feature_request.md
+      loop_control:
+        label: "{{ item.source }}"
+
+    - name: render file
+      template:
+        src: "{{ playbook_dir}}/templates/{{ item.source }}.j2"
+        dest: "{{ role_path }}/{{ item.dest | default (item.source) }}"
+      with_items:
+        - source: tox.ini
+        - source: settings.yml
+          dest: .github/settings.yml
+        - source: LICENSE-2.0.txt
+          dest: LICENSE
+        - source: SECURITY.md
+        - source: travis.yml
+          dest: .travis.yml
+        - source: molecule.yml
+        - source: README.md
+      loop_control:
+        label: "{{ item.source }}"

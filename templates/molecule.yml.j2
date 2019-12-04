@@ -1,0 +1,28 @@
+---
+dependency:
+  name: galaxy
+  options:
+    role-file: requirements.yml
+lint:
+  name: yamllint
+driver:
+  name: docker
+platforms:
+  - name: "{{ role_name }}-${image:-{{ docker_image }}}-${tag:-{{ docker_tag }}}${TOX_ENVNAME}"
+    image: "${namespace:-{{ docker_namespace }}}/${image:-{{ docker_image }}}:${tag:-{{ docker_tag }}}"
+    command: /sbin/init
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: yes
+    pre_build_image: yes
+provisioner:
+  name: ansible
+{% if verify.stat.exists  %}
+verifier:
+  name: ansible
+  lint:
+    name: ansible-lint
+    enabled: no
+{% endif %}
+scenario:
+  name: default

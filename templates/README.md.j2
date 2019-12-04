@@ -1,0 +1,144 @@
+{{ role_name }}
+=========
+
+<img src="https://docs.ansible.com/ansible-tower/3.2.4/html_ja/installandreference/_static/images/logo_invert.png" width="10%" height="10%" alt="Ansible logo" align="right"/>{% if logo.stat.exists %}<img src="https://raw.githubusercontent.com/{{ github_namespace }}/ansible-role-{{ role_name }}/master/meta/logo.png" alt="Project logo" width="40" height="40" align="left"/>{% endif %}
+
+<a href="https://travis-ci.org/{{ travis_namespace }}/ansible-role-{{ role_name }}"> <img src="https://travis-ci.org/{{ travis_namespace }}/ansible-role-{{ role_name }}.svg?branch=master" alt="Build status"/></a> <img src="https://img.shields.io/ansible/role/d/{{ galaxy_id.stdout }}"/> <img src="https://img.shields.io/ansible/quality/{{ galaxy_id.stdout }}"/>
+
+{{ meta.galaxy_info.description }}
+
+Example Playbook
+----------------
+
+This example is taken from `molecule/resources/playbook.yml` and is tested on each push, pull request and release.
+```yaml
+{{ example.content | b64decode | regex_replace('ansible-role-', galaxy_namespace) }}```
+
+The machine you are running this on, may need to be prepared, I use this playbook to ensure everything is in place to let the role work.
+```yaml
+{% if prepare.content is defined %}
+{{ prepare.content | b64decode | regex_replace('ansible-role-', '{{ galaxy_namespace }}.') }}```
+{% else %}
+No preparation required.
+```
+{% endif %}
+
+{% if verifyyml.content is defined %}
+After running this role, this playbook runs to verify that everything works, this may be a good example how you can use this role.
+```yaml
+{{ verifyyml.content | b64decode | regex_replace('ansible-role-', '{{ galaxy_namespace }}.') }}
+```
+{% endif %}
+
+Also see a [full explanation and example](https://robertdebock.nl/how-to-use-these-roles.html) on how to use these roles.
+
+{% if variables.content is defined %}
+Role Variables
+--------------
+
+These variables are set in `defaults/main.yml`:
+```yaml
+{{ variables.content | b64decode }}```
+{% endif %}
+
+Requirements
+------------
+
+- Access to a repository containing packages, likely on the internet.
+- A recent version of Ansible. (Tests run on the current, previous and next release of Ansible.)
+
+The following roles can be installed to ensure all requirements are met, using `ansible-galaxy install -r requirements.yml`:
+
+```yaml
+{{ requirements.content | b64decode }}
+```
+
+Context
+-------
+
+This role is a part of many compatible roles. Have a look at [the documentation of these roles](https://robertdebock.nl/) for further information.
+
+Here is an overview of related roles:
+![dependencies](https://raw.githubusercontent.com/{{ github_namespace }}/drawings/artifacts/{{ role_name }}.png "Dependency")
+
+
+Compatibility
+-------------
+
+{{ compatibility.stdout }}
+
+{% if exceptions is defined %}
+Exceptions
+----------
+
+Some variarations of the build matrix do not work. These are the variations and reasons why the build won't work:
+
+| variation                 | reason                 |
+|---------------------------|------------------------|
+{% for exception in exceptions %}| {{ exception.variation }} | {{ exception.reason }} |
+{% endfor %}{% endif %}
+
+{% if versions is defined %}
+Included version(s)
+-------------------
+
+This role [refers to a version]({{ reference }}) released by {{ project_name }}. Check the released version(s) here:
+{% for version in versions %}
+- [{{ version.name }}]({{ version.url }}).
+{% endfor %}
+
+This version reference means a role may get outdated. Monthly tests occur to see if [bit-rot](https://en.wikipedia.org/wiki/Software_rot) occured. If you however find a problem, please create an issue, I'll get on it as soon as possible.{% endif %}
+
+Testing
+-------
+
+[Unit tests](https://travis-ci.org/{{ travis_namespace }}/ansible-role-{{ role_name }}) are done on every commit, pull request, release and periodically.
+
+If you find issues, please register them in [GitHub](https://github.com/{{ github_namespace }}/ansible-role-{{ role_name }}/issues)
+
+Testing is done using [Tox](https://tox.readthedocs.io/en/latest/) and [Molecule](https://github.com/ansible/molecule):
+
+[Tox](https://tox.readthedocs.io/en/latest/) tests multiple ansible versions.
+[Molecule](https://github.com/ansible/molecule) tests multiple distributions.
+
+To test using the defaults (any installed ansible version, namespace: `{{ docker_namespace }}`, image: `{{ docker_image }}`, tag: `{{ docker_tag }}`):
+
+```
+molecule test
+
+# Or select a specific image:
+image=ubuntu molecule test
+# Or select a specific image and a specific tag:
+image="debian" tag="stable" tox
+```
+
+Or you can test multiple versions of Ansible, and select images:
+Tox allows multiple versions of Ansible to be tested. To run the default (namespace: `{{ docker_namespace }}`, image: `{{ docker_image }}`, tag: `{{ docker_tag }}`) tests:
+
+```
+tox
+
+# To run CentOS (namespace: `{{ docker_namespace }}`, tag: `{{ docker_tag }}`)
+image="centos" tox
+# Or customize more:
+image="debian" tag="stable" tox
+```
+
+Modules
+-------
+
+This role uses the following modules:
+```yaml
+{{ modules.stdout }}
+```
+
+License
+-------
+
+{{ meta.galaxy_info.license }}
+
+
+Author Information
+------------------
+
+[{{ meta.galaxy_info.author }}]({{ author_website }})

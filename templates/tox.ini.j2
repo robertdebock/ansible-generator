@@ -1,0 +1,24 @@
+[tox]
+minversion = 3.7
+{% if tox_versions is defined %}
+envlist = py{37}-ansible-{% raw %}{{% endraw %}{% for version in tox_versions %}{{ version }}{% if not loop.last %},{% endif %}{% endfor %}{% raw %}}{% endraw %}
+
+{% else %}
+envlist = py{37}-ansible-{previous,current,next}
+{% endif %}
+skipsdist = true
+
+[testenv]
+deps =
+    previous: ansible>=2.8, <2.9
+    current: ansible>=2.9
+    next: git+https://github.com/ansible/ansible.git@devel
+    docker
+    molecule
+commands =
+    molecule test
+setenv =
+    TOX_ENVNAME={envname}
+    MOLECULE_EPHEMERAL_DIRECTORY=/tmp/.molecule/{env:image:fedora}-{env:tag:latest}/{envname}
+
+passenv = namespace image tag
