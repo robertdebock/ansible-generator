@@ -18,7 +18,7 @@
         file: "{{ role_path }}/meta/main.yml"
         name: meta
 
-    - name: see if meta/version.yml exists
+    - name: check meta/version.yml
       stat:
         path: "{{ role_path }}/meta/version.yml"
       register: versionymlstat
@@ -29,7 +29,7 @@
       register: versionyml
       when:
         - versionymlstat.stat.exists | bool
-    - name: see if meta/exception.yml exists
+    - name: check meta/exception.yml
       stat:
         path: "{{ role_path }}/meta/exception.yml"
       register: exceptionymlstat
@@ -41,12 +41,12 @@
       when:
         - exceptionymlstat.stat.exists | bool
 
-    - name: see if meta/logo.png exists
+    - name: check meta/logo.png
       stat:
         path: "{{ role_path }}/meta/logo.png"
       register: logo
 
-    - name: see if meta/preferences.yml exists
+    - name: check meta/preferences.yml
       stat:
         path: "{{ role_path }}/meta/preferences.yml"
       register: preferencesymlstat
@@ -57,7 +57,7 @@
       when:
       - preferencesymlstat.stat.exists | bool
 
-    - name: see if defaults/main.yml exists
+    - name: check defaults/main.yml
       stat:
         path: "{{ role_path }}/defaults/main.yml"
       register: defaultsmainyml
@@ -69,7 +69,7 @@
       when:
         - defaultsmainyml.stat.exists | bool
 
-    - name: check if requirements.yml exists
+    - name: cehck requirements.yml
       stat:
         path: "{{ role_path }}/requirements.yml"
       register: check_requirements
@@ -93,7 +93,7 @@
         src: "{{ role_path }}/molecule/default/playbook.yml"
       register: example
 
-    - name: check if molecule/default/prepare.yml exists
+    - name: check molecule/default/prepare.yml
       stat:
         path: "{{ role_path }}/molecule/default/prepare.yml"
       register: check_prepare
@@ -105,7 +105,7 @@
       when:
         - check_prepare.stat.exists | bool
 
-    - name: see if molecule/default/verify.yml exists
+    - name: check molecule/default/verify.yml
       stat:
         path: "{{ role_path }}/molecule/default/verify.yml"
       register: verify
@@ -117,14 +117,14 @@
       when:
         - verify.stat.exists | bool
 
-    - name: generate modules list
+    - name: load modules
       command: "{{ playbook_dir }}/scripts/modules.sh"
       args:
         chdir: "{{ role_path }}"
       register: modules
       changed_when: no
 
-    - name: load ansible galaxy_id
+    - name: load galaxy_id
       shell: "ansible-galaxy info robertdebock.{{ role_name }} | grep '	id: ' | awk '{print $NF}'"
       register: galaxy_id
       changed_when: no
@@ -151,9 +151,6 @@
         src: "{{ playbook_dir }}/files/{{ item.source }}"
         dest: "{{ role_path }}/{{ item.dest | default(item.source) }}"
       with_items:
-        - source: CONTRIBUTING.md
-        - source: ansible-lint
-          dest: .ansible-lint
         - source: bug_report.md
           dest: .github/ISSUE_TEMPLATE/bug_report.md
         - source: feature_request.md
@@ -166,6 +163,8 @@
         src: "{{ playbook_dir}}/templates/{{ item.source }}.j2"
         dest: "{{ role_path }}/{{ item.dest | default (item.source) }}"
       with_items:
+        - source: ansible-lint
+          dest: .ansible-lint
         - source: tox.ini
         - source: settings.yml
           dest: .github/settings.yml
@@ -175,6 +174,8 @@
         - source: travis.yml
           dest: .travis.yml
         - source: molecule.yml
+          dest: molecule/default/molecule.yml
         - source: README.md
+        - source: CONTRIBUTING.md
       loop_control:
         label: "{{ item.source }}"
