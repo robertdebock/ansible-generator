@@ -12,7 +12,7 @@ Example Playbook
 
 This example is taken from `molecule/resources/playbook.yml` and is tested on each push, pull request and release.
 ```yaml
-{{ example.content | b64decode | regex_replace('ansible-role-', galaxy_namespace) }}```
+{{ example.content | b64decode | regex_replace('ansible-role-', galaxy_namespace ~ '.') }}```
 
 The machine you are running this on, may need to be prepared, I use this playbook to ensure everything is in place to let the role work.
 ```yaml
