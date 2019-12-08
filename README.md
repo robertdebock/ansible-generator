@@ -17,7 +17,6 @@ This script loads input from:
 - molecule/default/verify.yml
 - meta/logo.png
 - generate_modules.sh
-- compatibility.sh
 - Ansible Galaxy
 
 (Items with a star are mandatory)

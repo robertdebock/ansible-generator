@@ -134,13 +134,6 @@
         file: "{{ role_path }}/.travis.yml"
         name: travis
 
-    - name: load compatibility
-      command: "{{ playbook_dir }}/scripts/compatibility.sh"
-      args:
-        chdir: "{{ role_path }}"
-      register: compatibility
-      changed_when: no
-
     - name: create .github directory
       file:
         path: "{{ role_path }}/.github"
