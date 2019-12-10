@@ -117,13 +117,6 @@
       when:
         - verify.stat.exists | bool
 
-    - name: load modules
-      command: "{{ playbook_dir }}/scripts/modules.sh"
-      args:
-        chdir: "{{ role_path }}"
-      register: modules
-      changed_when: no
-
     - name: load galaxy_id
       shell: "ansible-galaxy info robertdebock.{{ role_name }} | grep '	id: ' | awk '{print $NF}'"
       register: galaxy_id
