@@ -17,7 +17,7 @@ This example is taken from `molecule/resources/playbook.yml` and is tested on ea
 The machine you are running this on, may need to be prepared, I use this playbook to ensure everything is in place to let the role work.
 ```yaml
 {% if prepare.content is defined %}
-{{ prepare.content | b64decode | regex_replace('ansible-role-', '{{ galaxy_namespace }}.') }}```
+{{ prepare.content | b64decode | regex_replace('ansible-role-', galaxy_namespace ~ '.') }}```
 {% else %}
 No preparation required.
 ```
@@ -26,7 +26,7 @@ No preparation required.
 {% if verifyyml.content is defined %}
 After running this role, this playbook runs to verify that everything works, this may be a good example how you can use this role.
 ```yaml
-{{ verifyyml.content | b64decode | regex_replace('ansible-role-', '{{ galaxy_namespace }}.') }}
+{{ verifyyml.content | b64decode | regex_replace('ansible-role-', galaxy_namespace ~ '.') }}```
 ```
 {% endif %}
 
