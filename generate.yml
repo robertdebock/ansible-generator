@@ -144,6 +144,8 @@
           dest: .github/ISSUE_TEMPLATE/bug_report.md
         - source: feature_request.md
           dest: .github/ISSUE_TEMPLATE/feature_request.md
+        - source: gitignore
+          dest: .gitignore
       loop_control:
         label: "{{ item.source }}"
 
