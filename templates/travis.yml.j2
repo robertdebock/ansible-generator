@@ -97,12 +97,12 @@ install:
   - pip install tox
 
 script:
-{% if travis_parallel is defined %}
-{% if not travis_parallel %}
-  - tox
+{% if tox_parallel is defined %}
+{% if tox_parallel %}
+  - tox --parallel all
 {% endif %}
 {% else %}
-  - tox --parallel all
+  - tox
 {% endif %}
 
 notifications:
