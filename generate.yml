@@ -135,6 +135,11 @@
         path: "{{ role_path }}/.github"
         state: directory
 
+    - name: create .github/workflows directory
+      file:
+        path: "{{ role_path }}/.github/workflows"
+        state: directory
+
     - name: copy file
       copy:
         src: "{{ playbook_dir }}/files/{{ item.source }}"
@@ -168,5 +173,7 @@
           dest: molecule/default/molecule.yml
         - source: README.md
         - source: CONTRIBUTING.md
+        - source: ansible.yml
+          dest: .github/workflows/ansible.yml
       loop_control:
         label: "{{ item.source }}"
