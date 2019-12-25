@@ -97,10 +97,8 @@ install:
   - pip install tox
 
 script:
-{% if tox_parallel is defined %}
-{% if tox_parallel %}
+{% if tox_parallel is defined and tox_parallel %}
   - tox --parallel all
-{% endif %}
 {% else %}
   - tox
 {% endif %}
