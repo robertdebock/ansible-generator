@@ -175,5 +175,7 @@
         - source: CONTRIBUTING.md
         - source: ansible.yml
           dest: .github/workflows/ansible.yml
+        - source: galaxy.yml
+          dest: .github/workflows/galaxy.yml
       loop_control:
         label: "{{ item.source }}"
