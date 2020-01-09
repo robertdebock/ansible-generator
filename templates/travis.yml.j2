@@ -13,80 +13,11 @@ env:
     namespace="{{ docker_namespace }}"
   matrix:
 {% for platform in meta.galaxy_info.platforms %}
-{% if platform.name == "Amazon" %}
 {% for version in platform.versions %}
-{% if version == "1" or version == "all" %}
-    - image="amazonlinux" tag="1"
-{% endif %}
-{% if version == "Candidate" or version == "all" %}
-    - image="amazonlinux"
-{% endif %}
+{% for tag in distribution_version_mapping[platform.name][version] %}
+    - image="{{ platform_image_mapping[platform.name] }}" tag="{{ tag }}"
 {% endfor %}
-{% endif %}
-{% if platform.name == "Alpine" %}
-    - image="alpine"
-    - image="alpine" tag="edge"
-{% endif %}
-{% if platform.name =="ArchLinux" %}
-    # - namespace="archlinux" image="base"
-{% endif %}
-{% if platform.name =="Debian" %}
-    - image="debian" tag="unstable"
-    - image="debian"
-{% endif %}
-{% if platform.name == "OpenSUSE" %}
-    - image="opensuse"
-{% endif %}
-{% if platform.name == "Ubuntu" %}
-    - image="ubuntu"
-{% endif %}
-{% if platform.name == "EL" %}
-{% for version in platform.versions %}
-{% if version != 8 %}
-{% for tag in meta.galaxy_info.galaxy_tags %}
-{% if tag == "redhat" %}
-    - image="redhat" tag="{{ version }}"
-{% endif %}
-{% if tag == "centos" %}
-    - image="centos" tag="{{ version }}"
-{% endif %}
-{% if tag == "oraclelinux" %}
-    - image="oraclelinux" tag="{{ version }}"
-{% endif %}
 {% endfor %}
-{% else %}
-{% for tag in meta.galaxy_info.galaxy_tags %}
-{% if tag == "redhat" %}
-    - image="redhat"
-{% endif %}
-{% if tag == "centos" %}
-    - image="centos"
-{% endif %}
-{% if tag == "oraclelinux" %}
-    - image="oraclelinux"
-{% endif %}
-{% endfor %}
-{% endif %}
-{% endfor %}
-{% endif %}
-{% if platform.name == "Fedora" %}
-    - image="fedora"
-    - image="fedora" tag="rawhide"
-{% endif %}
-{% endfor %}
-
-matrix:
-  allow_failures:
-{% for platform in meta.galaxy_info.platforms %}
-{% if platform.name == "Alpine" %}
-    - env: image="alpine" tag="edge"
-{% endif %}
-{% if platform.name =="Debian" %}
-    - env: image="debian" tag="unstable"
-{% endif %}
-{% if platform.name == "Fedora" %}
-    - env: image="fedora" tag="rawhide"
-{% endif %}
 {% endfor %}
 
 cache:

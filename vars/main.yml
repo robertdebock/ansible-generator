@@ -20,3 +20,59 @@ author: Robert de Bock (robert@meinit.nl)
 
 # The full URL to your website.
 author_website: "https://robertdebock.nl/"
+
+platform_image_mapping:
+  Fedora: fedora
+  OpenSUSE: opensuse
+  Amazon: amazonlinux
+  EL: centos
+  Alpine: alpine
+  Debian: debian
+  Ubuntu: ubuntu
+
+distribution_version_mapping:
+  Alpine:
+    all:
+      - latest
+      - edge
+  Amazon:
+    all:
+      - 1
+      - latest
+    1:
+      - 1
+    2:
+      - latest
+  Debian:
+    all:
+      - latest
+      - unstable
+    buster:
+      - latest
+    sid:
+      - unstable
+  EL:
+    all:
+      - 7
+      - latest
+    7:
+      - 7
+    8:
+      - latest
+  Fedora:
+    all:
+      - 30
+      - latest
+      - rawhide
+    30:
+      - 30
+    31:
+      - 31
+  OpenSUSE:
+    all:
+      - latest
+  Ubuntu:
+    all:
+      - latest
+    bionic:
+      - latest
