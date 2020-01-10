@@ -41,7 +41,7 @@ distribution_version_mapping:
       - latest
     1:
       - 1
-    2:
+    Candidate:
       - latest
   Debian:
     all:
