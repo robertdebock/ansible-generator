@@ -74,5 +74,8 @@ distribution_version_mapping:
   Ubuntu:
     all:
       - latest
+      - xenial
     bionic:
       - latest
+    xenial:
+      - xenial
