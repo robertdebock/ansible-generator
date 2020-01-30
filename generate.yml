@@ -72,7 +72,7 @@
       when:
         - defaultsmainyml.stat.exists | bool
 
-    - name: cehck requirements.yml
+    - name: check requirements.yml
       stat:
         path: "{{ role_path }}/requirements.yml"
       register: check_requirements
