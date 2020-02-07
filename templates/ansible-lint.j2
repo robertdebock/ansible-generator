@@ -1,5 +1,5 @@
 {{ ansible_managed | comment }}
-{% if versionymlstat.stat.exists or exceptionymlstat.stat.exists or preferencesymlstat.stat.exists %}
+{% if versionymlstat.stat.exists or exceptionymlstat.stat.exists or preferencesymlstat.stat.exists or verify.stat.exists %}
 exclude_paths:
 {% if versionymlstat.stat.exists %}
   - ./meta/version.yml
@@ -9,5 +9,8 @@ exclude_paths:
 {% endif %}
 {% if preferencesymlstat.stat.exists %}
   - ./meta/preferences.yml
+{% endif %}
+{% if verify.stat.exists %}
+  - ./molecule/default/verify.yml
 {% endif %}
 {% endif %}
