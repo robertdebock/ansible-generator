@@ -41,6 +41,33 @@ cd ansible-role-my_role
 ../path/to/generate.yml
 ```
 
+## Configuration
+
+In `vars/main.yml` you can change these variable to customize the output.
+
+```yaml
+---
+# Settings to Docker containers.
+docker_namespace: robertdebock
+docker_image: fedora
+docker_tag: latest
+
+# References to travis use a namespace, this is likely your username on Travis.
+travis_namespace: robertdebock
+
+# Documentation refers to Ansible Galaxy. this is likely your username on Galaxy.
+galaxy_namespace: robertdebock
+
+# Your username/organization name on GitHub.
+github_namespace: robertdebock
+
+# Your name and optionally email-address.
+author: Robert de Bock (robert@meinit.nl)
+
+# The full URL to your website.
+author_website: "https://robertdebock.nl/"
+```
+
 ## meta/version.yml
 
 This optional file can be placed when a role contains a version.
