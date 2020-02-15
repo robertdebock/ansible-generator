@@ -33,10 +33,12 @@ This script writes output to:
 - .travis.yml
 - tox.ini
 - .ansible-lint*
+- .github/workflows/ansible.yml
+- .github/workflows/galaxy.yml
 
 ## Usage
 
-```
+```bash
 cd ansible-role-my_role
 ../path/to/generate.yml
 ```
