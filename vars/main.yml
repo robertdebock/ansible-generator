@@ -46,10 +46,12 @@ distribution_version_mapping:
   Debian:
     all:
       - latest
+      - testing
       - unstable
     buster:
       - latest
     sid:
+      - testing
       - unstable
   EL:
     all:
