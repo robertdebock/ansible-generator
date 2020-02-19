@@ -151,6 +151,8 @@
           dest: .github/ISSUE_TEMPLATE/feature_request.md
         - source: gitignore
           dest: .gitignore
+        - source: yamllint
+          dest: .yamllint
       loop_control:
         label: "{{ item.source }}"
 
