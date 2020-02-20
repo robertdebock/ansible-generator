@@ -4,8 +4,9 @@ dependency:
   name: galaxy
   options:
     role-file: requirements.yml
-lint:
-  name: yamllint
+lint: |
+  yamllint .
+  ansible-lint .
 driver:
   name: docker
 platforms:
@@ -25,9 +26,6 @@ provisioner:
 {% if verify.stat.exists  %}
 verifier:
   name: ansible
-  lint:
-    name: ansible-lint
-    enabled: yes
 {% endif %}
 scenario:
   name: default
