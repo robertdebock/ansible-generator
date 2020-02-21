@@ -44,11 +44,6 @@
       when:
         - exceptionymlstat.stat.exists | bool
 
-    - name: check meta/logo.png
-      stat:
-        path: "{{ role_path }}/meta/logo.png"
-      register: logo
-
     - name: check meta/preferences.yml
       stat:
         path: "{{ role_path }}/meta/preferences.yml"

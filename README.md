@@ -15,7 +15,6 @@ This script loads input from:
 - molecule/default/prepare.yml
 - molecule/default/playbook.yml*
 - molecule/default/verify.yml
-- meta/logo.png
 - generate_modules.sh
 - Ansible Galaxy
 
