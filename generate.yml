@@ -91,9 +91,9 @@
       when:
         - not check_requirements.stat.exists
 
-    - name: load molecule/default/playbook.yml
+    - name: load molecule/default/converge.yml
       slurp:
-        src: "{{ role_path }}/molecule/default/playbook.yml"
+        src: "{{ role_path }}/molecule/default/converge.yml"
       register: example
 
     - name: check molecule/default/prepare.yml
