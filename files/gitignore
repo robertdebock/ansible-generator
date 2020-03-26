@@ -2,4 +2,3 @@
 *.log
 *.swp
 .tox
-collections/*
