@@ -39,10 +39,8 @@ distribution_version_mapping:
     all:
       - 1
       - latest
-    1:
+    2018.03:
       - 1
-    Candidate:
-      - latest
   Debian:
     all:
       - latest
