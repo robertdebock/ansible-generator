@@ -44,13 +44,11 @@ distribution_version_mapping:
   Debian:
     all:
       - latest
-      # - testing
-      # - unstable
+      - bullseye
     buster:
       - latest
-    # sid:
-      # - testing
-      # - unstable
+    bullseye
+       - bullseye
   EL:
     all:
       - 7
