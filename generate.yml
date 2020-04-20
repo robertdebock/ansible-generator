@@ -170,8 +170,8 @@
           dest: molecule/default/molecule.yml
         - source: README.md
         - source: CONTRIBUTING.md
-        - source: ansible.yml
-          dest: .github/workflows/ansible.yml
+        - source: molecule-action.yml
+          dest: .github/workflows/molecule.yml
         - source: galaxy.yml
           dest: .github/workflows/galaxy.yml
       loop_control:
