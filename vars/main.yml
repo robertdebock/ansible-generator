@@ -30,6 +30,7 @@ platform_image_mapping:
   Debian: debian
   Ubuntu: ubuntu
 
+# This maps the Galaxy distribution and version to Docker images.
 distribution_version_mapping:
   Alpine:
     all:
@@ -59,11 +60,9 @@ distribution_version_mapping:
       - latest
   Fedora:
     all:
-      - 30
+      - 31
       - latest
       - rawhide
-    30:
-      - 30
     31:
       - 31
   OpenSUSE:
@@ -72,8 +71,9 @@ distribution_version_mapping:
   Ubuntu:
     all:
       - latest
+      - 1804
     bionic:
-      - latest
+      - 1804
 
 letter_day_mapping:
   a: 1
