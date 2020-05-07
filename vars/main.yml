@@ -73,9 +73,17 @@ distribution_version_mapping:
   Ubuntu:
     all:
       - latest
-      - 1804
+      - bionic
+      - xenial
+      - trusty
+    focal:
+      - latest
     bionic:
-      - 1804
+      - bionic
+    xenial:
+      - xenial
+    trusty:
+      - trusty
 
 letter_day_mapping:
   a: 1
