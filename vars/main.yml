@@ -67,6 +67,8 @@ distribution_version_mapping:
       - 31
     32:
       - latest
+    33:
+      - rawhide
   OpenSUSE:
     all:
       - latest
