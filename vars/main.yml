@@ -77,15 +77,12 @@ distribution_version_mapping:
       - latest
       - bionic
       - xenial
-      - trusty
     focal:
       - latest
     bionic:
       - bionic
     xenial:
       - xenial
-    trusty:
-      - trusty
 
 letter_day_mapping:
   a: 1
