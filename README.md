@@ -16,6 +16,7 @@ This script loads input from:
 - molecule/default/playbook.yml*
 - molecule/default/verify.yml
 - generate_modules.sh
+- secure.yml
 - Ansible Galaxy
 
 (Items with a star are mandatory)
@@ -67,6 +68,15 @@ author: Robert de Bock (robert@meinit.nl)
 
 # The full URL to your website.
 author_website: "https://robertdebock.nl/"
+```
+
+## secure.yml
+
+This file contains a secret unique to you; te slack encryption token. You have to create this file yourself and it should contain:
+
+```yaml
+---
+slack_token: "YOUR_SLACK_USERNAME:YOUR_SLACK_TOKEN"
 ```
 
 ## meta/version.yml
