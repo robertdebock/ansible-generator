@@ -2,13 +2,13 @@
 [tox]
 minversion = 3.7
 {% if tox_versions is defined %}
-envlist = py{37}-ansible-{% raw %}{{% endraw %}{% for version in tox_versions %}{{ version }}{% if not loop.last %},{% endif %}{% endfor %}{% raw %}}{% endraw %}
+envlist = py{38}-ansible-{% raw %}{{% endraw %}{% for version in tox_versions %}{{ version }}{% if not loop.last %},{% endif %}{% endfor %}{% raw %}}{% endraw %}
 
 {% else %}
 # Disabled "next" because of:
 # https://github.com/ansible-community/molecule/issues/2626.
-# envlist = py{37}-ansible-{previous,current,next}
-envlist = py{37}-ansible-{previous,current}
+# envlist = py{38}-ansible-{previous,current,next}
+envlist = py{38}-ansible-{previous,current}
 {% endif %}
 skipsdist = true
 
