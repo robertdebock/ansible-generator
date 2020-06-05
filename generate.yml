@@ -131,7 +131,7 @@
         name: secure
 
     - name: generate secure hash
-      command: /usr/bin/travis encrypt --pro {{ secure.slack_token }} --no-interactive
+      command: "/usr/bin/travis encrypt --pro robertdebock:{{ secure.slack_token }}#build --no-interactive"
       register: travis_secure
       when:
         - travis.notifications.slack.secure | length < 512
@@ -141,7 +141,7 @@
         travis:
           notifications:
             slack:
-              secure: "{{ travis_secure.stdout }}"
+              secure: "{{ travis_secure.stdout | regex_replace('\"', '') }}"
       when:
         travis_secure.stdout is defined
 
