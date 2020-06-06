@@ -131,7 +131,7 @@
         name: secure
 
     - name: generate secure hash
-      command: "/usr/bin/travis encrypt --pro robertdebock:{{ secure.slack_token }}#build --no-interactive"
+      command: "/usr/bin/travis encrypt --pro robertdebock:{{ secure.slack_token }}#builds --no-interactive"
       register: travis_secure
       when:
         - travis.notifications.slack.secure | length < 512
