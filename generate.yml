@@ -120,28 +120,28 @@
       register: galaxy_id
       changed_when: no
 
-    - name: load .travis.yml
-      include_vars:
-        file: "{{ role_path }}/.travis.yml"
-        name: travis
-
     - name: load secure.yml
       include_vars:
         file: secure.yml
         name: secure
 
+    - name: load .travis.yml
+      include_vars:
+        file: "{{ role_path }}/.travis.yml"
+        name: travis
+
     - name: generate secure hash
-      command: "/usr/bin/travis encrypt --pro robertdebock:{{ secure.slack_token }}#builds --no-interactive"
+      command: "/usr/bin/travis encrypt --pro robertdebock:{{ secure.slack_token }} --no-interactive"
       register: travis_secure
       when:
-        - travis.notifications.slack.secure | length < 512
+        - travis.notifications.slack is defined
+        - travis.notifications.slack | length < 512
 
-    - name: overwrite travis.notifications.slack.secure
+    - name: overwrite travis.notifications.slack
       set_fact:
         travis:
           notifications:
-            slack:
-              secure: "{{ travis_secure.stdout | regex_replace('\"', '') }}"
+            slack: "{{ travis_secure.stdout | regex_replace('\"', '') }}"
       when:
         travis_secure.stdout is defined
 

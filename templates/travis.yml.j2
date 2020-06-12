@@ -36,7 +36,5 @@ script:
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
-  slack:
-    rooms:
-      - secure: "{{ travis.notifications.slack.secure }}"
+  slack: "{{ travis.notifications.slack }}"
   email: false
