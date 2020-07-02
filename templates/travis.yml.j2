@@ -29,9 +29,9 @@ install:
 
 script:
 {% if tox_parallel is defined and tox_parallel %}
-  - tox --parallel all
+  - n=0 ; until [ "$n" = 3 ] ; do tox --parallel all && break ; n=$((n+1)) ; done
 {% else %}
-  - tox
+  - n=0 ; until [ "$n" = 3 ] ; do tox && break ; n=$((n+1)) ; done
 {% endif %}
 
 notifications:
