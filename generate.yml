@@ -130,6 +130,11 @@
         file: "{{ role_path }}/.travis.yml"
         name: travis
 
+    - name: load github contributors
+      uri:
+        url: "https://api.github.com/repos/robertdebock/ansible-role-{{ role_name }}/contributors"
+      register: github_contributors
+
     - name: generate secure hash
       command: "/usr/bin/travis encrypt --pro robertdebock:{{ secure.slack_token }} --no-interactive"
       register: travis_secure
