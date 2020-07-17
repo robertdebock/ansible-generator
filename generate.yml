@@ -134,6 +134,7 @@
       uri:
         url: "https://api.github.com/repos/robertdebock/ansible-role-{{ role_name }}/contributors"
       register: github_contributors
+      failed_when: no
 
     - name: generate secure hash
       command: "/usr/bin/travis encrypt --pro robertdebock:{{ secure.slack_token }} --no-interactive"
