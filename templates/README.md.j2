@@ -143,12 +143,10 @@ image="debian" tag="stable" tox
 
 I'd like to thank everybody that made contributions to this repository. It motivates me, improves the code and is just fun to collaborate.
 
-{% if github_contributors.json is defined and contributor.login is defined %}
 {% for contributor in github_contributors.json %}{% if contributor.login != "robertdebock" %}
 - [{{ contributor.login }}](https://github.com/{{ contributor.login }})
 {% endif %}
 {% endfor %}
-{% endif %}
 {% endif %}
 
 ## [Author Information](#author-information)
