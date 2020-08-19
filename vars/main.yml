@@ -22,12 +22,13 @@ author: Robert de Bock (robert@meinit.nl)
 author_website: "https://robertdebock.nl/"
 
 platform_image_mapping:
+  Alpine: alpine
+  Amazon: amazonlinux
+  Archlinux: archlinux
+  Debian: debian
+  EL: centos
   Fedora: fedora
   OpenSUSE: opensuse
-  Amazon: amazonlinux
-  EL: centos
-  Alpine: alpine
-  Debian: debian
   Ubuntu: ubuntu
 
 # This maps the Galaxy distribution and version to Docker images.
@@ -42,6 +43,9 @@ distribution_version_mapping:
       - latest
     2018.03:
       - 1
+  Archlinux:
+    all:
+      - latest
   Debian:
     all:
       - latest
