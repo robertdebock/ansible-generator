@@ -116,7 +116,7 @@
         - verify.stat.exists | bool
 
     - name: load galaxy_id
-      shell: "ansible-galaxy info robertdebock.{{ role_name }} | grep '	id: ' | awk '{print $NF}'"
+      shell: "set -o pipefail ; ansible-galaxy info robertdebock.{{ role_name }} | grep ' id: ' | awk '{print $NF}'"
       register: galaxy_id
       changed_when: no
 
@@ -155,16 +155,19 @@
       file:
         path: "{{ role_path }}/.github"
         state: directory
+        mode: "0755"
 
     - name: create .github/workflows directory
       file:
         path: "{{ role_path }}/.github/workflows"
         state: directory
+        mode: "0755"
 
     - name: copy file
       copy:
         src: "{{ playbook_dir }}/files/{{ item.source }}"
         dest: "{{ role_path }}/{{ item.dest | default(item.source) }}"
+        mode: "0644"
       with_items:
         - source: bug_report.md
           dest: .github/ISSUE_TEMPLATE/bug_report.md
@@ -181,8 +184,9 @@
 
     - name: render file
       template:
-        src: "{{ playbook_dir}}/templates/{{ item.source }}.j2"
+        src: "{{ playbook_dir }}/templates/{{ item.source }}.j2"
         dest: "{{ role_path }}/{{ item.dest | default (item.source) }}"
+        mode: "0644"
       with_items:
         - source: ansible-lint
           dest: .ansible-lint

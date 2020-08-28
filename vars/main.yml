@@ -53,7 +53,7 @@ distribution_version_mapping:
     buster:
       - latest
     bullseye:
-       - bullseye
+      - bullseye
   EL:
     all:
       - 7
