@@ -119,6 +119,7 @@
       shell: "set -o pipefail ; ansible-galaxy info robertdebock.{{ role_name }} | grep ' id: ' | awk '{print $NF}'"
       register: galaxy_id
       changed_when: no
+      failed_when: no
 
     - name: load secure.yml
       include_vars:
