@@ -138,17 +138,18 @@
       failed_when: no
 
     - name: generate secure hash
-      command: "/usr/bin/travis encrypt --pro {{ secure.slack_token }} --no-interactive"
+      command: /usr/bin/travis encrypt --pro "{{ secure.slack_token }}" --no-interactive
       register: travis_secure
       when:
-        - travis.notifications.slack is defined
-        - travis.notifications.slack | length < 512
+        - (travis.notifications.slack.secure is defined and travis.notifications.slack.secure | length < 512) or
+          travis.notifications.slack.secure is not defined
 
-    - name: overwrite travis.notifications.slack
+    - name: overwrite travis.notifications.slack.secure
       set_fact:
         travis:
           notifications:
-            slack: "{{ travis_secure.stdout | regex_replace('\"', '') }}"
+            slack:
+              secure: "{{ travis_secure.stdout | regex_replace('\"', '') }}"
       when:
         travis_secure.stdout is defined
 

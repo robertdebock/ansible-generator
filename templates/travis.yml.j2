@@ -2,6 +2,9 @@
 {{ ansible_managed | comment }}
 language: python
 
+os: linux
+dist: xenial
+
 python:
   - "3.8"
 
@@ -11,7 +14,7 @@ services:
 env:
   global:
     namespace="{{ docker_namespace }}"
-  matrix:
+  jobs:
 {% for platform in meta.galaxy_info.platforms %}
 {% for version in platform.versions %}
 {% for tag in distribution_version_mapping[platform.name][version] %}
@@ -36,5 +39,7 @@ script:
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
-  slack: "{{ travis.notifications.slack }}"
+  slack:
+    secure: {{ travis.notifications.slack.secure }}
+  on_success: change
   email: false
