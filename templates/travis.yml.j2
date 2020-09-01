@@ -40,6 +40,7 @@ script:
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
   slack:
-    secure: {{ travis.notifications.slack.secure }}
-  on_success: change
+    secure: "{{ travis.notifications.slack.secure }}"
+    on_success: change
+    template: "%{result}: %{repository_slug}@%{branch}, build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>)"
   email: false

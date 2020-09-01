@@ -76,7 +76,7 @@ This file contains a secret unique to you; te slack encryption token. You have t
 
 ```yaml
 ---
-slack_token: "YOUR_SLACK_USERNAME:YOUR_SLACK_TOKEN#CHANNEL"
+slack_token: "YOUR_SLACK_USERNAME:YOUR_SLACK_TOKEN"
 ```
 
 See [Travis documentation](https://docs.travis-ci.com/user/notifications/#configuring-slack-notifications).
