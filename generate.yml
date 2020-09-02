@@ -181,6 +181,8 @@
           dest: .yamllint
         - source: FUNDING.yml
           dest: .github/FUNDING.yml
+        - source: pre-commit
+          dest: .git/hooks/pre-commit
       loop_control:
         label: "{{ item.source }}"
 
