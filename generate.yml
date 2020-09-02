@@ -169,7 +169,7 @@
       copy:
         src: "{{ playbook_dir }}/files/{{ item.source }}"
         dest: "{{ role_path }}/{{ item.dest | default(item.source) }}"
-        mode: "0644"
+        mode: "{{ item.mode | default('0644') }}"
       with_items:
         - source: bug_report.md
           dest: .github/ISSUE_TEMPLATE/bug_report.md
@@ -183,6 +183,7 @@
           dest: .github/FUNDING.yml
         - source: pre-commit
           dest: .git/hooks/pre-commit
+          mode: "0755"
       loop_control:
         label: "{{ item.source }}"
 
