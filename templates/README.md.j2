@@ -22,7 +22,7 @@ No preparation required.
 {% endif %}
 
 {% if verifyyml.content is defined %}
-For verification `molecule/resources/verify.yml` run after the role has been applied.
+For verification `molecule/resources/verify.yml` runs after the role has been applied.
 ```yaml
 {{ verifyyml.content | b64decode | regex_replace('ansible-role-', galaxy_namespace ~ '.') }}```
 {% endif %}
