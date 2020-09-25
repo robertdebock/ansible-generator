@@ -6,6 +6,7 @@ envlist = py{38}-ansible-{% raw %}{{% endraw %}{% for version in tox_versions %}
 {% else %}
 envlist = py{38}-ansible-{previous,current,next}
 {% endif %}
+
 skipsdist = true
 
 [testenv]
