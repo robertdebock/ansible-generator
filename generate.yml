@@ -138,7 +138,7 @@
       failed_when: no
 
     - name: generate secure hash
-      command: /usr/bin/travis encrypt --pro "{{ secure.slack_token }}" --no-interactive
+      command: /usr/local/bin/travis encrypt --pro "{{ secure.slack_token }}" --no-interactive
       register: travis_secure
       when:
         - (travis.notifications.slack.secure is defined and travis.notifications.slack.secure | length < 512) or
