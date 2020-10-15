@@ -14,12 +14,11 @@ deps =
     previous: ansible>=2.9, <2.10
     current: ansible
     next: git+https://github.com/ansible/ansible.git@devel
-    molecule[lint]>=3, <4
+    molecule[docker]>=3, <4
     docker>=4.2, <4.3
 commands = molecule test
 setenv =
     TOX_ENVNAME={envname}
-    MOLECULE_EPHEMERAL_DIRECTORY=/tmp/.molecule/{env:image:fedora}-{env:tag:latest}/{envname}
     PY_COLORS=1
     ANSIBLE_FORCE_COLOR=1
 
