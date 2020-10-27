@@ -31,11 +31,7 @@ install:
   - pip install tox
 
 script:
-{% if tox_parallel is defined and tox_parallel %}
-  - function retry { counter=0 ; until "$@" ; do exit=$? ; counter=$(($counter + 1)) ; if [ $counter -ge 3 ] ; then return $exit ; fi ; done ; return 0; } ; retry tox --parallel all
-{% else %}
   - function retry { counter=0 ; until "$@" ; do exit=$? ; counter=$(($counter + 1)) ; if [ $counter -ge 3 ] ; then return $exit ; fi ; done ; return 0; } ; retry tox
-{% endif %}
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

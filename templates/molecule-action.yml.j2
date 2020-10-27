@@ -56,11 +56,3 @@ jobs:
           image: {% raw %}${{ matrix.config.image }}{% endraw %}
 
           tag: {% raw %}${{ matrix.config.tag }}{% endraw %}
-
-{% if tox_parallel is defined %}
-{% if tox_parallel %}
-          options: "--parallel all"
-        env:
-          TOX_PARALLEL_NO_SPINNER: 1
-{% endif %}
-{% endif %}
