@@ -153,17 +153,15 @@
       when:
         travis_secure.stdout is defined
 
-    - name: create .github directory
+    - name: create .github directories
       file:
-        path: "{{ role_path }}/.github"
+        path: "{{ role_path }}/{{ item }}"
         state: directory
         mode: "0755"
-
-    - name: create .github/workflows directory
-      file:
-        path: "{{ role_path }}/.github/workflows"
-        state: directory
-        mode: "0755"
+      loop:
+        - .github
+        - .github/workflows
+        - .github/ISSUE_TEMPLATE
 
     - name: copy file
       copy:
@@ -181,9 +179,8 @@
           dest: .yamllint
         - source: FUNDING.yml
           dest: .github/FUNDING.yml
-        - source: pre-commit
-          dest: .git/hooks/pre-commit
-          mode: "0755"
+        - source: pre-commit-config.yaml
+          dest: .pre-commit-config.yaml
       loop_control:
         label: "{{ item.source }}"
 
