@@ -36,7 +36,6 @@ distribution_version_mapping:
   Alpine:
     all:
       - latest
-      - edge
   Amazon:
     all:
       - 1

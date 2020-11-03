@@ -12,21 +12,12 @@ This example is taken from `molecule/resources/converge.yml` and is tested on ea
 ```yaml
 {{ example.content | b64decode | regex_replace('ansible-role-', galaxy_namespace ~ '.') }}```
 
-The machine may need to be prepared using `molecule/resources/prepare.yml`:
-```yaml
 {% if prepare.content is defined %}
-{{ prepare.content | b64decode | regex_replace('ansible-role-', galaxy_namespace ~ '.') }}```
-{% else %}
-No preparation required.
-```
-{% endif %}
-
-{% if verifyyml.content is defined %}
-For verification `molecule/resources/verify.yml` runs after the role has been applied.
+The machine needs to be prepared in CI this is done using `molecule/resources/prepare.yml`:
 ```yaml
-{{ verifyyml.content | b64decode | regex_replace('ansible-role-', galaxy_namespace ~ '.') }}```
-{% endif %}
+{{ prepare.content | b64decode | regex_replace('ansible-role-', galaxy_namespace ~ '.') }}```
 
+{% endif %}
 Also see a [full explanation and example](https://robertdebock.nl/how-to-use-these-roles.html) on how to use these roles.
 
 {% if variables.content is defined %}
@@ -42,11 +33,15 @@ These variables are set in `defaults/main.yml`:
 - Access to a repository containing packages, likely on the internet.
 - A recent version of Ansible. (Tests run on the current, previous and next release of Ansible.)
 
-The following roles can be installed to ensure all requirements are met, using `ansible-galaxy install -r requirements.yml`:
+{% if requirements is defined %}
+## [Status of requirements](#status-of-requirements)
 
-```yaml
-{{ requirements.content | b64decode }}
-```
+| Requirement | Travis | GitHub |
+|-------------|--------|--------|
+{% for requirement in requirements.roles %}
+| [{{ requirement.name }}](https://galaxy.ansible.com/{{ github_namespace }}/{{ requirement.name | regex_replace(github_namespace + '\.') }}) | [![Build Status Travis](https://travis-ci.com/{{ github_namespace }}/{{ requirement.name | regex_replace(github_namespace + '\.', 'ansible-role-') }}.svg?branch=master)](https://travis-ci.com/{{ github_namespace }}/{{ requirement.name | regex_replace(github_namespace + '\.', 'ansible-role-') }}) | [![Build Status GitHub](https://github.com/{{ github_namespace }}/{{ requirement.name | regex_replace(github_namespace + '\.', 'ansible-role-') }}/workflows/Ansible%20Molecule/badge.svg)](https://github.com/{{ github_namespace }}/{{ requirement.name | regex_replace(github_namespace + '\.', 'ansible-role-') }}/actions) |
+{% endfor %}
+{% endif %}
 
 {% if meta.dependencies %}
 ## [Dependencies](#dependencies)
@@ -138,6 +133,7 @@ image="debian" tag="stable" tox
 
 {{ meta.galaxy_info.license }}
 
+{% if github_contributors is defined %}
 {% if github_contributors.json | length > 1 %}
 ## [Contributors](#contributors)
 
@@ -147,6 +143,7 @@ I'd like to thank everybody that made contributions to this repository. It motiv
 - [{{ contributor.login }}](https://github.com/{{ contributor.login }})
 {% endif %}
 {% endfor %}
+{% endif %}
 {% endif %}
 
 ## [Author Information](#author-information)

@@ -73,18 +73,11 @@
       register: check_requirements
 
     - name: load requirements.yml
-      slurp:
-        src: "{{ role_path }}/requirements.yml"
-      register: requirements
+      include_vars:
+        file: "{{ role_path }}/requirements.yml"
+        name: requirements
       when:
         - check_requirements.stat.exists | bool
-
-    - name: set no requirements when none exist
-      set_fact:
-        requirements:
-          content: "{{ '- none' | b64encode }}"
-      when:
-        - not check_requirements.stat.exists
 
     - name: load molecule/default/converge.yml
       slurp:
@@ -210,3 +203,8 @@
           dest: .github/workflows/galaxy.yml
       loop_control:
         label: "{{ item.source }}"
+
+    - name: pre-commit install
+      command: pre-commit install
+      args:
+        creates: .git/hooks/pre-commit
