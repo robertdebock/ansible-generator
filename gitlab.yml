@@ -1,0 +1,71 @@
+#!/usr/bin/env ansible-playbook
+---
+- name: configure GitLab repository
+  hosts: localhost
+  become: no
+  gather_facts: no
+
+  vars:
+    namespace: robertdebock
+
+  vars_files:
+    - vars/main.yml
+    - vars/vault.yml
+
+  tasks:
+    - name: see if all veriables are set
+      assert:
+        that:
+          - namespace is defined
+          - role is defined
+        quiet: yes
+
+    - name: urlencode path
+      set_fact:
+        encoded_path: "{{ namespace + '%2F' + role }}"
+
+    - name: place variable
+      block:
+        - name: see if the variable is set already
+          uri:
+            url: "https://gitlab.com/api/v4/projects/{{ encoded_path }}/variables"
+            method: GET
+            body_format: json
+            headers:
+              PRIVATE-TOKEN: "{{ gitlab_private_token }}"
+            body:
+              key: "GALAXY_API_KEY"
+          register: check_variable
+          failed_when:
+            check_variable.json | length <= 0
+      rescue:
+        - name: place variable
+          uri:
+            url: "https://gitlab.com/api/v4/projects/{{ encoded_path }}/variables"
+            method: POST
+            body_format: json
+            status_code:
+              - 201
+            headers:
+              PRIVATE-TOKEN: "{{ gitlab_private_token }}"
+            body:
+              key: "GALAXY_API_KEY"
+              value: "{{ galaxy_api_key }}"
+              variable_type: env_var
+              protects: true
+              masked: true
+
+    - name: create a new pipeline schedule
+      uri:
+        url: "https://gitlab.com/api/v4/projects/{{ encoded_path }}/pipeline_schedules"
+        method: POST
+        body_format: json
+        status_code:
+          - 201
+        headers:
+          PRIVATE-TOKEN: "{{ gitlab_private_token }}"
+        body:
+          description: "Monthly test"
+          ref: master
+          cron: '{{ letter_minute_mapping[role[0]] }} {{ letter_hour_mapping[role[0]] }} {{ letter_day_mapping[role[0]] }} * *'
+          cron_timezone: UTC

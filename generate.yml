@@ -114,37 +114,11 @@
       changed_when: no
       failed_when: no
 
-    - name: load secure.yml
-      include_vars:
-        file: secure.yml
-        name: secure
-
-    - name: load .travis.yml
-      include_vars:
-        file: "{{ role_path }}/.travis.yml"
-        name: travis
-
     - name: load github contributors
       uri:
         url: "https://api.github.com/repos/robertdebock/ansible-role-{{ role_name }}/contributors"
       register: github_contributors
       failed_when: no
-
-    - name: generate secure hash
-      command: travis encrypt --pro "{{ secure.slack_token }}" --no-interactive
-      register: travis_secure
-      when:
-        - (travis.notifications.slack.secure is defined and travis.notifications.slack.secure | length < 512) or
-          travis.notifications.slack.secure is not defined
-
-    - name: overwrite travis.notifications.slack.secure
-      set_fact:
-        travis:
-          notifications:
-            slack:
-              secure: "{{ travis_secure.stdout | regex_replace('\"', '') }}"
-      when:
-        travis_secure.stdout is defined
 
     - name: create .github directories
       file:
@@ -201,6 +175,11 @@
           dest: .github/workflows/molecule.yml
         - source: galaxy.yml
           dest: .github/workflows/galaxy.yml
+        - source: todo-action.yml
+          dest: .github/workflows/todo.yml
+        - source: gitlab-ci.yml
+          dest: .gitlab-ci.yml
+        - source: requirements.txt
       loop_control:
         label: "{{ item.source }}"
 

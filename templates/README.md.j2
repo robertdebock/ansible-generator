@@ -2,9 +2,9 @@
 
 {{ meta.galaxy_info.description }}
 
-|Travis|GitHub|Quality|Downloads|Version|
-|------|------|-------|---------|-------|
-|[![travis](https://travis-ci.com/{{ travis_namespace }}/ansible-role-{{ role_name }}.svg?branch=master)](https://travis-ci.com/{{ travis_namespace }}/ansible-role-{{ role_name }})|[![github](https://github.com/{{ github_namespace }}/ansible-role-{{ role_name }}/workflows/Ansible%20Molecule/badge.svg)](https://github.com/{{ github_namespace }}/ansible-role-{{ role_name }}/actions)|[![quality](https://img.shields.io/ansible/quality/{{ galaxy_id.stdout | default('unset') }})](https://galaxy.ansible.com/{{ github_namespace }}/{{ role_name }})|[![downloads](https://img.shields.io/ansible/role/d/{{ galaxy_id.stdout |default('unset') }})](https://galaxy.ansible.com/{{ github_namespace }}/{{ role_name }})|[![Version](https://img.shields.io/github/release/{{ github_namespace }}/ansible-role-{{ role_name }}.svg)](https://github.com/{{ github_namespace }}/ansible-role-{{ role_name }}/releases/)|
+|Travis|GitHub|GitLab|Quality|Downloads|Version|
+|------|------|------|-------|---------|-------|
+|[![travis](https://travis-ci.com/{{ travis_namespace }}/ansible-role-{{ role_name }}.svg?branch=master)](https://travis-ci.com/{{ travis_namespace }}/ansible-role-{{ role_name }})|[![github](https://github.com/{{ github_namespace }}/ansible-role-{{ role_name }}/workflows/Ansible%20Molecule/badge.svg)](https://github.com/{{ github_namespace }}/ansible-role-{{ role_name }}/actions)|[![gitlab](https://gitlab.com/{{ github_namespace }}/ansible-role-{{ role_name }}/badges/master/pipeline.svg)](https://gitlab.com/{{ github_namespace }}/ansible-role-{{ role_name }})|[![quality](https://img.shields.io/ansible/quality/{{ galaxy_id.stdout | default('unset') }})](https://galaxy.ansible.com/{{ github_namespace }}/{{ role_name }})|[![downloads](https://img.shields.io/ansible/role/d/{{ galaxy_id.stdout |default('unset') }})](https://galaxy.ansible.com/{{ github_namespace }}/{{ role_name }})|[![Version](https://img.shields.io/github/release/{{ github_namespace }}/ansible-role-{{ role_name }}.svg)](https://github.com/{{ github_namespace }}/ansible-role-{{ role_name }}/releases/)|
 
 ## [Example Playbook](#example-playbook)
 
@@ -30,11 +30,12 @@ These variables are set in `defaults/main.yml`:
 
 ## [Requirements](#requirements)
 
-- Access to a repository containing packages, likely on the internet.
-- A recent version of Ansible. (Tests run on the current, previous and next release of Ansible.)
+- pip packages listed in [requirements.txt](https://github.com/{{ github_namespace }}/ansible-role-{{ role_name }}/blob/master/requirements.txt).
 
 {% if requirements is defined %}
 ## [Status of requirements](#status-of-requirements)
+
+The following roles are used to prepare a system. You may choose to prepare your system in another way, I have tested these roles as well.
 
 | Requirement | Travis | GitHub |
 |-------------|--------|--------|

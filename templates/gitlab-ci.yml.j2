@@ -1,0 +1,32 @@
+---
+image: robertdebock/github-action-molecule:2.6.6
+
+services:
+  - docker:dind
+
+variables:
+  DOCKER_HOST: "tcp://docker:2375"
+  PY_COLORS: 1
+
+molecule:
+  script:
+    - image=${image} tag=${tag} molecule test
+  rules:
+    - if: $CI_COMMIT_TAG == null
+  retry: 2
+  parallel:
+    matrix:
+{% for platform in meta.galaxy_info.platforms %}
+{% for version in platform.versions %}
+{% for tag in distribution_version_mapping[platform.name][version] %}
+      - image: "{{ platform_image_mapping[platform.name] }}"
+        tag: "{{ tag }}"
+{% endfor %}
+{% endfor %}
+{% endfor %}
+
+galaxy:
+  script:
+    - ansible-galaxy role import --api-key ${GALAXY_API_KEY} ${CI_PROJECT_NAMESPACE} ${CI_PROJECT_NAME}
+  rules:
+    - if: $CI_COMMIT_TAG != null

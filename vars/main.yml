@@ -81,13 +81,10 @@ distribution_version_mapping:
     all:
       - latest
       - bionic
-      - xenial
     focal:
       - latest
     bionic:
       - bionic
-    xenial:
-      - xenial
 
 letter_day_mapping:
   a: 1

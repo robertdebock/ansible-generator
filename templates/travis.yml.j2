@@ -6,37 +6,23 @@ os: linux
 dist: xenial
 
 python:
-  - "3.8"
+  - "3.9"
 
 services:
   - docker
-
-env:
-  global:
-    namespace="{{ docker_namespace }}"
-  jobs:
-{% for platform in meta.galaxy_info.platforms %}
-{% for version in platform.versions %}
-{% for tag in distribution_version_mapping[platform.name][version] %}
-    - image="{{ platform_image_mapping[platform.name] }}" tag="{{ tag }}"
-{% endfor %}
-{% endfor %}
-{% endfor %}
 
 cache:
   - pip
 
 install:
   - pip install --upgrade pip
-  - pip install tox
+  - pip install yamllint
+  - pip install ansible-lint
 
 script:
-  - function retry { counter=0 ; until "$@" ; do exit=$? ; counter=$(($counter + 1)) ; if [ $counter -ge 3 ] ; then return $exit ; fi ; done ; return 0; } ; retry tox
+  - yamllint .
+  - ansible-lint
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
-  slack:
-    secure: "{{ travis.notifications.slack.secure }}"
-    on_success: change
-    template: "%{result}: %{repository_slug}@%{branch}, build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>)"
   email: false

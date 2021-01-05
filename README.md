@@ -70,17 +70,6 @@ author: Robert de Bock (robert@meinit.nl)
 author_website: "https://robertdebock.nl/"
 ```
 
-## secure.yml
-
-This file contains a secret unique to you; te slack encryption token. You have to create this file yourself and it should contain:
-
-```yaml
----
-slack_token: "YOUR_SLACK_USERNAME:YOUR_SLACK_TOKEN"
-```
-
-See [Travis documentation](https://docs.travis-ci.com/user/notifications/#configuring-slack-notifications).
-
 ## meta/version.yml
 
 This optional file can be placed when a role contains a version.

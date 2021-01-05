@@ -4,12 +4,8 @@
 name: Release to Ansible Galaxy
 
 on:
-  push:
-    tags:
-      - '*'
-  schedule:
-    - cron: '{{ letter_minute_mapping[role_name[0]] }} {{ letter_hour_mapping[role_name[0]] }} {{ letter_day_mapping[role_name[0]] }} * *'
-
+  release:
+    types: [created, edited, published, released]
 jobs:
   release:
     runs-on: ubuntu-20.04
