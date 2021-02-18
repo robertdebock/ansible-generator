@@ -67,13 +67,15 @@ distribution_version_mapping:
     all:
       - 32
       - latest
-      - rawhide
+      # RawHide has package-GPG issues.
+      # - rawhide
     32:
       - 32
     33:
       - latest
-    34:
-      - rawhide
+    # RawHide has package-GPG issues.
+    # 34:
+    #   - rawhide
   OpenSUSE:
     all:
       - latest

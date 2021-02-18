@@ -4,6 +4,9 @@ dependency:
   name: galaxy
   options:
     role-file: requirements.yml
+{% if requirements.collections is defined %}
+    requirements-file: requirements.yml
+{% endif %}
 lint: |
   set -e
   yamllint .

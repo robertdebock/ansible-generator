@@ -148,6 +148,8 @@
           dest: .github/FUNDING.yml
         - source: pre-commit-config.yaml
           dest: .pre-commit-config.yaml
+        - source: collections.yml
+          dest: molecule/default/collections.yml
       loop_control:
         label: "{{ item.source }}"
 
@@ -180,6 +182,8 @@
         - source: gitlab-ci.yml
           dest: .gitlab-ci.yml
         - source: requirements.txt
+        - source: requirements2png.yml
+          dest: .github/workflows/requirements2png.yml
       loop_control:
         label: "{{ item.source }}"
 

@@ -2,9 +2,9 @@
 
 {{ meta.galaxy_info.description }}
 
-|Travis|GitHub|GitLab|Quality|Downloads|Version|
-|------|------|------|-------|---------|-------|
-|[![travis](https://travis-ci.com/{{ travis_namespace }}/ansible-role-{{ role_name }}.svg?branch=master)](https://travis-ci.com/{{ travis_namespace }}/ansible-role-{{ role_name }})|[![github](https://github.com/{{ github_namespace }}/ansible-role-{{ role_name }}/workflows/Ansible%20Molecule/badge.svg)](https://github.com/{{ github_namespace }}/ansible-role-{{ role_name }}/actions)|[![gitlab](https://gitlab.com/{{ github_namespace }}/ansible-role-{{ role_name }}/badges/master/pipeline.svg)](https://gitlab.com/{{ github_namespace }}/ansible-role-{{ role_name }})|[![quality](https://img.shields.io/ansible/quality/{{ galaxy_id.stdout | default('unset') }})](https://galaxy.ansible.com/{{ github_namespace }}/{{ role_name }})|[![downloads](https://img.shields.io/ansible/role/d/{{ galaxy_id.stdout |default('unset') }})](https://galaxy.ansible.com/{{ github_namespace }}/{{ role_name }})|[![Version](https://img.shields.io/github/release/{{ github_namespace }}/ansible-role-{{ role_name }}.svg)](https://github.com/{{ github_namespace }}/ansible-role-{{ role_name }}/releases/)|
+|GitHub|GitLab|Quality|Downloads|Version|
+|------|------|-------|---------|-------|
+|[![github](https://github.com/{{ github_namespace }}/ansible-role-{{ role_name }}/workflows/Ansible%20Molecule/badge.svg)](https://github.com/{{ github_namespace }}/ansible-role-{{ role_name }}/actions)|[![gitlab](https://gitlab.com/{{ github_namespace }}/ansible-role-{{ role_name }}/badges/master/pipeline.svg)](https://gitlab.com/{{ github_namespace }}/ansible-role-{{ role_name }})|[![quality](https://img.shields.io/ansible/quality/{{ galaxy_id.stdout | default('unset') }})](https://galaxy.ansible.com/{{ github_namespace }}/{{ role_name }})|[![downloads](https://img.shields.io/ansible/role/d/{{ galaxy_id.stdout |default('unset') }})](https://galaxy.ansible.com/{{ github_namespace }}/{{ role_name }})|[![Version](https://img.shields.io/github/release/{{ github_namespace }}/ansible-role-{{ role_name }}.svg)](https://github.com/{{ github_namespace }}/ansible-role-{{ role_name }}/releases/)|
 
 ## [Example Playbook](#example-playbook)
 
@@ -37,10 +37,10 @@ These variables are set in `defaults/main.yml`:
 
 The following roles are used to prepare a system. You may choose to prepare your system in another way, I have tested these roles as well.
 
-| Requirement | Travis | GitHub |
+| Requirement | GitHub | GitLab |
 |-------------|--------|--------|
 {% for requirement in requirements.roles %}
-| [{{ requirement.name }}](https://galaxy.ansible.com/{{ github_namespace }}/{{ requirement.name | regex_replace(github_namespace + '\.') }}) | [![Build Status Travis](https://travis-ci.com/{{ github_namespace }}/{{ requirement.name | regex_replace(github_namespace + '\.', 'ansible-role-') }}.svg?branch=master)](https://travis-ci.com/{{ github_namespace }}/{{ requirement.name | regex_replace(github_namespace + '\.', 'ansible-role-') }}) | [![Build Status GitHub](https://github.com/{{ github_namespace }}/{{ requirement.name | regex_replace(github_namespace + '\.', 'ansible-role-') }}/workflows/Ansible%20Molecule/badge.svg)](https://github.com/{{ github_namespace }}/{{ requirement.name | regex_replace(github_namespace + '\.', 'ansible-role-') }}/actions) |
+| [{{ requirement.name }}](https://galaxy.ansible.com/{{ github_namespace }}/{{ requirement.name | regex_replace(github_namespace + '\.') }}) | [![Build Status GitHub](https://github.com/{{ github_namespace }}/{{ requirement.name | regex_replace(github_namespace + '\.', 'ansible-role-') }}/workflows/Ansible%20Molecule/badge.svg)](https://github.com/{{ github_namespace }}/{{ requirement.name | regex_replace(github_namespace + '\.', 'ansible-role-') }}/actions) | [![Build Status GitLab ](https://gitlab.com/{{ github_namespace }}/ansible-role-{{ requirement.name | regex_replace(github_namespace + '\.', 'ansible-role-') }}/badges/master/pipeline.svg)](https://gitlab.com/{{ github_namespace }}/{{ requirement.name | regex_replace(github_namespace + '\.', 'ansible-role-') }})
 {% endfor %}
 {% endif %}
 
@@ -58,7 +58,7 @@ Most roles require some kind of preparation, this is done in `molecule/default/p
 This role is a part of many compatible roles. Have a look at [the documentation of these roles](https://robertdebock.nl/) for further information.
 
 Here is an overview of related roles:
-![dependencies](https://raw.githubusercontent.com/{{ github_namespace }}/drawings/artifacts/{{ role_name }}.png "Dependency")
+![dependencies](https://raw.githubusercontent.com/{{ github_namespace }}/ansible-role-{{ role_name }}/png/requirements.png "Dependencies")
 
 ## [Compatibility](#compatibility)
 
@@ -96,39 +96,7 @@ This role [refers to a version]({{ reference }}) released by {{ project_name }}.
 
 This version reference means a role may get outdated. Monthly tests occur to see if [bit-rot](https://en.wikipedia.org/wiki/Software_rot) occured. If you however find a problem, please create an issue, I'll get on it as soon as possible.{% endif %}
 
-## [Testing](#testing)
-
-[Unit tests](https://travis-ci.com/{{ travis_namespace }}/ansible-role-{{ role_name }}) are done on every commit, pull request, release and periodically.
-
 If you find issues, please register them in [GitHub](https://github.com/{{ github_namespace }}/ansible-role-{{ role_name }}/issues)
-
-Testing is done using [Tox](https://tox.readthedocs.io/en/latest/) and [Molecule](https://github.com/ansible/molecule):
-
-[Tox](https://tox.readthedocs.io/en/latest/) tests multiple ansible versions.
-[Molecule](https://github.com/ansible/molecule) tests multiple distributions.
-
-To test using the defaults (any installed ansible version, namespace: `{{ docker_namespace }}`, image: `{{ docker_image }}`, tag: `{{ docker_tag }}`):
-
-```
-molecule test
-
-# Or select a specific image:
-image=ubuntu molecule test
-# Or select a specific image and a specific tag:
-image="debian" tag="stable" tox
-```
-
-Or you can test multiple versions of Ansible, and select images:
-Tox allows multiple versions of Ansible to be tested. To run the default (namespace: `{{ docker_namespace }}`, image: `{{ docker_image }}`, tag: `{{ docker_tag }}`) tests:
-
-```
-tox
-
-# To run CentOS (namespace: `{{ docker_namespace }}`, tag: `{{ docker_tag }}`)
-image="centos" tox
-# Or customize more:
-image="debian" tag="stable" tox
-```
 
 ## [License](#license)
 
