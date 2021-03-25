@@ -2,3 +2,4 @@
 *.log
 *.swp
 .tox
+.DS_Store
