@@ -1,3 +1,4 @@
+---
 {{ ansible_managed | comment }}
 {% if versionymlstat.stat.exists or exceptionymlstat.stat.exists or preferencesymlstat.stat.exists or verify.stat.exists %}
 exclude_paths:
