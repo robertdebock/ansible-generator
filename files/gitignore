@@ -3,3 +3,4 @@
 *.swp
 .tox
 .DS_Store
+.cache

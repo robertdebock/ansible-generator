@@ -13,7 +13,7 @@ molecule:
     - image=${image} tag=${tag} molecule test
   rules:
     - if: $CI_COMMIT_REF_NAME == "master"
-  retry: 2
+  retry: 1
   parallel:
     matrix:
 {% for platform in meta.galaxy_info.platforms %}
