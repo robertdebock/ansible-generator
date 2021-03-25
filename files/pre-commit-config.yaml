@@ -18,3 +18,4 @@ repos:
     hooks:
       - id: ansible_role_find_unused_variable
       - id: ansible_role_find_empty_files
+      - id: ansible_role_find_empty_directories
