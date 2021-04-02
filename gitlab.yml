@@ -55,6 +55,10 @@
               protects: true
               masked: true
 
+    - name: show details
+      debug:
+        msg: "Scheduling {{ role }} on {{ letter_minute_mapping[role[13]] }} {{ letter_hour_mapping[role[13]] }} {{ letter_day_mapping[role[13]] }} * *"
+
     - name: create a new pipeline schedule
       uri:
         url: "https://gitlab.com/api/v4/projects/{{ encoded_path }}/pipeline_schedules"
@@ -67,5 +71,5 @@
         body:
           description: "Monthly test"
           ref: master
-          cron: '{{ letter_minute_mapping[role[0]] }} {{ letter_hour_mapping[role[0]] }} {{ letter_day_mapping[role[0]] }} * *'
+          cron: '{{ letter_minute_mapping[role[13]] }} {{ letter_hour_mapping[role[13]] }} {{ letter_day_mapping[role[13]] }} * *'
           cron_timezone: Amsterdam

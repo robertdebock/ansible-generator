@@ -40,7 +40,7 @@ The following roles are used to prepare a system. You may choose to prepare your
 | Requirement | GitHub | GitLab |
 |-------------|--------|--------|
 {% for requirement in requirements.roles %}
-| [{{ requirement.name }}](https://galaxy.ansible.com/{{ github_namespace }}/{{ requirement.name | regex_replace(github_namespace + '\.') }}) | [![Build Status GitHub](https://github.com/{{ github_namespace }}/{{ requirement.name | regex_replace(github_namespace + '\.', 'ansible-role-') }}/workflows/Ansible%20Molecule/badge.svg)](https://github.com/{{ github_namespace }}/{{ requirement.name | regex_replace(github_namespace + '\.', 'ansible-role-') }}/actions) | [![Build Status GitLab ](https://gitlab.com/{{ github_namespace }}/ansible-role-{{ requirement.name | regex_replace(github_namespace + '\.', 'ansible-role-') }}/badges/master/pipeline.svg)](https://gitlab.com/{{ github_namespace }}/{{ requirement.name | regex_replace(github_namespace + '\.', 'ansible-role-') }})
+|[{{ requirement.name }}](https://galaxy.ansible.com/{{ github_namespace }}/{{ requirement.name | regex_replace(github_namespace + '\.') }})|[![Build Status GitHub](https://github.com/{{ github_namespace }}/{{ requirement.name | regex_replace(github_namespace + '\.', 'ansible-role-') }}/workflows/Ansible%20Molecule/badge.svg)](https://github.com/{{ github_namespace }}/{{ requirement.name | regex_replace(github_namespace + '\.', 'ansible-role-') }}/actions)|[![Build Status GitLab ](https://gitlab.com/{{ github_namespace }}/{{ requirement.name | regex_replace(github_namespace + '\.', 'ansible-role-') }}/badges/master/pipeline.svg)](https://gitlab.com/{{ github_namespace }}/{{ requirement.name | regex_replace(github_namespace + '\.', 'ansible-role-') }})|
 {% endfor %}
 {% endif %}
 
