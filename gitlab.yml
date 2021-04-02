@@ -24,36 +24,36 @@
       set_fact:
         encoded_path: "{{ namespace + '%2F' + role }}"
 
-    # - name: place variable
-    #   block:
-    #     - name: see if the variable is set already
-    #       uri:
-    #         url: "https://gitlab.com/api/v4/projects/{{ encoded_path }}/variables"
-    #         method: GET
-    #         body_format: json
-    #         headers:
-    #           PRIVATE-TOKEN: "{{ gitlab_private_token }}"
-    #         body:
-    #           key: "GALAXY_API_KEY"
-    #       register: check_variable
-    #       failed_when:
-    #         check_variable.json | length <= 0
-    #   rescue:
-    #     - name: place variable
-    #       uri:
-    #         url: "https://gitlab.com/api/v4/projects/{{ encoded_path }}/variables"
-    #         method: POST
-    #         body_format: json
-    #         status_code:
-    #           - 201
-    #         headers:
-    #           PRIVATE-TOKEN: "{{ gitlab_private_token }}"
-    #         body:
-    #           key: "GALAXY_API_KEY"
-    #           value: "{{ galaxy_api_key }}"
-    #           variable_type: env_var
-    #           protects: true
-    #           masked: true
+    - name: place variable
+      block:
+        - name: see if the variable is set already
+          uri:
+            url: "https://gitlab.com/api/v4/projects/{{ encoded_path }}/variables"
+            method: GET
+            body_format: json
+            headers:
+              PRIVATE-TOKEN: "{{ gitlab_private_token }}"
+            body:
+              key: "GALAXY_API_KEY"
+          register: check_variable
+          failed_when:
+            check_variable.json | length <= 0
+      rescue:
+        - name: place variable
+          uri:
+            url: "https://gitlab.com/api/v4/projects/{{ encoded_path }}/variables"
+            method: POST
+            body_format: json
+            status_code:
+              - 201
+            headers:
+              PRIVATE-TOKEN: "{{ gitlab_private_token }}"
+            body:
+              key: "GALAXY_API_KEY"
+              value: "{{ galaxy_api_key }}"
+              variable_type: env_var
+              protects: true
+              masked: true
 
     - name: list pipelines
       uri:
