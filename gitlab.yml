@@ -1,6 +1,6 @@
 #!/usr/bin/env ansible-playbook
 ---
-- name: configure GitLab repository
+- name: configure gitlab repository
   hosts: localhost
   become: no
   gather_facts: no
@@ -24,40 +24,56 @@
       set_fact:
         encoded_path: "{{ namespace + '%2F' + role }}"
 
-    - name: place variable
-      block:
-        - name: see if the variable is set already
-          uri:
-            url: "https://gitlab.com/api/v4/projects/{{ encoded_path }}/variables"
-            method: GET
-            body_format: json
-            headers:
-              PRIVATE-TOKEN: "{{ gitlab_private_token }}"
-            body:
-              key: "GALAXY_API_KEY"
-          register: check_variable
-          failed_when:
-            check_variable.json | length <= 0
-      rescue:
-        - name: place variable
-          uri:
-            url: "https://gitlab.com/api/v4/projects/{{ encoded_path }}/variables"
-            method: POST
-            body_format: json
-            status_code:
-              - 201
-            headers:
-              PRIVATE-TOKEN: "{{ gitlab_private_token }}"
-            body:
-              key: "GALAXY_API_KEY"
-              value: "{{ galaxy_api_key }}"
-              variable_type: env_var
-              protects: true
-              masked: true
+    # - name: place variable
+    #   block:
+    #     - name: see if the variable is set already
+    #       uri:
+    #         url: "https://gitlab.com/api/v4/projects/{{ encoded_path }}/variables"
+    #         method: GET
+    #         body_format: json
+    #         headers:
+    #           PRIVATE-TOKEN: "{{ gitlab_private_token }}"
+    #         body:
+    #           key: "GALAXY_API_KEY"
+    #       register: check_variable
+    #       failed_when:
+    #         check_variable.json | length <= 0
+    #   rescue:
+    #     - name: place variable
+    #       uri:
+    #         url: "https://gitlab.com/api/v4/projects/{{ encoded_path }}/variables"
+    #         method: POST
+    #         body_format: json
+    #         status_code:
+    #           - 201
+    #         headers:
+    #           PRIVATE-TOKEN: "{{ gitlab_private_token }}"
+    #         body:
+    #           key: "GALAXY_API_KEY"
+    #           value: "{{ galaxy_api_key }}"
+    #           variable_type: env_var
+    #           protects: true
+    #           masked: true
 
-    - name: show details
-      debug:
-        msg: "Scheduling {{ role }} on {{ letter_minute_mapping[role[13]] }} {{ letter_hour_mapping[role[13]] }} {{ letter_day_mapping[role[13]] }} * *"
+    - name: list pipelines
+      uri:
+        url: "https://gitlab.com/api/v4/projects/{{ encoded_path }}/pipeline_schedules"
+        method: GET
+        headers:
+          PRIVATE-TOKEN: "{{ gitlab_private_token }}"
+      register: gitlab_schedules
+
+    - name: delete all pipelines
+      uri:
+        url: "https://gitlab.com/api/v4/projects/{{ encoded_path }}/pipeline_schedules/{{ item.id }}"
+        method: DELETE
+        headers:
+          PRIVATE-TOKEN: "{{ gitlab_private_token }}"
+        status_code:
+          - 204
+      loop: "{{ gitlab_schedules.json }}"
+      loop_control:
+        label: "{{ item.id }}"
 
     - name: create a new pipeline schedule
       uri:
@@ -71,5 +87,5 @@
         body:
           description: "Monthly test"
           ref: master
-          cron: '{{ letter_minute_mapping[role[13]] }} {{ letter_hour_mapping[role[13]] }} {{ letter_day_mapping[role[13]] }} * *'
+          cron: "{{ letter_minute_mapping[role[15]] | default('13') }} {{ letter_hour_mapping[role[13]] }} {{ letter_day_mapping[role[13]] }} * *"
           cron_timezone: Amsterdam
