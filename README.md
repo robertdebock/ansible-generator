@@ -13,7 +13,7 @@ This script loads input from:
 - defaults/main.yml
 - requirements.yml
 - molecule/default/prepare.yml
-- molecule/default/playbook.yml*
+- molecule/default/converge.yml*
 - molecule/default/verify.yml
 - generate_modules.sh
 - secure.yml
