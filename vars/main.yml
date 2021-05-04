@@ -65,17 +65,15 @@ distribution_version_mapping:
       - latest
   Fedora:
     all:
-      - 32
+      - 33
       - latest
-      # RawHide has package-GPG issues.
-      # - rawhide
-    32:
-      - 32
+      - rawhide
     33:
+      - 33
+    34:
       - latest
-    # RawHide has package-GPG issues.
-    # 34:
-    #   - rawhide
+    35:
+      - rawhide
   OpenSUSE:
     all:
       - latest
