@@ -108,6 +108,11 @@
       when:
         - verify.stat.exists | bool
 
+    - name: check molecule/default/defaults.yml
+      stat:
+        path: "{{ role_path }}/molecule/default/defaults.yml"
+      register: defaults
+
     - name: load galaxy_id
       shell: "set -o pipefail ; ansible-galaxy info robertdebock.{{ role_name }} | grep '	id: ' | awk '{print $NF}'"
       register: galaxy_id
