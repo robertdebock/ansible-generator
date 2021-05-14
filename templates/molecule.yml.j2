@@ -4,9 +4,6 @@ dependency:
   name: galaxy
   options:
     role-file: requirements.yml
-{% if requirements.collections is defined %}
-    requirements-file: requirements.yml
-{% endif %}
 lint: |
   set -e
   yamllint .
@@ -23,10 +20,6 @@ platforms:
     pre_build_image: yes
 provisioner:
   name: ansible
-  config_options:
-    defaults:
-      stdout_callback: yaml
-      bin_ansible_callbacks: yes
 {% if verify.stat.exists  %}
 verifier:
   name: ansible

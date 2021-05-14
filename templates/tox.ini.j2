@@ -4,8 +4,7 @@ minversion = 3.21.4
 {% if tox_versions is defined %}
 envlist = py{39}-ansible-{% raw %}{{% endraw %}{% for version in tox_versions %}{{ version }}{% if not loop.last %},{% endif %}{% endfor %}{% raw %}}{% endraw %}
 {% else %}
-# 2.11 has been disabled: couldn't resolve module/action 'docker_container'.
-envlist = py{39}-ansible-{2.9,2.10}
+envlist = py{39}-ansible-{2.9,2.10,2.11}
 {% endif %}
 
 skipsdist = true
@@ -13,8 +12,8 @@ skipsdist = true
 [testenv]
 deps =
     2.9: ansible == 2.9.*
-    2.10: ansible == 2.10.*
-    2.11: git+https://github.com/ansible/ansible.git@devel
+    2.10: ansible-base == 2.10.*
+    2.11: ansible-core == 2.11.*
     molecule[docker]
     docker == 4.*
     ansible-lint == 5.*
@@ -25,4 +24,4 @@ setenv =
     ANSIBLE_FORCE_COLOR=1
     ANSIBLE_ROLES_PATH=../
 
-passenv = namespace image tag
+passenv = namespace image tag DOCKER_HOST
