@@ -153,8 +153,8 @@
           dest: .github/FUNDING.yml
         - source: pre-commit-config.yaml
           dest: .pre-commit-config.yaml
-        - source: collections.yml
-          dest: molecule/default/collections.yml
+        # - source: collections.yml
+        #   dest: molecule/default/collections.yml
       loop_control:
         label: "{{ item.source }}"
 
