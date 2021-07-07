@@ -98,9 +98,15 @@ exceptions:
 
 This optional file describes how Travis, Tox and Molecule should behave.
 
+|parameter       |type           |default|description|
+|----------------|---------------|-------|-----------|
+|tox_version     |list of strings|not set|What versions should Tox test? (Default: all.)|
+|enterprise_linux|string         |not set|If `EL` is used in `meta/main.yml` where should tests happen on? (Default: `rockylinux`.)
+
+
 ```yaml
 ---
-travis_parallel: no
 tox_versions:
   - current
+enterprise_linx: centos
 ```

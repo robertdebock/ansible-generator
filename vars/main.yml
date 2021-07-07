@@ -26,7 +26,7 @@ platform_image_mapping:
   Amazon: amazonlinux
   Archlinux: archlinux
   Debian: debian
-  EL: centos
+  EL: "{{ enterprise_linux | default('rockylinux') }}"
   Fedora: fedora
   OpenSUSE: opensuse
   Ubuntu: ubuntu
@@ -57,7 +57,6 @@ distribution_version_mapping:
       - bullseye
   EL:
     all:
-      - 7
       - latest
     7:
       - 7
