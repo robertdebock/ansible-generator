@@ -50,11 +50,11 @@ distribution_version_mapping:
   Debian:
     all:
       - latest
-      - bullseye
-    buster:
-      - latest
+      - bookworm
     bullseye:
-      - bullseye
+      - latest
+    bookworm:
+      - bookworm
   EL:
     all:
       - latest
