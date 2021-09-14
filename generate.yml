@@ -119,12 +119,6 @@
       changed_when: no
       failed_when: no
 
-    - name: load github contributors
-      uri:
-        url: "https://api.github.com/repos/robertdebock/ansible-role-{{ role_name }}/contributors"
-      register: github_contributors
-      failed_when: no
-
     - name: create .github directories
       file:
         path: "{{ role_path }}/{{ item }}"

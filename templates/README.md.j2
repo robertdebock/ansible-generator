@@ -102,22 +102,6 @@ If you find issues, please register them in [GitHub](https://github.com/{{ githu
 
 {{ meta.galaxy_info.license }}
 
-{% if github_contributors is defined %}
-{% if github_contributors.json is defined %}
-{% if github_contributors.json | length > 1 %}
-## [Contributors](#contributors)
-
-I'd like to thank everybody that made contributions to this repository. It motivates me, improves the code and is just fun to collaborate.
-
-{% for contributor in github_contributors.json %}{% if contributor.login is defined %}{% if contributor.login != "robertdebock" %}
-- [{{ contributor.login }}](https://github.com/{{ contributor.login }})
-{% endif %}
-{% endif %}
-{% endfor %}
-{% endif %}
-{% endif %}
-{% endif %}
-
 ## [Author Information](#author-information)
 
 [{{ meta.galaxy_info.author }}]({{ author_website }})
