@@ -1,22 +1,16 @@
-#!/bin/sh
+#!/bin/sh -x
 
 # A script to regenerate a list of roles and their CI status.
-
-# Where are the roles stored locally?
-directory="/home/robertdb/Documents/github.com/robertdebock"
-
-# What is the pattern of the directory names?
-pattern="ansible-role-"
 
 # Print the header of the table.
 echo "|Role name|GitHub Action|GitLab CI|Version|"
 echo "|---------|-------------|---------|-------|"
 
 # Loop over the found roles.
-cd ${directory} ; ls -d "${pattern}"* | while read rolename ; do
+find ~/Documents/github.com/robertdebock/ansible-role-* | awk 'BEGIN { FS="/" } ; { print $NF }' | while read -r rolename ; do
 
   # Find the short name, i.e. "httpd" instead of "ansible-role-httpd"
-  shortrolename=$(echo "${rolename}" | sed "s/^${pattern}//")
+  shortrolename=$(echo "${rolename}" | sed "s/^ansible-role//")
   
   # Save the markdown per column in a variable, better readable loop.
   galaxy="[${shortrolename}](https://galaxy.ansible.com/robertdebock/${shortrolename})"
