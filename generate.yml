@@ -53,7 +53,7 @@
       include_vars:
         file: "{{ role_path }}/meta/preferences.yml"
       when:
-      - preferencesymlstat.stat.exists | bool
+        - preferencesymlstat.stat.exists | bool
 
     - name: check defaults/main.yml
       stat:
@@ -147,8 +147,6 @@
           dest: .github/FUNDING.yml
         - source: pre-commit-config.yaml
           dest: .pre-commit-config.yaml
-        # - source: collections.yml
-        #   dest: molecule/default/collections.yml
       loop_control:
         label: "{{ item.source }}"
 
