@@ -13,7 +13,7 @@ This example is taken from `molecule/default/converge.yml` and is tested on each
 {{ example.content | b64decode | regex_replace('ansible-role-', galaxy_namespace ~ '.') }}```
 
 {% if prepare.content is defined %}
-The machine needs to be prepared in CI this is done using `molecule/default/prepare.yml`:
+The machine needs to be prepared. In CI this is done using `molecule/default/prepare.yml`:
 ```yaml
 {{ prepare.content | b64decode | regex_replace('ansible-role-', galaxy_namespace ~ '.') }}```
 
@@ -23,7 +23,7 @@ Also see a [full explanation and example](https://robertdebock.nl/how-to-use-the
 {% if variables.content is defined %}
 ## [Role Variables](#role-variables)
 
-These variables are set in `defaults/main.yml`:
+The default values for the variables are set in `defaults/main.yml`:
 ```yaml
 {{ variables.content | b64decode }}```
 {% endif %}
@@ -33,9 +33,9 @@ These variables are set in `defaults/main.yml`:
 - pip packages listed in [requirements.txt](https://github.com/{{ github_namespace }}/ansible-role-{{ role_name }}/blob/master/requirements.txt).
 
 {% if requirements is defined %}
-## [Status of requirements](#status-of-requirements)
+## [Status of used roles](#status-of-requirements)
 
-The following roles are used to prepare a system. You may choose to prepare your system in another way, I have tested these roles as well.
+The following roles are used to prepare a system. You can prepare your system in another way.
 
 | Requirement | GitHub | GitLab |
 |-------------|--------|--------|
@@ -79,7 +79,7 @@ The minimum version of Ansible required is {{ meta.galaxy_info.min_ansible_versi
 {% if exceptions is defined %}
 ## [Exceptions](#exceptions)
 
-Some variarations of the build matrix do not work. These are the variations and reasons why the build won't work:
+Some roles can't run on a specific distribution or version. Here are some exceptions.
 
 | variation                 | reason                 |
 |---------------------------|------------------------|
@@ -94,7 +94,8 @@ This role [refers to a version]({{ reference }}) released by {{ project_name }}.
 - [{{ version.name }}]({{ version.url }}).
 {% endfor %}
 
-This version reference means a role may get outdated. Monthly tests occur to see if [bit-rot](https://en.wikipedia.org/wiki/Software_rot) occured. If you however find a problem, please create an issue, I'll get on it as soon as possible.{% endif %}
+This version reference means a role may get outdated. Monthly tests occur to see if [bit-rot](https://en.wikipedia.org/wiki/Software_rot) occured. If you however find a problem, please create an issue, I'll get on it as soon as possible.
+{% endif %}
 
 If you find issues, please register them in [GitHub](https://github.com/{{ github_namespace }}/ansible-role-{{ role_name }}/issues)
 
