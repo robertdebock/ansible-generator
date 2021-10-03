@@ -26,7 +26,7 @@ platform_image_mapping:
   Amazon: amazonlinux
   Archlinux: archlinux
   Debian: debian
-  EL: "{{ enterprise_linux | default('rockylinux') }}"
+  EL: "{{ enterprise_linux | default('enterpriselinux') }}"
   Fedora: fedora
   OpenSUSE: opensuse
   Ubuntu: ubuntu
