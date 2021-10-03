@@ -57,6 +57,7 @@ distribution_version_mapping:
       - bookworm
   EL:
     all:
+      - 7
       - latest
     7:
       - 7
