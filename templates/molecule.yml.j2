@@ -12,7 +12,7 @@ lint: |
 driver:
   name: docker
 platforms:
-  - name: "{{ role_name }}-${image:-{{ docker_image }}}-${tag:-{{ docker_tag }}}${TOX_ENVNAME}"
+  - name: "{{ role_name | regex_replace('_', '') }}-${image:-{{ docker_image }}}-${tag:-{{ docker_tag }}}${TOX_ENVNAME}"
     image: "${namespace:-{{ docker_namespace }}}/${image:-{{ docker_image }}}:${tag:-{{ docker_tag }}}"
     command: /sbin/init
     volumes:
