@@ -147,8 +147,6 @@
           dest: .github/FUNDING.yml
         - source: pre-commit-config.yaml
           dest: .pre-commit-config.yaml
-        - source: later.yml
-          dest: .later.yml
       loop_control:
         label: "{{ item.source }}"
 

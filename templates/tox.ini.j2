@@ -4,18 +4,17 @@ minversion = 3.21.4
 {% if tox_versions is defined %}
 envlist = py{310}-ansible-{% raw %}{{% endraw %}{% for version in tox_versions %}{{ version }}{% if not loop.last %},{% endif %}{% endfor %}{% raw %}}{% endraw %}
 {% else %}
-envlist = py{310}-ansible-{2.10,2.11,2.12}
+envlist = py{310}-ansible-{4,5}
 {% endif %}
 
 skipsdist = true
 
 [testenv]
 deps =
-    2.10: ansible-base == 2.10.*
-    2.11: ansible-core == 2.11.*
-    2.12: ansible-core == 2.12.*
+    4: ansible == 4.*
+    5: ansible == 5.*
     molecule[docker]
-    docker == 4.*
+    docker == 5.*
     ansible-lint == 5.*
 commands = molecule test
 setenv =
