@@ -32,7 +32,7 @@ The default values for the variables are set in `defaults/main.yml`:
 
 - pip packages listed in [requirements.txt](https://github.com/{{ github_namespace }}/ansible-role-{{ role_name }}/blob/master/requirements.txt).
 
-{% if requirements is defined %}
+{% if requirements is defined and requirements.roles is defined %}
 ## [Status of used roles](#status-of-requirements)
 
 The following roles are used to prepare a system. You can prepare your system in another way.
