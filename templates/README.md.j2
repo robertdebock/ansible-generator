@@ -76,16 +76,6 @@ The minimum version of Ansible required is {{ meta.galaxy_info.min_ansible_versi
 - The current version.
 - The development version.
 
-{% if exceptions is defined %}
-## [Exceptions](#exceptions)
-
-Some roles can't run on a specific distribution or version. Here are some exceptions.
-
-| variation                 | reason                 |
-|---------------------------|------------------------|
-{% for exception in exceptions %}| {{ exception.variation }} | {{ exception.reason }} |
-{% endfor %}{% endif %}
-
 {% if versions is defined %}
 ## [Included version(s)](#included-versions)
 

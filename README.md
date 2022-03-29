@@ -8,7 +8,6 @@ This script loads input from:
 
 - meta/main.yml*
 - meta/version.yml
-- meta/exception.yml
 - meta/preferences.yml
 - defaults/main.yml
 - requirements.yml
@@ -81,17 +80,6 @@ reference: "defaults/main.yml"
 versions:
   - name: ansible
     url: "https://github.com/ansible/ansible/releases"
-```
-
-## meta/exception.yml
-
-This optional file describes why some build are excepted.
-
-```yaml
----
-exceptions:
-  - variation: alpine
-    reason: "Not idempotent"
 ```
 
 ## meta/preferences.yml

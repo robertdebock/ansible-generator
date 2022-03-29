@@ -32,17 +32,6 @@
       register: versionyml
       when:
         - versionymlstat.stat.exists | bool
-    - name: check meta/exception.yml
-      stat:
-        path: "{{ role_path }}/meta/exception.yml"
-      register: exceptionymlstat
-
-    - name: load meta/exception.yml
-      include_vars:
-        file: "{{ role_path }}/meta/exception.yml"
-      register: exceptionyml
-      when:
-        - exceptionymlstat.stat.exists | bool
 
     - name: check meta/preferences.yml
       stat:

@@ -1,12 +1,9 @@
 ---
 {{ ansible_managed | comment }}
-{% if versionymlstat.stat.exists or exceptionymlstat.stat.exists or preferencesymlstat.stat.exists or verify.stat.exists %}
+{% if versionymlstat.stat.exists or preferencesymlstat.stat.exists or verify.stat.exists %}
 exclude_paths:
 {% if versionymlstat.stat.exists %}
   - ./meta/version.yml
-{% endif %}
-{% if exceptionymlstat.stat.exists %}
-  - ./meta/exception.yml
 {% endif %}
 {% if preferencesymlstat.stat.exists %}
   - ./meta/preferences.yml
