@@ -26,13 +26,6 @@
         path: "{{ role_path }}/meta/version.yml"
       register: versionymlstat
 
-    - name: load meta/version.yml
-      include_vars:
-        file: "{{ role_path }}/meta/version.yml"
-      register: versionyml
-      when:
-        - versionymlstat.stat.exists | bool
-
     - name: check meta/preferences.yml
       stat:
         path: "{{ role_path }}/meta/preferences.yml"
@@ -153,8 +146,6 @@
         - source: LICENSE-2.0.txt
           dest: LICENSE
         - source: SECURITY.md
-        - source: travis.yml
-          dest: .travis.yml
         - source: molecule.yml
           dest: molecule/default/molecule.yml
         - source: README.md
