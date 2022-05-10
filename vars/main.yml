@@ -80,9 +80,12 @@ distribution_version_mapping:
   Ubuntu:
     all:
       - latest
+      - focal
       - bionic
-    focal:
+    jammy:
       - latest
+    focal:
+      - focal
     bionic:
       - bionic
 
