@@ -16,12 +16,12 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           path: {% raw %}"${{ github.repository }}"{% endraw %}
 
       - name: molecule
-        uses: robertdebock/molecule-action@4.0.7
+        uses: robertdebock/molecule-action@4.0.8
         with:
           command: lint
   test:
@@ -42,7 +42,7 @@ jobs:
 {% endfor %}
     steps:
       - name: checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           path: {% raw %}"${{ github.repository }}"{% endraw %}
 
@@ -51,7 +51,7 @@ jobs:
       - name: parse apparmor for mysql
         run: sudo apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld
       - name: molecule
-        uses: robertdebock/molecule-action@4.0.7
+        uses: robertdebock/molecule-action@4.0.8
         with:
           image: {% raw %}${{ matrix.config.image }}{% endraw %}
 
