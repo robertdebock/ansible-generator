@@ -28,7 +28,7 @@ platform_image_mapping:
   Debian: debian
   EL: "{{ enterprise_linux | default('enterpriselinux') }}"
   Fedora: fedora
-  OpenSUSE: opensuse
+  opensuse: opensuse
   Ubuntu: ubuntu
 
 # This maps the Galaxy distribution and version to Docker images.
@@ -40,7 +40,7 @@ distribution_version_mapping:
     all:
       - 1
       - latest
-    2018.03:
+    "2018.03":
       - 1
     Candidate:
       - latest
@@ -59,22 +59,22 @@ distribution_version_mapping:
     all:
       - 7
       - latest
-    7:
+    "7":
       - 7
-    8:
+    "8":
       - latest
   Fedora:
     all:
-      - 34
+      - 35
       - latest
       - rawhide
-    34:
-      - 34
-    35:
+    "35":
+      - 35
+    "36":
       - latest
-    36:
+    "37":
       - rawhide
-  OpenSUSE:
+  opensuse:
     all:
       - latest
   Ubuntu:
