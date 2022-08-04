@@ -58,11 +58,14 @@ distribution_version_mapping:
   EL:
     all:
       - 7
+      - 8
       - latest
     "7":
       - 7
     "8":
-      - latest
+      - 8
+    "9":
+      - 9
   Fedora:
     all:
       - 35
