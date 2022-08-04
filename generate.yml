@@ -21,11 +21,6 @@
         file: "{{ role_path }}/meta/main.yml"
         name: meta
 
-    - name: check meta/version.yml
-      stat:
-        path: "{{ role_path }}/meta/version.yml"
-      register: versionymlstat
-
     - name: check meta/preferences.yml
       stat:
         path: "{{ role_path }}/meta/preferences.yml"

@@ -7,7 +7,6 @@ Generate documentation and continuous integration files for an Ansible Role.
 This script loads input from:
 
 - meta/main.yml*
-- meta/version.yml
 - meta/preferences.yml
 - defaults/main.yml
 - requirements.yml
@@ -69,32 +68,20 @@ author: Robert de Bock (robert@meinit.nl)
 author_website: "https://robertdebock.nl/"
 ```
 
-## meta/version.yml
-
-This optional file can be placed when a role contains a version.
-
-```yaml
----
-project_name: Ansible
-reference: "defaults/main.yml"
-versions:
-  - name: ansible
-    url: "https://github.com/ansible/ansible/releases"
-```
-
 ## meta/preferences.yml
 
 This optional file describes how Travis, Tox and Molecule should behave.
 
-|parameter       |type           |default|description|
-|----------------|---------------|-------|-----------|
-|tox_version     |list of strings|not set|What versions should Tox test? (Default: all.)|
-|enterprise_linux|string         |not set|If `EL` is used in `meta/main.yml` where should tests happen on? (Default: `rockylinux`.)
+|parameter            |type           |default|description                                                                             |
+|--------------------|---------------|-------|-----------------------------------------------------------------------------------------|
+|tox_ansible_versions|list of strings|not set|What versions should Tox test? (Default: all.)                                           |
+|enterprise_linux    |string         |not set|If `EL` is used in `meta/main.yml` where should tests happen on? (Default: `rockylinux`.)|
 
 
 ```yaml
 ---
-tox_versions:
-  - current
+tox_ansible_versions:
+  - 4
+  - 5
 enterprise_linx: centos
 ```
