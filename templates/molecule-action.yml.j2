@@ -17,13 +17,8 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
-        with:
-          path: {% raw %}"${{ github.repository }}"{% endraw %}
-
-      - name: molecule
-        uses: robertdebock/molecule-action@4.0.8
-        with:
-          command: lint
+      - name: ansible-lint
+        uses: ansible-community/ansible-lint-action@main
   test:
     needs:
       - lint
