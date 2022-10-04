@@ -65,7 +65,7 @@ distribution_version_mapping:
     "8":
       - 8
     "9":
-      - 9
+      - latest
   Fedora:
     all:
       - 35
