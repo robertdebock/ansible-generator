@@ -1,0 +1,35 @@
+#!/usr/bin/env ansible-playbook
+---
+- name: delete a gitlab repository
+  hosts: localhost
+  become: no
+  gather_facts: no
+
+  vars:
+    namespace: robertdebock
+
+  vars_files:
+    - vars/main.yml
+    - vars/vault.yml
+
+  tasks:
+    - name: see if all variables are set
+      assert:
+        that:
+          - namespace is defined
+          - role is defined
+        quiet: yes
+
+    - name: urlencode path
+      set_fact:
+        encoded_path: "{{ namespace + '%2F' + role }}"
+
+    - name: delete project
+      uri:
+        url: "https://gitlab.com/api/v4/projects/{{ encoded_path }}"
+        method: DELETE
+        headers:
+          PRIVATE-TOKEN: "{{ gitlab_private_token }}"
+        status_code:
+          - 202
+          - 404

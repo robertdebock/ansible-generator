@@ -68,14 +68,14 @@ distribution_version_mapping:
       - latest
   Fedora:
     all:
-      - 35
+      - 36
       - latest
       - rawhide
-    "35":
-      - 35
     "36":
-      - latest
+      - 36
     "37":
+      - latest
+    "38":
       - rawhide
   opensuse:
     all:

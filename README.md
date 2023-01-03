@@ -81,7 +81,6 @@ This optional file describes how Travis, Tox and Molecule should behave.
 ```yaml
 ---
 tox_ansible_versions:
-  - 4
-  - 5
+  - 7
 enterprise_linx: centos
 ```
