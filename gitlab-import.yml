@@ -1,0 +1,45 @@
+#!/usr/bin/env ansible-playbook
+---
+- name: Import repository into gitlab project
+  hosts: localhost
+  become: no
+  gather_facts: no
+
+  vars:
+    github_owner: robertdebock
+    gitlab_namespace: robertdebock-iac
+
+  vars_files:
+    - defaults/main.yml
+    - vars/main.yml
+    - vars/vault.yml
+
+  tasks:
+    - name: see if all variables are set
+      assert:
+        that:
+          - gitlab_namespace is defined
+          - github_owner is defined
+          - role is defined
+        quiet: yes
+
+    - name: Get GitHub repo information
+      uri:
+        url: "https://api.github.com/repos/{{ github_owner }}/{{ role }}"
+        headers:
+          Authorization: "Bearer {{ github_token }}"
+      register: github_repo
+
+    - name: Import repository
+      uri:
+        url: "https://gitlab.com/api/v4/import/github"
+        method: POST
+        headers:
+          PRIVATE-TOKEN: "{{ gitlab_private_token }}"
+        body_format: json
+        body:
+          personal_access_token: "{{ github_token }}"
+          repo_id: "{{ github_repo.json.id }}"
+          target_namespace: "{{ gitlab_namespace }}"
+        status_code:
+          - 201

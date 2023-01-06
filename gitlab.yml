@@ -6,7 +6,7 @@
   gather_facts: no
 
   vars:
-    namespace: robertdebock
+    namespace: robertdebock-iac
 
   vars_files:
     - defaults/main.yml
@@ -23,7 +23,7 @@
 
     - name: urlencode path
       set_fact:
-        encoded_path: "{{ namespace + '%2F' + role }}"
+        encoded_path: "{{ namespace + '%2F' + 'ansible-role-' + role }}"
 
     - name: place variable
       block:
@@ -76,20 +76,20 @@
       loop_control:
         label: "{{ item.id }}"
 
-#     - name: create a new pipeline schedule
-#       uri:
-#         url: "https://gitlab.com/api/v4/projects/{{ encoded_path }}/pipeline_schedules"
-#         method: POST
-#         body_format: json
-#         status_code:
-#           - 201
-#         headers:
-#           PRIVATE-TOKEN: "{{ gitlab_private_token }}"
-#         body:
-#           description: "Monthly test"
-#           ref: master
-#           cron: "{{ letter_minute_mapping[role[15]] | default('13') }} {{ letter_hour_mapping[role[13]] }} {{ letter_day_mapping[role[13]] }} * *"
-#           cron_timezone: Amsterdam
+    - name: create a new pipeline schedule
+      uri:
+        url: "https://gitlab.com/api/v4/projects/{{ encoded_path }}/pipeline_schedules"
+        method: POST
+        body_format: json
+        status_code:
+          - 201
+        headers:
+          PRIVATE-TOKEN: "{{ gitlab_private_token }}"
+        body:
+          description: "Monthly test"
+          ref: master
+          cron: "{{ letter_minute_mapping[role[:1]] | default('13') }} {{ letter_hour_mapping[role[:1]] }} {{ letter_day_mapping[role[:1]] }} * *"
+          cron_timezone: Amsterdam
 
 #     - name: disable runnner
 #       uri:
@@ -104,18 +104,18 @@
 #         body:
 #           runner_id: "{{ gitlab_runner_id }}"
 
-    - name: enable runnner
-      uri:
-        url: "https://gitlab.com/api/v4/projects/{{ encoded_path }}/runners"
-        method: POST
-        body_format: json
-        status_code:
-          - 201
-          - 400
-        headers:
-          PRIVATE-TOKEN: "{{ gitlab_private_token }}"
-        body:
-          runner_id: "{{ gitlab_runner_id }}"
+#     - name: enable runnner
+#       uri:
+#         url: "https://gitlab.com/api/v4/projects/{{ encoded_path }}/runners"
+#         method: POST
+#         body_format: json
+#         status_code:
+#           - 201
+#           - 400
+#         headers:
+#           PRIVATE-TOKEN: "{{ gitlab_private_token }}"
+#         body:
+#           runner_id: "{{ gitlab_runner_id }}"
 
     - name: disable shared runnners
       uri:

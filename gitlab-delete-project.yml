@@ -6,7 +6,7 @@
   gather_facts: no
 
   vars:
-    namespace: robertdebock
+    namespace: robertdebock-iac
 
   vars_files:
     - vars/main.yml

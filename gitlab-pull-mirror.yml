@@ -1,0 +1,73 @@
+#!/usr/bin/env ansible-playbook
+---
+- name: Create a pull mirror gitlab project
+  hosts: localhost
+  become: no
+  gather_facts: no
+
+  vars:
+    github_owner: robertdebock
+    gitlab_namespace: robertdebock-iac
+
+  vars_files:
+    - defaults/main.yml
+    - vars/main.yml
+    - vars/vault.yml
+
+  tasks:
+    - name: see if all variables are set
+      assert:
+        that:
+          - gitlab_namespace is defined
+          - github_owner is defined
+          - role is defined
+        quiet: yes
+
+    - name: Get GitHub repo information
+      uri:
+        url: "https://api.github.com/repos/{{ github_owner }}/{{ role }}"
+        headers:
+          Authorization: "Bearer {{ github_token }}"
+      register: github_repo
+
+#     - name: Show shit
+#       debug:
+#         msg: "{{ github_repo.json }}"
+
+    - name: Get GitLab namespace_id
+      uri:
+        url: "https://gitlab.com/api/v4/namespaces"
+        headers:
+          PRIVATE-TOKEN: "{{ gitlab_private_token }}"
+        body_format: json
+        body:
+          search: "{{ gitlab_namespace }}"
+      register: gitlab_namespace
+
+#     - name: Show shit
+#       debug:
+#         msg: "{{ gitlab_namespace.json }}"
+
+    - name: Create a project that pulls from GitHub
+      uri:
+        url: "https://gitlab.com/api/v4/projects"
+        method: POST
+        headers:
+          PRIVATE-TOKEN: "{{ gitlab_private_token }}"
+        body_format: json
+        body:
+          name: "{{ github_repo.json.name }}"
+          description: "{{ github_repo.json.description }}"
+          # TODO: Should the `path` include the namespace:
+          path: "{{ github_repo.json.name }}"
+          namespace_id: 59906445 
+          import_url: "{{ github_repo.json.clone_url }}"
+          mirror: true
+          mirror_triggers_builds: true
+        status_code:
+          - 201
+      register: gitlab_project
+
+#     - name: Show shit
+#       debug:
+#         msg: "{{ gitlab_project }}"
