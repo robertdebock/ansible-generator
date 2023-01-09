@@ -18,18 +18,10 @@
     - name: see if all variables are set
       assert:
         that:
-          - gitlab_namespace is defined
           - github_owner is defined
           - role is defined
         quiet: yes
 
-    - name: Get GitHub repo information
-      uri:
-        url: "https://api.github.com/repos/{{ github_owner }}/{{ role }}"
-        headers:
-          Authorization: "Bearer {{ github_token }}"
-      register: github_repo
-    
     - name: Get a detailed list of owned GitLab projects
       uri:
         url: "https://gitlab.com/api/v4/projects?owned=true&search={{ role }}"
@@ -55,14 +47,8 @@
           PRIVATE-TOKEN: "{{ gitlab_private_token }}"
         body_format: json
         body:
-          import_url: "{{ github_repo.json.clone_url }}"
-          mirror: true
-          mirror_trigger_builds: true
+          visibility: public
         status_code:
           - 200
       register: create_project
       changed_when: yes
-
-    # - name: Show shit
-    #   debug:
-    #     msg: "{{ create_project }}"
