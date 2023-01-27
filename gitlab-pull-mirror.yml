@@ -30,7 +30,7 @@
           Authorization: "Bearer {{ github_token }}"
       register: github_repo
     
-    - name: Get a detailed list of owned GitLab projects
+    - name: Get details of GitLab project
       uri:
         url: "https://gitlab.com/api/v4/projects?owned=true&search={{ role }}"
         method: GET
@@ -39,7 +39,7 @@
         return_content: yes
       register: gitlab_projects
 
-    - name: Pick project_ids from GitLab projects
+    - name: Pick project_ids from GitLab project
       set_fact:
         gitlab_projects: "{{ gitlab_projects.json | selectattr('name', 'equalto', role) | list }}"
 
