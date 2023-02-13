@@ -56,25 +56,25 @@
               protects: true
               masked: true
 
-#     - name: list pipeline schedules
-#       uri:
-#         url: "https://gitlab.com/api/v4/projects/{{ encoded_path }}/pipeline_schedules"
-#         method: GET
-#         headers:
-#           PRIVATE-TOKEN: "{{ gitlab_private_token }}"
-#       register: gitlab_schedules
-# 
-#     - name: delete all pipeline schedules
-#       uri:
-#         url: "https://gitlab.com/api/v4/projects/{{ encoded_path }}/pipeline_schedules/{{ item.id }}"
-#         method: DELETE
-#         headers:
-#           PRIVATE-TOKEN: "{{ gitlab_private_token }}"
-#         status_code:
-#           - 204
-#       loop: "{{ gitlab_schedules.json }}"
-#       loop_control:
-#         label: "{{ item.id }}"
+    - name: list pipeline schedules
+      uri:
+        url: "https://gitlab.com/api/v4/projects/{{ encoded_path }}/pipeline_schedules"
+        method: GET
+        headers:
+          PRIVATE-TOKEN: "{{ gitlab_private_token }}"
+      register: gitlab_schedules
+ 
+    - name: delete all pipeline schedules
+      uri:
+        url: "https://gitlab.com/api/v4/projects/{{ encoded_path }}/pipeline_schedules/{{ item.id }}"
+        method: DELETE
+        headers:
+          PRIVATE-TOKEN: "{{ gitlab_private_token }}"
+        status_code:
+          - 204
+      loop: "{{ gitlab_schedules.json }}"
+      loop_control:
+        label: "{{ item.id }}"
 
     - name: create a new pipeline schedule
       uri:
@@ -88,23 +88,23 @@
         body:
           description: "Monthly test"
           ref: master
-          cron: "{{ letter_minute_mapping[role[:1]] | default('13') }} {{ letter_hour_mapping[role[:1]] }} {{ letter_day_mapping[role[:1]] }} * *"
+          cron: "{{ letter_minute_mapping[role[14]] | default('13') }} {{ letter_hour_mapping[role[14]] }} {{ letter_day_mapping[role[13]] }} * *"
           cron_timezone: Amsterdam
 
-#     - name: disable runnner
-#       uri:
-#         url: "https://gitlab.com/api/v4/projects/{{ encoded_path }}/runners/{{ gitlab_runner_id }}"
-#         method: DELETE
-#         body_format: json
-#         status_code:
-#           - 204
-#           - 404
-#         headers:
-#           PRIVATE-TOKEN: "{{ gitlab_private_token }}"
-#         body:
-#           runner_id: "{{ gitlab_runner_id }}"
+    - name: disable runnner
+      uri:
+        url: "https://gitlab.com/api/v4/projects/{{ encoded_path }}/runners/{{ gitlab_runner_id }}"
+        method: DELETE
+        body_format: json
+        status_code:
+          - 204
+          - 404
+        headers:
+          PRIVATE-TOKEN: "{{ gitlab_private_token }}"
+        body:
+          runner_id: "{{ gitlab_runner_id }}"
 
-#     - name: enable runnner
+#     - name: enable cloudtop runnner
 #       uri:
 #         url: "https://gitlab.com/api/v4/projects/{{ encoded_path }}/runners"
 #         method: POST
