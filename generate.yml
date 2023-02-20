@@ -1,6 +1,6 @@
 #!/usr/bin/env ansible-playbook
 ---
-- name: generate all files
+- name: Generate all files
   hosts: localhost
   become: no
   gather_facts: yes
@@ -11,93 +11,94 @@
     - vars/main.yml
 
   tasks:
-    - name: set role_path and role_name
-      set_fact:
+    - name: Set role_path and role_name
+      ansible.builtin.set_fact:
         role_path: "{{ lookup('env', 'PWD') }}"
         role_name: "{{ lookup('env', 'PWD') | basename | regex_replace('ansible-role-') }}"
 
-    - name: load meta/main.yml
-      include_vars:
+    - name: Load meta/main.yml
+      ansible.builtin.include_vars:
         file: "{{ role_path }}/meta/main.yml"
         name: meta
 
-    - name: check meta/preferences.yml
-      stat:
+    - name: Check meta/preferences.yml
+      ansible.builtin.stat:
         path: "{{ role_path }}/meta/preferences.yml"
       register: preferencesymlstat
 
-    - name: load meta/preferences.yml
-      include_vars:
+    - name: Load meta/preferences.yml
+      ansible.builtin.include_vars:
         file: "{{ role_path }}/meta/preferences.yml"
       when:
         - preferencesymlstat.stat.exists | bool
 
-    - name: check defaults/main.yml
-      stat:
+    - name: Check defaults/main.yml
+      ansible.builtin.stat:
         path: "{{ role_path }}/defaults/main.yml"
       register: defaultsmainyml
 
-    - name: load defaults/main.yml
-      slurp:
+    - name: Load defaults/main.yml
+      ansible.builtin.slurp:
         src: "{{ role_path }}/defaults/main.yml"
       register: variables
       when:
         - defaultsmainyml.stat.exists | bool
 
-    - name: check requirements.yml
-      stat:
+    - name: Check requirements.yml
+      ansible.builtin.stat:
         path: "{{ role_path }}/requirements.yml"
       register: check_requirements
 
-    - name: load requirements.yml
-      include_vars:
+    - name: Load requirements.yml
+      ansible.builtin.include_vars:
         file: "{{ role_path }}/requirements.yml"
         name: requirements
       when:
         - check_requirements.stat.exists | bool
 
-    - name: load molecule/default/converge.yml
-      slurp:
+    - name: Load molecule/default/converge.yml
+      ansible.builtin.slurp:
         src: "{{ role_path }}/molecule/default/converge.yml"
       register: example
 
-    - name: check molecule/default/prepare.yml
-      stat:
+    - name: Check molecule/default/prepare.yml
+      ansible.builtin.stat:
         path: "{{ role_path }}/molecule/default/prepare.yml"
       register: check_prepare
 
-    - name: load molecule/default/prepare.yml
-      slurp:
+    - name: Load molecule/default/prepare.yml
+      ansible.builtin.slurp:
         src: "{{ role_path }}/molecule/default/prepare.yml"
       register: prepare
       when:
         - check_prepare.stat.exists | bool
 
-    - name: check molecule/default/verify.yml
-      stat:
+    - name: Check molecule/default/verify.yml
+      ansible.builtin.stat:
         path: "{{ role_path }}/molecule/default/verify.yml"
       register: verify
 
-    - name: load molecule/default/verify.yml
-      slurp:
+    - name: Load molecule/default/verify.yml
+      ansible.builtin.slurp:
         src: "{{ role_path }}/molecule/default/verify.yml"
       register: verifyyml
       when:
         - verify.stat.exists | bool
 
-    - name: check molecule/default/defaults.yml
-      stat:
+    - name: Check molecule/default/defaults.yml
+      ansible.builtin.stat:
         path: "{{ role_path }}/molecule/default/defaults.yml"
       register: defaults
 
-    - name: load galaxy_id
-      shell: "set -o pipefail ; ansible-galaxy info robertdebock.{{ role_name }} | grep '	id: ' | awk '{print $NF}'"
+    - name: Load galaxy_id
+      ansible.builtin.shell:
+        cmd: "set -o pipefail ; ansible-galaxy info robertdebock.{{ role_name }} | grep '	id: ' | awk '{print $NF}'"
       register: galaxy_id
       changed_when: no
       failed_when: no
 
-    - name: create .github directories
-      file:
+    - name: Create .github directories
+      ansible.builtin.file:
         path: "{{ role_path }}/{{ item }}"
         state: directory
         mode: "0755"
@@ -106,8 +107,8 @@
         - .github/workflows
         - .github/ISSUE_TEMPLATE
 
-    - name: copy file
-      copy:
+    - name: Copy file
+      ansible.builtin.copy:
         src: "{{ playbook_dir }}/files/{{ item.source }}"
         dest: "{{ role_path }}/{{ item.dest | default(item.source) }}"
         mode: "{{ item.mode | default('0644') }}"
@@ -127,10 +128,10 @@
       loop_control:
         label: "{{ item.source }}"
 
-    - name: render file
-      template:
+    - name: Render file
+      ansible.builtin.template:
         src: "{{ playbook_dir }}/templates/{{ item.source }}.j2"
-        dest: "{{ role_path }}/{{ item.dest | default (item.source) }}"
+        dest: "{{ role_path }}/{{ item.dest | default(item.source) }}"
         mode: "0644"
       with_items:
         - source: ansible-lint
@@ -159,7 +160,7 @@
       loop_control:
         label: "{{ item.source }}"
 
-    - name: pre-commit install
-      command: pre-commit install
-      args:
+    - name: Install pre-commit
+      ansible.builtin.command:
+        cmd: pre-commit install
         creates: .git/hooks/pre-commit

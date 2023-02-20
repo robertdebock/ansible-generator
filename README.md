@@ -75,12 +75,18 @@ This optional file describes how Travis, Tox and Molecule should behave.
 |parameter            |type           |default|description                                                                             |
 |--------------------|---------------|-------|-----------------------------------------------------------------------------------------|
 |tox_ansible_versions|list of strings|not set|What versions should Tox test? (Default: all.)                                           |
-|enterprise_linux    |string         |not set|If `EL` is used in `meta/main.yml` where should tests happen on? (Default: `rockylinux`.)|
+|github_variables_mapping|list|not set|A list of `name` and `variable`, `name` refers to the GitHub exposed name, `variable` refers to the name you'd like to pass to molecule, tox and Ansible.|
 
+# Example
 
 ```yaml
 ---
 tox_ansible_versions:
   - 7
-enterprise_linx: centos
+github_variables_mapping:
+  - name: secrets.VAULT_LICENSE
+    variable: VAULT_LICENCE
+  - name: secrets.MY_VAR
+    variable: someTHING
+
 ```

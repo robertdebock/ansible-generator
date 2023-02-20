@@ -28,3 +28,8 @@ passenv =
     image
     tag
     DOCKER_HOST
+{% if github_variables_mapping is defined %}
+{% for item in github_variables_mapping %}
+    {{ item.variable }}
+{% endfor %}
+{% endif %}

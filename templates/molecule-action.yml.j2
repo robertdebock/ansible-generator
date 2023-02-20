@@ -51,3 +51,10 @@ jobs:
           image: {% raw %}${{ matrix.config.image }}{% endraw %}
 
           tag: {% raw %}${{ matrix.config.tag }}{% endraw %}
+
+{% if github_variables_mapping is defined %}
+        env:
+{% for item in github_variables_mapping %}
+          {{ item.variable }}: {% raw %}${{ {%endraw %}{{ item.name }} {% raw %}}}{% endraw %}
+{% endfor %}
+{% endif %}
