@@ -13,3 +13,4 @@ rules:
 
 ignore: |
   vars/vault.yml
+  tests/*

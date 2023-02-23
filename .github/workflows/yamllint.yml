@@ -1,6 +1,6 @@
 ---
 
-name: 'yamllint'
+name: yamllint
 on:
   push:
 
