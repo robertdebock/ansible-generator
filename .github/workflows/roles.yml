@@ -19,5 +19,6 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
       - run: |
+          pip install pre-commit
           cd tests/${{ matrix.config.role }}
           ../../generate.yml
