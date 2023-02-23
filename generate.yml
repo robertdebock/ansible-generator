@@ -91,7 +91,7 @@
 
     - name: Load galaxy_id
       ansible.builtin.shell:
-        cmd: "set -o pipefail ; ansible-galaxy info robertdebock.{{ role_name }} | grep '	id: ' | awk '{print $NF}'"
+        cmd: "set -o pipefail ; ansible-galaxy info {{ galaxy_namespace }}.{{ role_name }} | grep '	id: ' | awk '{print $NF}'"
       register: galaxy_id
       changed_when: no
       failed_when: no
