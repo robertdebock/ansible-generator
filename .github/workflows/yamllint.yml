@@ -1,0 +1,13 @@
+---
+
+name: 'yamllint'
+on:
+  push:
+
+jobs:
+  yamllint:
+    name: yamllint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: karancode/yamllint-github-action@master

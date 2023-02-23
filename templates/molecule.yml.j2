@@ -4,9 +4,7 @@ dependency:
   name: galaxy
   options:
     role-file: requirements.yml
-{% if requirements.collections is defined %}
     requirements-file: requirements.yml
-{% endif %}
 lint: |
   set -e
   yamllint .
@@ -14,7 +12,7 @@ lint: |
 driver:
   name: docker
 platforms:
-  - name: "{{ role_name }}-${image:-{{ docker_image }}}-${tag:-{{ docker_tag }}}${TOX_ENVNAME}"
+  - name: "{{ role_name | regex_replace('_', '') }}-${image:-{{ docker_image }}}-${tag:-{{ docker_tag }}}${TOX_ENVNAME}"
     image: "${namespace:-{{ docker_namespace }}}/${image:-{{ docker_image }}}:${tag:-{{ docker_tag }}}"
     command: /sbin/init
     volumes:
@@ -23,10 +21,12 @@ platforms:
     pre_build_image: yes
 provisioner:
   name: ansible
-  config_options:
-    defaults:
-      stdout_callback: yaml
-      bin_ansible_callbacks: yes
+{% if github_variables_mapping is defined %}
+  env:
+{% for item in github_variables_mapping %}
+    {{ item.variable }}: "{% raw %}${{% endraw %}{{ item.variable }}{% raw %}}{% endraw %}"
+{% endfor %}
+{% endif %}
 {% if verify.stat.exists  %}
 verifier:
   name: ansible

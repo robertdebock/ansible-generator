@@ -4,16 +4,18 @@
 
 |GitHub|GitLab|Quality|Downloads|Version|
 |------|------|-------|---------|-------|
-|[![github](https://github.com/{{ github_namespace }}/ansible-role-{{ role_name }}/workflows/Ansible%20Molecule/badge.svg)](https://github.com/{{ github_namespace }}/ansible-role-{{ role_name }}/actions)|[![gitlab](https://gitlab.com/{{ github_namespace }}/ansible-role-{{ role_name }}/badges/master/pipeline.svg)](https://gitlab.com/{{ github_namespace }}/ansible-role-{{ role_name }})|[![quality](https://img.shields.io/ansible/quality/{{ galaxy_id.stdout | default('unset') }})](https://galaxy.ansible.com/{{ github_namespace }}/{{ role_name }})|[![downloads](https://img.shields.io/ansible/role/d/{{ galaxy_id.stdout |default('unset') }})](https://galaxy.ansible.com/{{ github_namespace }}/{{ role_name }})|[![Version](https://img.shields.io/github/release/{{ github_namespace }}/ansible-role-{{ role_name }}.svg)](https://github.com/{{ github_namespace }}/ansible-role-{{ role_name }}/releases/)|
+|[![github](https://github.com/{{ github_namespace }}/ansible-role-{{ role_name }}/workflows/Ansible%20Molecule/badge.svg)](https://github.com/{{ github_namespace }}/ansible-role-{{ role_name }}/actions)|[![gitlab](https://gitlab.com/{{ gitlab_namespace }}/ansible-role-{{ role_name }}/badges/master/pipeline.svg)](https://gitlab.com/{{ gitlab_namespace }}/ansible-role-{{ role_name }})|[![quality](https://img.shields.io/ansible/quality/{{ galaxy_id.stdout | default('unset') }})](https://galaxy.ansible.com/{{ github_namespace }}/{{ role_name }})|[![downloads](https://img.shields.io/ansible/role/d/{{ galaxy_id.stdout |default('unset') }})](https://galaxy.ansible.com/{{ github_namespace }}/{{ role_name }})|[![Version](https://img.shields.io/github/release/{{ github_namespace }}/ansible-role-{{ role_name }}.svg)](https://github.com/{{ github_namespace }}/ansible-role-{{ role_name }}/releases/)|
 
 ## [Example Playbook](#example-playbook)
 
-This example is taken from `molecule/resources/converge.yml` and is tested on each push, pull request and release.
+This example is taken from [`molecule/default/converge.yml`](https://github.com/{{ github_namespace }}/ansible-role-{{ role_name }}/blob/master/molecule/default/converge.yml) and is tested on each push, pull request and release.
+
 ```yaml
 {{ example.content | b64decode | regex_replace('ansible-role-', galaxy_namespace ~ '.') }}```
 
 {% if prepare.content is defined %}
-The machine needs to be prepared in CI this is done using `molecule/resources/prepare.yml`:
+The machine needs to be prepared. In CI this is done using [`molecule/default/prepare.yml`](https://github.com/{{ github_namespace }}/ansible-role-{{ role_name }}/blob/master/molecule/default/prepare.yml):
+
 ```yaml
 {{ prepare.content | b64decode | regex_replace('ansible-role-', galaxy_namespace ~ '.') }}```
 
@@ -23,7 +25,8 @@ Also see a [full explanation and example](https://robertdebock.nl/how-to-use-the
 {% if variables.content is defined %}
 ## [Role Variables](#role-variables)
 
-These variables are set in `defaults/main.yml`:
+The default values for the variables are set in [`defaults/main.yml`](https://github.com/{{ github_namespace }}/ansible-role-{{ role_name }}/blob/master/defaults/main.yml):
+
 ```yaml
 {{ variables.content | b64decode }}```
 {% endif %}
@@ -32,15 +35,15 @@ These variables are set in `defaults/main.yml`:
 
 - pip packages listed in [requirements.txt](https://github.com/{{ github_namespace }}/ansible-role-{{ role_name }}/blob/master/requirements.txt).
 
-{% if requirements is defined %}
-## [Status of requirements](#status-of-requirements)
+{% if requirements is defined and requirements.roles is defined %}
+## [State of used roles](#state-of-used-roles)
 
-The following roles are used to prepare a system. You may choose to prepare your system in another way, I have tested these roles as well.
+The following roles are used to prepare a system. You can prepare your system in another way.
 
 | Requirement | GitHub | GitLab |
 |-------------|--------|--------|
 {% for requirement in requirements.roles %}
-| [{{ requirement.name }}](https://galaxy.ansible.com/{{ github_namespace }}/{{ requirement.name | regex_replace(github_namespace + '\.') }}) | [![Build Status GitHub](https://github.com/{{ github_namespace }}/{{ requirement.name | regex_replace(github_namespace + '\.', 'ansible-role-') }}/workflows/Ansible%20Molecule/badge.svg)](https://github.com/{{ github_namespace }}/{{ requirement.name | regex_replace(github_namespace + '\.', 'ansible-role-') }}/actions) | [![Build Status GitLab ](https://gitlab.com/{{ github_namespace }}/ansible-role-{{ requirement.name | regex_replace(github_namespace + '\.', 'ansible-role-') }}/badges/master/pipeline.svg)](https://gitlab.com/{{ github_namespace }}/{{ requirement.name | regex_replace(github_namespace + '\.', 'ansible-role-') }})
+|[{{ requirement.name }}](https://galaxy.ansible.com/{{ github_namespace }}/{{ requirement.name | regex_replace(github_namespace + '\.') }})|[![Build Status GitHub](https://github.com/{{ github_namespace }}/{{ requirement.name | regex_replace(github_namespace + '\.', 'ansible-role-') }}/workflows/Ansible%20Molecule/badge.svg)](https://github.com/{{ github_namespace }}/{{ requirement.name | regex_replace(github_namespace + '\.', 'ansible-role-') }}/actions)|[![Build Status GitLab](https://gitlab.com/{{ gitlab_namespace }}/{{ requirement.name | regex_replace(galaxy_namespace + '\.', 'ansible-role-') }}/badges/master/pipeline.svg)](https://gitlab.com/{{ gitlab_namespace }}/{{ requirement.name | regex_replace(galaxy_namespace + '\.', 'ansible-role-') }})|
 {% endfor %}
 {% endif %}
 
@@ -52,6 +55,7 @@ Most roles require some kind of preparation, this is done in `molecule/default/p
 {% for dependency in meta.dependencies %}
 - {{ dependency }}
 {% endfor %}
+
 {% endif %}
 ## [Context](#context)
 
@@ -67,7 +71,7 @@ This role has been tested on these [container images](https://hub.docker.com/u/r
 |container|tags|
 |---------|----|
 {% for platform in meta.galaxy_info.platforms %}
-|{{ platform.name | lower }}|{% for version in platform.versions %}{{ version }}{% if not loop.last %}, {% endif %}{% endfor %}|
+|[{{ platform.name }}]({{ image_docker_hub_url_mapping[platform.name | lower] }})|{% for version in platform.versions %}{{ version }}{% if not loop.last %}, {% endif %}{% endfor %}|
 {% endfor %}
 
 The minimum version of Ansible required is {{ meta.galaxy_info.min_ansible_version }}, tests have been done to:
@@ -76,47 +80,11 @@ The minimum version of Ansible required is {{ meta.galaxy_info.min_ansible_versi
 - The current version.
 - The development version.
 
-{% if exceptions is defined %}
-## [Exceptions](#exceptions)
-
-Some variarations of the build matrix do not work. These are the variations and reasons why the build won't work:
-
-| variation                 | reason                 |
-|---------------------------|------------------------|
-{% for exception in exceptions %}| {{ exception.variation }} | {{ exception.reason }} |
-{% endfor %}{% endif %}
-
-{% if versions is defined %}
-## [Included version(s)](#included-versions)
-
-This role [refers to a version]({{ reference }}) released by {{ project_name }}. Check the released version(s) here:
-{% for version in versions %}
-- [{{ version.name }}]({{ version.url }}).
-{% endfor %}
-
-This version reference means a role may get outdated. Monthly tests occur to see if [bit-rot](https://en.wikipedia.org/wiki/Software_rot) occured. If you however find a problem, please create an issue, I'll get on it as soon as possible.{% endif %}
-
 If you find issues, please register them in [GitHub](https://github.com/{{ github_namespace }}/ansible-role-{{ role_name }}/issues)
 
 ## [License](#license)
 
-{{ meta.galaxy_info.license }}
-
-{% if github_contributors is defined %}
-{% if github_contributors.json is defined %}
-{% if github_contributors.json | length > 1 %}
-## [Contributors](#contributors)
-
-I'd like to thank everybody that made contributions to this repository. It motivates me, improves the code and is just fun to collaborate.
-
-{% for contributor in github_contributors.json %}{% if contributor.login is defined %}{% if contributor.login != "robertdebock" %}
-- [{{ contributor.login }}](https://github.com/{{ contributor.login }})
-{% endif %}
-{% endif %}
-{% endfor %}
-{% endif %}
-{% endif %}
-{% endif %}
+[{{ meta.galaxy_info.license }}](https://github.com/{{ github_namespace }}/ansible-role-{{ role_name }}/blob/master/LICENSE).
 
 ## [Author Information](#author-information)
 

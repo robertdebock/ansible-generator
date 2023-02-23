@@ -1,0 +1,54 @@
+#!/usr/bin/env ansible-playbook
+---
+- name: Create a pull mirror gitlab project
+  hosts: localhost
+  become: no
+  gather_facts: no
+
+  vars:
+    github_owner: robertdebock
+    gitlab_namespace: robertdebock-iac
+
+  vars_files:
+    - defaults/main.yml
+    - vars/main.yml
+    - vars/vault.yml
+
+  tasks:
+    - name: see if all variables are set
+      assert:
+        that:
+          - github_owner is defined
+          - role is defined
+        quiet: yes
+
+    - name: Get a detailed list of owned GitLab projects
+      uri:
+        url: "https://gitlab.com/api/v4/projects?owned=true&search={{ role }}"
+        method: GET
+        headers:
+          PRIVATE-TOKEN: "{{ gitlab_private_token }}"
+        return_content: yes
+      register: gitlab_projects
+
+    - name: Pick project_ids from GitLab projects
+      set_fact:
+        gitlab_projects: "{{ gitlab_projects.json | selectattr('name', 'equalto', role) | list }}"
+
+    - name: pick a single project.
+      set_fact:
+        gitlab_project_id: "{{ gitlab_projects[0].id }}"
+
+    - name: Patch existing project to mirror
+      uri:
+        url: "https://gitlab.com/api/v4/projects/{{ gitlab_project_id }}"
+        method: PUT
+        headers:
+          PRIVATE-TOKEN: "{{ gitlab_private_token }}"
+        body_format: json
+        body:
+          visibility: public
+        status_code:
+          - 200
+      register: create_project
+      changed_when: yes

@@ -16,14 +16,9 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: checkout
-        uses: actions/checkout@v2
-        with:
-          path: {% raw %}"${{ github.repository }}"{% endraw %}
-
-      - name: molecule
-        uses: robertdebock/molecule-action@2.6.16
-        with:
-          command: lint
+        uses: actions/checkout@v3
+      - name: ansible-lint
+        uses: ansible-community/ansible-lint-action@main
   test:
     needs:
       - lint
@@ -42,7 +37,7 @@ jobs:
 {% endfor %}
     steps:
       - name: checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           path: {% raw %}"${{ github.repository }}"{% endraw %}
 
@@ -51,8 +46,15 @@ jobs:
       - name: parse apparmor for mysql
         run: sudo apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld
       - name: molecule
-        uses: robertdebock/molecule-action@2.6.16
+        uses: robertdebock/molecule-action@5.0.2
         with:
           image: {% raw %}${{ matrix.config.image }}{% endraw %}
 
           tag: {% raw %}${{ matrix.config.tag }}{% endraw %}
+
+{% if github_variables_mapping is defined %}
+        env:
+{% for item in github_variables_mapping %}
+          {{ item.variable }}: {% raw %}${{ {%endraw %}{{ item.name }} {% raw %}}}{% endraw %}
+{% endfor %}
+{% endif %}

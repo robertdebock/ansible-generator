@@ -1,23 +1,21 @@
 {{ ansible_managed | comment }}
 [tox]
-minversion = 3.21.4
-{% if tox_versions is defined %}
-envlist = py{39}-ansible-{% raw %}{{% endraw %}{% for version in tox_versions %}{{ version }}{% if not loop.last %},{% endif %}{% endfor %}{% raw %}}{% endraw %}
+minversion = 4.2.4
+{% if tox_ansible_versions is defined %}
+envlist = py{310}-ansible{% raw %}{{% endraw %}{% for version in tox_ansible_versions %}{{ version }}{% if not loop.last %},{% endif %}{% endfor %}{% raw %}}{% endraw %}
 {% else %}
-# 2.11 has been disabled: couldn't resolve module/action 'docker_container'.
-envlist = py{39}-ansible-{2.9,2.10}
+envlist = py{310}-ansible{5,6,7}
 {% endif %}
-
 skipsdist = true
 
 [testenv]
 deps =
-    2.9: ansible == 2.9.*
-    2.10: ansible == 2.10.*
-    2.11: git+https://github.com/ansible/ansible.git@devel
+    ansible5: ansible == 5.*
+    ansible6: ansible == 6.*
+    ansible7: ansible == 7.*
     molecule[docker]
-    docker == 4.*
-    ansible-lint == 5.*
+    docker == 6.*
+    ansible-lint == 6.*
 commands = molecule test
 setenv =
     TOX_ENVNAME={envname}
@@ -25,4 +23,13 @@ setenv =
     ANSIBLE_FORCE_COLOR=1
     ANSIBLE_ROLES_PATH=../
 
-passenv = namespace image tag
+passenv =
+    namespace
+    image
+    tag
+    DOCKER_HOST
+{% if github_variables_mapping is defined %}
+{% for item in github_variables_mapping %}
+    {{ item.variable }}
+{% endfor %}
+{% endif %}

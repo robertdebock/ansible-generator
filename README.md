@@ -7,13 +7,11 @@ Generate documentation and continuous integration files for an Ansible Role.
 This script loads input from:
 
 - meta/main.yml*
-- meta/version.yml
-- meta/exception.yml
 - meta/preferences.yml
 - defaults/main.yml
 - requirements.yml
 - molecule/default/prepare.yml
-- molecule/default/playbook.yml*
+- molecule/default/converge.yml*
 - molecule/default/verify.yml
 - generate_modules.sh
 - secure.yml
@@ -70,37 +68,25 @@ author: Robert de Bock (robert@meinit.nl)
 author_website: "https://robertdebock.nl/"
 ```
 
-## meta/version.yml
-
-This optional file can be placed when a role contains a version.
-
-```yaml
----
-project_name: Ansible
-reference: "defaults/main.yml"
-versions:
-  - name: ansible
-    url: "https://github.com/ansible/ansible/releases"
-```
-
-## meta/exception.yml
-
-This optional file describes why some build are excepted.
-
-```yaml
----
-exceptions:
-  - variation: alpine
-    reason: "Not idempotent"
-```
-
 ## meta/preferences.yml
 
 This optional file describes how Travis, Tox and Molecule should behave.
 
+|parameter            |type           |default|description                                                                             |
+|--------------------|---------------|-------|-----------------------------------------------------------------------------------------|
+|tox_ansible_versions|list of strings|not set|What versions should Tox test? (Default: all.)                                           |
+|github_variables_mapping|list|not set|A list of `name` and `variable`, `name` refers to the GitHub exposed name, `variable` refers to the name you'd like to pass to molecule, tox and Ansible.|
+
+# Example
+
 ```yaml
 ---
-travis_parallel: no
-tox_versions:
-  - current
+tox_ansible_versions:
+  - 7
+github_variables_mapping:
+  - name: secrets.VAULT_LICENSE
+    variable: VAULT_LICENCE
+  - name: secrets.MY_VAR
+    variable: someTHING
+
 ```
