@@ -73,7 +73,7 @@ This (optional) file describes how Tox and Molecule should behave.
 
 |parameter               |type           |default|description                                                                                                                                              |
 |------------------------|---------------|-------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-|tox_ansible_versions    |list of strings|not set|What versions should Tox test? (Default: all.)                                                                                                           |
+|tox_ansible_versions    |list of strings|[[5,6,7]](https://github.com/robertdebock/ansible-generator/blob/master/templates/tox.ini.j2#L7)|What versions should Tox test? (Default: all.)                                                                                                           |
 |github_variables_mapping|list           |not set|A list of `name` and `variable`, `name` refers to the GitHub exposed name, `variable` refers to the name you'd like to pass to molecule, tox and Ansible.|
 
 ## Example
