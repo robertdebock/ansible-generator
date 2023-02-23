@@ -7,27 +7,27 @@ The intention is to focus on writing or maintaining the Ansible role, and use th
 ## Overview
 
 ```text
-+--- role ----------------------+                        +--- role -------------------------------+
-| meta/main.yml                 |                        | README.md                              |
-| molecule/default/converge.yml |                        | bug_report.md                          |
-| meta/preferences.yml          |                        | feature_requests.md                    |
-| requirements.yml              |                        | FUNDING.md                             |
-| molecule/default/prepare.yml  |                        | .gitignore                             |
-| molecule/default/verify.yml   |                        | .pre-commit.config.yaml                |
-| defaults/main.yml             |                        | .yamllint                              |
-+------------------------+------+                        | .ansible-lint                          |
-                         |                               | CONTRIBUTING.md                        |
-+--- this tool -----+    |                               | .github/workflows/galaxy.yml           |
-| defaults/main.yml | ---+                               | .gitlab-ci.yml                         |
-| vars/main.yml     |    |                               | LICENSE                                |
-| files/*           |    |                               | .github/workflows/molecule.yml         |
-| templates/*       |    |                               | molecule/default/molecule.yml          |
-+-------------------+    |       +--- this tool ---+     | .github/workflows/requirements2png.yml |
-                         +------ | generate.yml    | --- | SECURITY.md                            |
-+--- Galaxy ---+         |       +-----------------+     | settings.yml                           |
-| galaxy_id    | --------+                               | .github/workflows/todo.yml             |
-+--------------+                                         | .tox.ini                               |
-                                                         +----------------------------------------+
++--- role ----------------------+                     +--- role -------------------------------+
+| meta/main.yml                 |                     | README.md                              |
+| molecule/default/converge.yml |                     | bug_report.md                          |
+| meta/preferences.yml          |                     | feature_requests.md                    |
+| requirements.yml              |                     | FUNDING.md                             |
+| molecule/default/prepare.yml  |                     | .gitignore                             |
+| molecule/default/verify.yml   |                     | .pre-commit.config.yaml                |
+| defaults/main.yml             |                     | .yamllint                              |
++------------------------+------+                     | .ansible-lint                          |
+                         |                            | CONTRIBUTING.md                        |
++--- this tool -----+    |                            | .github/workflows/galaxy.yml           |
+| defaults/main.yml | ---+                            | .gitlab-ci.yml                         |
+| vars/main.yml     |    |                            | LICENSE                                |
+| files/*           |    |                            | .github/workflows/molecule.yml         |
+| templates/*       |    |                            | molecule/default/molecule.yml          |
++-------------------+    |    +--- this tool ---+     | .github/workflows/requirements2png.yml |
+                         +--> | generate.yml    | --> | SECURITY.md                            |
++--- Galaxy ---+         |    +-----------------+     | settings.yml                           |
+| galaxy_id    | --------+                            | .github/workflows/todo.yml             |
++--------------+                                      | .tox.ini                               |
+                                                      +----------------------------------------+
 ```
 
 ## Usage
