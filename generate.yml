@@ -134,6 +134,7 @@
         dest: "{{ role_path }}/{{ item.dest | default(item.source) }}"
         mode: "0644"
       with_items:
+        - source: README.md
         - source: ansible-lint
           dest: .ansible-lint
         - source: tox.ini
@@ -144,7 +145,6 @@
         - source: SECURITY.md
         - source: molecule.yml
           dest: molecule/default/molecule.yml
-        - source: README.md
         - source: CONTRIBUTING.md
         - source: molecule-action.yml
           dest: .github/workflows/molecule.yml

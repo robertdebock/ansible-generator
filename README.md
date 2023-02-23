@@ -2,37 +2,33 @@
 
 Generate documentation and continuous integration files for an Ansible Role.
 
-## Input
+The intention is to focus on writing or maintaining the Ansible role, and use this tool to generate chore-like-tasks.
 
-This script loads input from:
+## Overview
 
-- meta/main.yml*
-- meta/preferences.yml
-- defaults/main.yml
-- requirements.yml
-- molecule/default/prepare.yml
-- molecule/default/converge.yml*
-- molecule/default/verify.yml
-- generate_modules.sh
-- secure.yml
-- Ansible Galaxy
-
-(Items with a star are mandatory)
-
-## Output
-
-This script writes output to:
-
-- README.md
-- molecule/default/molecule.yml
-- CONTRIBUTING.md
-- SECURITY.md
-- LICENSE
-- .travis.yml
-- tox.ini
-- .ansible-lint*
-- .github/workflows/ansible.yml
-- .github/workflows/galaxy.yml
+```text
++--- role ----------------------+                        +--- role -------------------------------+
+| meta/main.yml                 |                        | README.md                              |
+| molecule/default/converge.yml |                        | bug_report.md                          |
+| meta/preferences.yml          |                        | feature_requests.md                    |
+| requirements.yml              |                        | FUNDING.md                             |
+| molecule/default/prepare.yml  |                        | .gitignore                             |
+| molecule/default/verify.yml   |                        | .pre-commit.config.yaml                |
+| defaults/main.yml             |                        | .yamllint                              |
++------------------------+------+                        | .ansible-lint                          |
+                         |                               | CONTRIBUTING.md                        |
++--- this tool -----+    |                               | .github/workflows/galaxy.yml           |
+| defaults/main.yml | ---+                               | .gitlab-ci.yml                         |
+| vars/main.yml     |    |                               | LICENSE                                |
+| files/*           |    |                               | .github/workflows/molecule.yml         |
+| templates/*       |    |                               | molecule/default/molecule.yml          |
++-------------------+    |       +--- this tool ---+     | .github/workflows/requirements2png.yml |
+                         +------ | generate.yml    | --- | SECURITY.md                            |
++--- Galaxy ---+         |       +-----------------+     | settings.yml                           |
+| galaxy_id    | --------+                               | .github/workflows/todo.yml             |
++--------------+                                         | .tox.ini                               |
+                                                         +----------------------------------------+
+```
 
 ## Usage
 
@@ -43,50 +39,54 @@ cd ansible-role-my_role
 
 ## Configuration
 
-In `vars/main.yml` you can change these variable to customize the output.
+In `defaults/main.yml` you can change these variable to customize the output.
 
-```yaml
----
-# Settings to Docker containers.
-docker_namespace: robertdebock
-docker_image: fedora
-docker_tag: latest
+### Settings to Docker containers
 
-# References to travis use a namespace, this is likely your username on Travis.
-travis_namespace: robertdebock
+- `docker_namespace`
+- `docker_image`
+- `docker_tag`
 
-# Documentation refers to Ansible Galaxy. this is likely your username on Galaxy.
-galaxy_namespace: robertdebock
+### Your username on Galaxy
 
-# Your username/organization name on GitHub.
-github_namespace: robertdebock
+- `galaxy_namespace`
 
-# Your name and optionally email-address.
-author: Robert de Bock (robert@meinit.nl)
+### Your username/organization name on GitHub
 
-# The full URL to your website.
-author_website: "https://robertdebock.nl/"
-```
+- `github_namespace`
+
+### Your username/group on GitLab
+
+- `gitlab_namespace`
+
+### Your name and optionally email-address
+
+- `author``
+
+### The full URL to your website
+
+- `author_website`
 
 ## meta/preferences.yml
 
-This optional file describes how Travis, Tox and Molecule should behave.
+This (optional) file describes how Tox and Molecule should behave.
 
-|parameter            |type           |default|description                                                                             |
-|--------------------|---------------|-------|-----------------------------------------------------------------------------------------|
-|tox_ansible_versions|list of strings|not set|What versions should Tox test? (Default: all.)                                           |
-|github_variables_mapping|list|not set|A list of `name` and `variable`, `name` refers to the GitHub exposed name, `variable` refers to the name you'd like to pass to molecule, tox and Ansible.|
+|parameter               |type           |default|description                                                                                                                                              |
+|------------------------|---------------|-------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+|tox_ansible_versions    |list of strings|not set|What versions should Tox test? (Default: all.)                                                                                                           |
+|github_variables_mapping|list           |not set|A list of `name` and `variable`, `name` refers to the GitHub exposed name, `variable` refers to the name you'd like to pass to molecule, tox and Ansible.|
 
-# Example
+## Example
 
 ```yaml
 ---
 tox_ansible_versions:
+  - 6
   - 7
+
 github_variables_mapping:
   - name: secrets.VAULT_LICENSE
     variable: VAULT_LICENCE
   - name: secrets.MY_VAR
     variable: someTHING
-
 ```

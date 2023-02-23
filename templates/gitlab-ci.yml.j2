@@ -10,7 +10,6 @@ molecule:
     - if [ ! -f tox.ini ] ; then molecule test ; fi
   rules:
     - if: $CI_COMMIT_REF_NAME == "master"
-  retry: 1
   parallel:
     matrix:
 {% for platform in meta.galaxy_info.platforms %}
