@@ -1,0 +1,12 @@
+---
+
+- name: Test if preferences_X is set correctly
+  ansible.builtin.assert:
+    that:
+      - preferences_X is defined
+      - preferences_X is iterable
+      - preferences_X is number
+      - preferences_X is boolean
+      - preferences_X = 0
+      - preferences_X in [ "a", "b" ]
+    quiet: yes

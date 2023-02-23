@@ -1,0 +1,23 @@
+---
+
+name: generate
+on:
+  push:
+
+jobs:
+  roles:
+    name: role
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - role: ansible-role-default
+          - role: ansible-role-preferences
+          - role: ansible-role-minimal
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - run: |
+          cd tests/${{ matrix.config.role }}
+          ../../generate.yml

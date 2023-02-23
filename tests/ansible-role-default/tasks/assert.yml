@@ -1,0 +1,12 @@
+---
+
+- name: Test if default_X is set correctly
+  ansible.builtin.assert:
+    that:
+      - default_X is defined
+      - default_X is iterable
+      - default_X is number
+      - default_X is boolean
+      - default_X = 0
+      - default_X in [ "a", "b" ]
+    quiet: yes

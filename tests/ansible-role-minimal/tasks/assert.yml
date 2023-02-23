@@ -1,0 +1,12 @@
+---
+
+- name: Test if minimal_X is set correctly
+  ansible.builtin.assert:
+    that:
+      - minimal_X is defined
+      - minimal_X is iterable
+      - minimal_X is number
+      - minimal_X is boolean
+      - minimal_X = 0
+      - minimal_X in [ "a", "b" ]
+    quiet: yes

@@ -16,6 +16,10 @@
         role_path: "{{ lookup('env', 'PWD') }}"
         role_name: "{{ lookup('env', 'PWD') | basename | regex_replace('ansible-role-') }}"
 
+    - name: Load generators defaults/main.yml
+      ansible.builtin.include_vars:
+        file: defaults/main.yml
+
     - name: Load meta/main.yml
       ansible.builtin.include_vars:
         file: "{{ role_path }}/meta/main.yml"
@@ -84,11 +88,6 @@
       register: verifyyml
       when:
         - verify.stat.exists | bool
-
-    - name: Check molecule/default/defaults.yml
-      ansible.builtin.stat:
-        path: "{{ role_path }}/molecule/default/defaults.yml"
-      register: defaults
 
     - name: Load galaxy_id
       ansible.builtin.shell:

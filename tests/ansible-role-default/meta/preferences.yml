@@ -1,0 +1,14 @@
+---
+# This file is used by [`ansible-generator`](https://github.com/robertdebock/ansible-generator).
+
+# Overrule the Ansible versions that [tox](https://pypi.org/project/tox/) should test. Not mentioning this variable will use the [default Ansible version](https://github.com/robertdebock/ansible-generator/blob/master/templates/tox.ini.j2#L7).
+# tox_ansible_versions:
+#   - 6
+#   - 7
+
+# You can pass variables from GitHub ([Action secrets](https://docs.github.com/en/rest/actions/secrets) for example).
+# github_variables_mapping:
+#   - name: secrets.VAULT_LICENSE
+#     variable: VAULT_LICENCE
+#   - name: secrets.MY_VAR
+#     variable: someTHING

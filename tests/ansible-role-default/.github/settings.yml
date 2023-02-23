@@ -1,0 +1,8 @@
+---
+#
+# Ansible managed
+#
+repository:
+  description: Install and configure default on your system.
+  homepage: https://robertdebock.nl/
+  topics: default, ansible, molecule, tox, playbook, hacktoberfest
