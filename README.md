@@ -61,7 +61,7 @@ In `defaults/main.yml` you can change these variable to customize the output.
 
 ### Your name and optionally email-address
 
-- `author``
+- `author`
 
 ### The full URL to your website
 
