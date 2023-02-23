@@ -1,50 +1,30 @@
 ---
 # Setting to generate files.
 
-# Settings to Docker containers.
-docker_namespace: robertdebock
-docker_image: fedora
-docker_tag: latest
-
-# References to travis use a namespace, this is likely your username on Travis.
-travis_namespace: robertdebock
-
-# Documentation refers to Ansible Galaxy. this is likely your username on Galaxy.
-galaxy_namespace: robertdebock
-
-# Your username/organization name on GitHub.
-github_namespace: robertdebock
-
-# Your username/group on GitLab.
-gitlab_namespace: robertdebock-iac
-
-# Your name and optionally email-address.
-author: Robert de Bock (robert@meinit.nl)
-
-# The full URL to your website.
-author_website: "https://robertdebock.nl/"
-
+# A map that relates the `meta/main.yml` - `galaxy_info.platforms.name` to a name of a container.
 platform_image_mapping:
   Alpine: alpine
   Amazon: amazonlinux
   Archlinux: archlinux
   Debian: debian
-  EL: "{{ enterprise_linux | default('enterpriselinux') }}"
+  EL: enterpriselinux
   Fedora: fedora
   opensuse: opensuse
   Ubuntu: ubuntu
 
+# A map that relates a container name to the URL of that container on Docker Hub.
 image_docker_hub_url_mapping:
-  alpine: "https://hub.docker.com/repository/docker/robertdebock/alpine/general"
-  amazon: "https://hub.docker.com/repository/docker/robertdebock/amazonlinux/general"
-  archlinux: "https://hub.docker.com/repository/docker/robertdebock/archlinux/general"
-  debian: "https://hub.docker.com/repository/docker/robertdebock/debian/general"
-  el: "https://hub.docker.com/repository/docker/robertdebock/enterpriselinux/general"
-  fedora: "https://hub.docker.com/repository/docker/robertdebock/fedora/general"
-  opensuse: "https://hub.docker.com/repository/docker/robertdebock/opensuse/general"
-  ubuntu: "https://hub.docker.com/repository/docker/robertdebock/ubuntu/general"
+  alpine: "https://hub.docker.com/repository/docker/{{ docker_namespace }}/alpine/general"
+  amazon: "https://hub.docker.com/repository/docker/{{ docker_namespace }}/amazonlinux/general"
+  archlinux: "https://hub.docker.com/repository/docker/{{ docker_namespace }}/archlinux/general"
+  debian: "https://hub.docker.com/repository/docker/{{ docker_namespace }}/debian/general"
+  el: "https://hub.docker.com/repository/docker/{{ docker_namespace }}/enterpriselinux/general"
+  fedora: "https://hub.docker.com/repository/docker/{{ docker_namespace }}/fedora/general"
+  opensuse: "https://hub.docker.com/repository/docker/{{ docker_namespace }}/opensuse/general"
+  ubuntu: "https://hub.docker.com/repository/docker/{{ docker_namespace }}/ubuntu/general"
 
 # This maps the Galaxy distribution and version to Docker images.
+# A map that relates the `meta/main.yml` - `galaxy_info.platforms.versions` to the tag of the Docker container.
 distribution_version_mapping:
   Alpine:
     all:
@@ -105,6 +85,7 @@ distribution_version_mapping:
     bionic:
       - bionic
 
+# To schedule CI on different days of the month, this is a map that relates a letter to a day of the month.
 letter_day_mapping:
   a: 1
   b: 2
@@ -143,6 +124,7 @@ letter_day_mapping:
   8: 27
   9: 27
 
+# To schedule CI on different hours of the day, this is a map that relates a letter to an hour of the day.
 letter_hour_mapping:
   a: 1
   b: 2
@@ -181,6 +163,7 @@ letter_hour_mapping:
   8: 23
   9: 23
 
+# To schedule CI on different days of the month, this is a map that relates a letter to a minute of the hour.
 letter_minute_mapping:
   a: 1
   b: 3

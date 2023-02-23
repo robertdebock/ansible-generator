@@ -1,3 +1,21 @@
 ---
 
-gitlab_runner_id: 18209306
+# Settings to Docker containers.
+docker_namespace: robertdebock
+docker_image: fedora
+docker_tag: latest
+
+# Your username on Galaxy.
+galaxy_namespace: robertdebock
+
+# Your username/organization name on GitHub.
+github_namespace: robertdebock
+
+# Your username/group on GitLab.
+gitlab_namespace: robertdebock-iac
+
+# Your name and optionally email-address.
+author: Robert de Bock (robert@meinit.nl)
+
+# The full URL to your website.
+author_website: "https://robertdebock.nl/"
