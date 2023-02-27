@@ -3,4 +3,4 @@
 repository:
   description: {{ meta.galaxy_info.description }}
   homepage: {{ author_website }}
-  topics: {% for tag in meta.galaxy_info.galaxy_tags %}{{ tag }}{% if not loop.last %}, {% endif %}{% endfor %}, ansible, molecule, tox, playbook, hacktoberfest
+  topics: {% for tag in meta.galaxy_info.galaxy_tags %}{{ tag }}{% if not loop.last %}, {% endif %}{% endfor %}, ansible, molecule, tox, playbook
