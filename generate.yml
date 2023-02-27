@@ -120,8 +120,6 @@
           dest: .gitignore
         - source: yamllint
           dest: .yamllint
-        - source: FUNDING.yml
-          dest: .github/FUNDING.yml
         - source: pre-commit-config.yaml
           dest: .pre-commit-config.yaml
       loop_control:
@@ -156,6 +154,8 @@
         - source: requirements.txt
         - source: requirements2png.yml
           dest: .github/workflows/requirements2png.yml
+        - source: FUNDING.yml
+          dest: .github/FUNDING.yml
       loop_control:
         label: "{{ item.source }}"
 
