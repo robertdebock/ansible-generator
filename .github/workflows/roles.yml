@@ -15,6 +15,7 @@ jobs:
           - role: ansible-role-default
           - role: ansible-role-preferences
           - role: ansible-role-minimal
+          - role: ansible-role-version
     steps:
       - name: checkout
         uses: actions/checkout@v3

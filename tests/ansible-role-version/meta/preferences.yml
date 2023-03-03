@@ -1,0 +1,5 @@
+---
+# This file is used by [`ansible-generator`](https://github.com/robertdebock/ansible-generator).
+
+tox_ansible_versions:
+  - 5

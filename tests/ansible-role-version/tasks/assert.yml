@@ -1,0 +1,12 @@
+---
+
+- name: Test if version_X is set correctly
+  ansible.builtin.assert:
+    that:
+      - version_X is defined
+      - version_X is iterable
+      - version_X is number
+      - version_X is boolean
+      - version_X = 0
+      - version_X in [ "a", "b" ]
+    quiet: yes
