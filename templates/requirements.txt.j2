@@ -5,6 +5,12 @@
 # https://pip.pypa.io/en/stable/user_guide/#requirements-files
 #
 # Tests run on the previous and current (latest) version of Ansible.
-ansible>={{ meta.galaxy_info.min_ansible_version }}
+ansible-core >= {{ meta.galaxy_info.min_ansible_version }}
 # Some Jinja2 filters are used that are available in the newer releases.
-jinja2>=2.11.2
+jinja2 >= 2.11.2
+
+# For testing this role using `molecule` in CI, these requirements are needed.
+molecule == 5.*
+molecule-plugins[docker] == 23.*
+ansible-lint == 6.*
+paramiko == 3.*
