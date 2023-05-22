@@ -152,10 +152,14 @@
         - source: gitlab-ci.yml
           dest: .gitlab-ci.yml
         - source: requirements.txt
-        - source: requirements2png.yml
-          dest: .github/workflows/requirements2png.yml
-        - source: FUNDING.yml
-          dest: .github/FUNDING.yml
+        # - source: requirements2png.yml
+        #   dest: .github/workflows/requirements2png.yml
+        # - source: FUNDING.yml
+        #   dest: .github/FUNDING.yml
+        - source: semrelrc
+          dest: .semrelrc
+        - source: go-semantic-release.yml
+          dest: .github/workflows/go-semantic-release.yml
       loop_control:
         label: "{{ item.source }}"
 

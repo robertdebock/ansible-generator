@@ -1,0 +1,25 @@
+---
+{{ ansible_managed | comment }}
+
+name: Create a semantic release on push to main
+
+on:
+  push:
+    branches:
+      - "main"
+
+# If a 403 error occurs, make sure to set content permission to write
+# see: https://github.com/go-semantic-release/action/issues/27
+permissions:
+ contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: go-semantic-release/action@v1
+        id: semrel
+        with:
+          github-token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+          changelog-generator-opt: "emojis=true"
