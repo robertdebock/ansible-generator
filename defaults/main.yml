@@ -6,16 +6,16 @@ docker_image: fedora
 docker_tag: latest
 
 # Your username on Galaxy.
-galaxy_namespace: robertdebock
+galaxy_namespace: mullholland
 
 # Your username/organization name on GitHub.
-github_namespace: robertdebock
+github_namespace: mullholland
 
 # Your username/group on GitLab.
-gitlab_namespace: robertdebock-iac
+gitlab_namespace: opensourceunicorn
 
 # Your name and optionally email-address.
-author: Robert de Bock (robert@meinit.nl)
+author: Mullholland (mullholland)
 
 # The full URL to your website.
-author_website: "https://robertdebock.nl/"
+author_website: "https://mullholland.net"
