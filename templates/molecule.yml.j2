@@ -13,7 +13,7 @@ driver:
   name: docker
 platforms:
   - name: "{{ role_name | regex_replace('_', '') }}-${image:-{{ docker_image }}}-${tag:-{{ docker_tag }}}${TOX_ENVNAME}"
-    image: "${namespace:-{{ docker_namespace }}}/${image:-{{ docker_image }}}:${tag:-{{ docker_tag }}}"
+    image: "${namespace:-{{ docker_namespace }}}/docker-${image:-{{ docker_image }}}-systemd:${tag:-{{ docker_tag }}}"
     command: /sbin/init
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro

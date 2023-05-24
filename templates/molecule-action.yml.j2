@@ -48,6 +48,7 @@ jobs:
       - name: molecule
         uses: robertdebock/molecule-action@5.0.2
         with:
+          namespace: {{ docker_namespace }}
           image: {% raw %}${{ matrix.config.image }}{% endraw %}
 
           tag: {% raw %}${{ matrix.config.tag }}{% endraw %}
