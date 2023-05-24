@@ -14,14 +14,14 @@ platform_image_mapping:
 
 # A map that relates a container name to the URL of that container on Docker Hub.
 image_docker_hub_url_mapping:
-  alpine: "https://hub.docker.com/repository/docker/{{ docker_namespace }}/alpine/general"
-  amazon: "https://hub.docker.com/repository/docker/{{ docker_namespace }}/amazonlinux/general"
-  archlinux: "https://hub.docker.com/repository/docker/{{ docker_namespace }}/archlinux/general"
-  debian: "https://hub.docker.com/repository/docker/{{ docker_namespace }}/debian/general"
-  el: "https://hub.docker.com/repository/docker/{{ docker_namespace }}/enterpriselinux/general"
-  fedora: "https://hub.docker.com/repository/docker/{{ docker_namespace }}/fedora/general"
-  opensuse: "https://hub.docker.com/repository/docker/{{ docker_namespace }}/opensuse/general"
-  ubuntu: "https://hub.docker.com/repository/docker/{{ docker_namespace }}/ubuntu/general"
+  alpine: "https://hub.docker.com/repository/docker/{{ docker_namespace }}/docker-alpine-systemd/general"
+  amazon: "https://hub.docker.com/repository/docker/{{ docker_namespace }}/docker-amazonlinux-systemd/general"
+  archlinux: "https://hub.docker.com/repository/docker/{{ docker_namespace }}/docker-archlinux-systemd/general"
+  debian: "https://hub.docker.com/repository/docker/{{ docker_namespace }}/docker-debian-systemd/general"
+  el: "https://hub.docker.com/repository/docker/{{ docker_namespace }}/docker-centos-systemd/general"
+  fedora: "https://hub.docker.com/repository/docker/{{ docker_namespace }}/docker-fedora-systemd/general"
+  opensuse: "https://hub.docker.com/repository/docker/{{ docker_namespace }}/docker-opensuse-systemd/general"
+  ubuntu: "https://hub.docker.com/repository/docker/{{ docker_namespace }}/docker-ubuntu-systemd/general"
 
 # This maps the Galaxy distribution and version to Docker images.
 # A map that relates the `meta/main.yml` - `galaxy_info.platforms.versions` to the tag of the Docker container.
