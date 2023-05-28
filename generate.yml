@@ -160,6 +160,8 @@
           dest: .semrelrc
         - source: go-semantic-release.yml
           dest: .github/workflows/go-semantic-release.yml
+        - source: dependabot.yml
+          dest: .github/dependabot.yml
       loop_control:
         label: "{{ item.source }}"
 

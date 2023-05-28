@@ -15,13 +15,11 @@ driver:
   name: docker
 platforms:
   - name: "minimal-${image:-fedora}-${tag:-latest}${TOX_ENVNAME}"
-    image: "${namespace:-robertdebock}/${image:-fedora}:${tag:-latest}"
+    image: "${namespace:-mullholland}/docker-${image:-fedora}-systemd:${tag:-latest}"
     command: /sbin/init
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: yes
     pre_build_image: yes
 provisioner:
-  name: ansible
-verifier:
   name: ansible

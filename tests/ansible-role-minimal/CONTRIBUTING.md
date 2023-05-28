@@ -2,7 +2,7 @@
 
 You can really make a difference by:
 
-- [Making an issue](https://help.github.com/articles/creating-an-issue/). A well described issue helps a lot. (Have a look at the [known issues](https://github.com/search?q=user%3Arobertdebock+is%3Aissue+state%3Aopen).)
+- [Making an issue](https://help.github.com/articles/creating-an-issue/). A well described issue helps a lot. (Have a look at the [known issues](https://github.com/search?q=user%3Amullholland+is%3Aissue+state%3Aopen).)
 - [Making a pull request](https://services.github.com/on-demand/github-cli/open-pull-request-github) when you see the error in code.
 
 I'll try to help and take every contribution seriously.
@@ -15,13 +15,13 @@ Here is how you can help, a lot of steps are related to GitHub, not specifically
 
 ### [1. Make an issue.](#1-make-an-issue)
 
-When you spot an issue, [create an issue](https://github.com/robertdebock/ansible-role-minimal/issues).
+When you spot an issue, [create an issue](https://github.com/mullholland/ansible-role-minimal/issues).
 
 Making the issue help me and others to find similar problems in the future.
 
 ### [2. Fork the project.](#2-fork-the-project)
 
-On the top right side of [the repository on GitHub](https://github.com/robertdebock/ansible-role-minimal), click `fork`. This copies everything to your GitHub namespace.
+On the top right side of [the repository on GitHub](https://github.com/mullholland/ansible-role-minimal), click `fork`. This copies everything to your GitHub namespace.
 
 ### [3. Make the changes](#3-make-the-changes)
 
@@ -57,7 +57,7 @@ image=centos tag=7 tox
 
 ### [5. Optionally: Regenerate all dynamic content](#5-optionally-regenerate-all-dynamic-content)
 
-You can use [Ansible Generator](https://github.com/robertdebock/ansible-generator) to regenerate all dynamic content.
+You can use [Ansible Generator](https://github.com/mullholland/ansible-generator) to regenerate all dynamic content.
 
 If you don't do it, I'll do it later for you.
 
@@ -73,4 +73,4 @@ Now I'll get a message that you've added some code. Thank you, really.
 
 CI starts to test your changes. You can follow the progress on Travis.
 
-Please consider [sponsoring me](https://github.com/sponsors/robertdebock).
+Please consider [sponsoring me](https://github.com/sponsors/mullholland).

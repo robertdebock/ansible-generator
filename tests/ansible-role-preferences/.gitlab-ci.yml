@@ -1,5 +1,5 @@
 ---
-image: "robertdebock/github-action-molecule:5.0.0"
+image: "robertdebock/github-action-molecule:5.0.2"
 
 variables:
   PY_COLORS: 1
@@ -22,11 +22,11 @@ molecule:
         tag: "latest"
       - image: "debian"
         tag: "bookworm"
-      - image: "enterpriselinux"
+      - image: "centos"
         tag: "7"
-      - image: "enterpriselinux"
+      - image: "centos"
         tag: "8"
-      - image: "enterpriselinux"
+      - image: "centos"
         tag: "latest"
       - image: "fedora"
         tag: "36"
@@ -45,6 +45,6 @@ molecule:
 
 galaxy:
   script:
-    - ansible-galaxy role import --api-key ${GALAXY_API_KEY} robertdebock ${CI_PROJECT_NAME}
+    - ansible-galaxy role import --api-key ${GALAXY_API_KEY} mullholland ${CI_PROJECT_NAME}
   rules:
     - if: $CI_COMMIT_TAG != null

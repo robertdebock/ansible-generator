@@ -7,7 +7,7 @@ platform_image_mapping:
   Amazon: amazonlinux
   Archlinux: archlinux
   Debian: debian
-  EL: enterpriselinux
+  EL: centos
   Fedora: fedora
   opensuse: opensuse
   Ubuntu: ubuntu
