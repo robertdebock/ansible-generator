@@ -4,5 +4,5 @@
 #
 repository:
   description: Install and configure version on your system.
-  homepage: https://robertdebock.nl/
-  topics: version, ansible, molecule, tox, playbook, hacktoberfest
+  homepage: https://mullholland.net
+  topics: version, ansible, molecule, tox, playbook

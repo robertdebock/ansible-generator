@@ -4,5 +4,5 @@
 #
 repository:
   description: Install and configure preferences on your system.
-  homepage: https://robertdebock.nl/
-  topics: preferences, ansible, molecule, tox, playbook, hacktoberfest
+  homepage: https://mullholland.net
+  topics: preferences, ansible, molecule, tox, playbook
