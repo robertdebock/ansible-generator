@@ -1,5 +1,10 @@
 ---
 {{ ansible_managed | comment }}
+
+# Profiles gradually increase the strictness of rules as your Ansible content lifecycle.
+# We set it to "production" in order to ensure that content meets requirements for inclusion in Ansible Automation Platform (AAP) as validated or certified content.
+profile: production
+
 {% if preferencesymlstat.stat.exists or verify.stat.exists %}
 exclude_paths:
 {% if preferencesymlstat.stat.exists %}
