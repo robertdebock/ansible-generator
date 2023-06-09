@@ -22,3 +22,11 @@ repos:
       - id: ansible_role_find_undefined_handlers
       - id: ansible_role_find_unquoted_values
       - id: ansible_role_find_horizontal_when
+
+  - repo: https://github.com/ansible-community/ansible-lint.git
+    rev: v6.17.0  # put latest release tag from https://github.com/ansible-community/ansible-lint/releases/
+    hooks:
+      - id: ansible-lint
+        files: \.(yaml|yml)$
+        verbose: true
+        args: ["-p", "./"]
