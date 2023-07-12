@@ -63,13 +63,13 @@ distribution_version_mapping:
     all:
       - 37
       - latest
-      - rawhide
+      # - rawhide  # Disabled; RawHide has a [problem](https://github.com/ansible/ansible/issues/81199#event-9773321055)
     "37":
       - 37
     "38":
       - latest
-    "39":
-      - rawhide
+    # "39":
+    #   - rawhide
   opensuse:
     all:
       - latest
