@@ -19,3 +19,6 @@ author: Robert de Bock (robert@meinit.nl)
 
 # The full URL to your website.
 author_website: "https://robertdebock.nl/"
+
+# The molecule action to use.
+molecule_action: "robertdebock/molecule-action@6.0.0"
