@@ -43,11 +43,13 @@ distribution_version_mapping:
   Debian:
     all:
       - latest
-      - bookworm
+      - bullseye
     bullseye:
-      - latest
+      - bullseye
+    buster:
+      - buster
     bookworm:
-      - bookworm
+      - latest
   EL:
     all:
       - 7
