@@ -2,9 +2,9 @@
 [tox]
 minversion = 4.2.4
 {% if tox_ansible_versions is defined %}
-envlist = py{311}-ansible{% raw %}{{% endraw %}{% for version in tox_ansible_versions %}{{ version }}{% if not loop.last %},{% endif %}{% endfor %}{% raw %}}{% endraw %}
+envlist = py3-ansible{% raw %}{{% endraw %}{% for version in tox_ansible_versions %}{{ version }}{% if not loop.last %},{% endif %}{% endfor %}{% raw %}}{% endraw %}
 {% else %}
-envlist = py{311}-ansible{6,7,8}
+envlist = py3-ansible{6,7,8}
 {% endif %}
 
 skipsdist = true
