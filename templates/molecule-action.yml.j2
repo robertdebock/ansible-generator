@@ -46,7 +46,7 @@ jobs:
       - name: parse apparmor for mysql
         run: sudo apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld
       - name: molecule
-        uses: robertdebock/molecule-action@{{ molecule_action }}
+        uses: {{ molecule_action }}
         with:
           image: {% raw %}${{ matrix.config.image }}{% endraw %}
 
