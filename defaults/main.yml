@@ -25,3 +25,7 @@ gitlab_container: "robertdebock/github-action-molecule:6.0.0"
 
 # The molecule action to use.
 molecule_action: "robertdebock/molecule-action@6.0.0"
+
+# Would you like to add a sponsor message?
+sponsor message: yes
+
