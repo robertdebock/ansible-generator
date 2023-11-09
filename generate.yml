@@ -112,8 +112,6 @@
         dest: "{{ role_path }}/{{ item.dest | default(item.source) }}"
         mode: "{{ item.mode | default('0644') }}"
       with_items:
-        - source: feature_request.md
-          dest: .github/ISSUE_TEMPLATE/feature_request.md
         - source: gitignore
           dest: .gitignore
         - source: yamllint
@@ -156,6 +154,8 @@
           dest: .github/FUNDING.yml
         - source: bug_report.md
           dest: .github/ISSUE_TEMPLATE/bug_report.md
+        - source: feature_request.md
+          dest: .github/ISSUE_TEMPLATE/feature_request.md
       loop_control:
         label: "{{ item.source }}"
 
