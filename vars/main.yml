@@ -14,15 +14,15 @@ platform_image_mapping:
 
 # A map that relates a container name to the URL of that container on Docker Hub.
 image_docker_hub_url_mapping:
-  alpine: "https://hub.docker.com/repository/docker/{{ docker_namespace }}/alpine/general"
-  amazon: "https://hub.docker.com/repository/docker/{{ docker_namespace }}/amazonlinux/general"
-  archlinux: "https://hub.docker.com/repository/docker/{{ docker_namespace }}/archlinux/general"
-  debian: "https://hub.docker.com/repository/docker/{{ docker_namespace }}/debian/general"
-  el: "https://hub.docker.com/repository/docker/{{ docker_namespace }}/enterpriselinux/general"
-  fedora: "https://hub.docker.com/repository/docker/{{ docker_namespace }}/fedora/general"
-  opensuse: "https://hub.docker.com/repository/docker/{{ docker_namespace }}/opensuse/general"
-  ubuntu: "https://hub.docker.com/repository/docker/{{ docker_namespace }}/ubuntu/general"
-
+  alpine: "https://hub.docker.com/r/{{ docker_namespace }}/alpine"
+  amazon: "https://hub.docker.com/r/{{ docker_namespace }}/amazonlinux"
+  archlinux: "https://hub.docker.com/r/{{ docker_namespace }}/archlinux"
+  debian: "https://hub.docker.com/r/{{ docker_namespace }}/debian"
+  el: "https://hub.docker.com/r/{{ docker_namespace }}/enterpriselinux"
+  fedora: "https://hub.docker.com/r/{{ docker_namespace }}/fedora/"
+  opensuse: "https://hub.docker.com/r/{{ docker_namespace }}/opensuse"
+  ubuntu: "https://hub.docker.com/r/{{ docker_namespace }}/ubuntu"
+ 
 # This maps the Galaxy distribution and version to Docker images.
 # A map that relates the `meta/main.yml` - `galaxy_info.platforms.versions` to the tag of the Docker container.
 distribution_version_mapping:
