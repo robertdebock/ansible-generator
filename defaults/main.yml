@@ -27,7 +27,7 @@ gitlab_container: "robertdebock/github-action-molecule:6.0.0"
 molecule_action: "robertdebock/molecule-action@6.0.0"
 
 # Would you like to add a sponsor message?
-sponsor message: yes
+sponsored_message: yes
 
 # A custom message can be placed with this content.
 custom_message: "Also see a [full explanation and example](https://robertdebock.nl/how-to-use-these-roles.html) on how to use these roles."
