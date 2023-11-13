@@ -21,10 +21,10 @@ author: Robert de Bock (robert@meinit.nl)
 author_website: "https://robertdebock.nl/"
 
 # The container to use for GitLab CI.
-gitlab_container: "robertdebock/github-action-molecule:6.0.0"
+gitlab_container: "robertdebock/github-action-molecule:6.0.1"
 
 # The molecule action to use.
-molecule_action: "robertdebock/molecule-action@6.0.0"
+molecule_action: "robertdebock/molecule-action@6.0.1"
 
 # Would you like to add a sponsor message?
 sponsored_message: yes
