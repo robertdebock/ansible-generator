@@ -63,17 +63,17 @@ distribution_version_mapping:
       - latest
   Fedora:
     all:
-      - 37
+      - 38
       - latest
-      # - rawhide  # Disabled; RawHide has a [problem](https://github.com/ansible/ansible/issues/81199#event-9773321055)
-    "36":
-      - 36
+      - rawhide
     "37":
       - 37
     "38":
+      - 38
+    "39":
       - latest
-    # "39":
-    #   - rawhide
+    "40":
+      - rawhide
   opensuse:
     all:
       - latest
