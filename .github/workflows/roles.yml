@@ -17,8 +17,7 @@ jobs:
           - role: ansible-role-minimal
           - role: ansible-role-version
           - role: ansible-role-default
-            options:
-              - generate_gitignore: no
+            generate_config: generate_config.yml
 
     steps:
       - name: checkout
@@ -26,8 +25,8 @@ jobs:
       - run: |
           pip install pre-commit
           cd tests/${{ matrix.config.role }}
-          if [ ! -z "${{ matrix.config.options }}" ]; then
-          ../../generate.yml
+          if [ ! -z "${{ generate_config }}" ]; then
+            ../../generate.yml
           else
-            ../../generate.yml --extra-vars '{ ${{ matrix.config.options | join(,) }} }'
+            ../../generate.yml --extra-vars @${{ generate_config }}
           fi
