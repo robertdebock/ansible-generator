@@ -45,6 +45,8 @@
       ansible.builtin.slurp:
         src: "{{ role_path }}/defaults/main.yml"
       register: variables
+      when:
+        - defaultsmainyml.stat.exists
 
     - name: Check requirements.yml
       ansible.builtin.stat:
@@ -55,6 +57,8 @@
       ansible.builtin.include_vars:
         file: "{{ role_path }}/requirements.yml"
         name: requirements
+      when:
+        - check_requirements.stat.exists
 
     - name: Load molecule/default/converge.yml
       ansible.builtin.slurp:
