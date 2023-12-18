@@ -74,6 +74,8 @@
       ansible.builtin.slurp:
         src: "{{ role_path }}/molecule/default/prepare.yml"
       register: prepare
+      when:
+        - check_prepare.stat.exists
 
     - name: Check molecule/default/verify.yml
       ansible.builtin.stat:
@@ -84,6 +86,8 @@
       ansible.builtin.slurp:
         src: "{{ role_path }}/molecule/default/verify.yml"
       register: verifyyml
+      when:
+        - verify.stat.exists
 
     - name: Load galaxy_id
       ansible.builtin.shell:
