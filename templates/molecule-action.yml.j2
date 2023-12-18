@@ -5,8 +5,8 @@ name: Ansible Molecule
 
 on:
   push:
-    tags_ignore:
-      - '*'
+    branches:
+      - master
   pull_request:
   schedule:
     - cron: '{{ letter_minute_mapping[role_name[0]] }} {{ letter_hour_mapping[role_name[0]] }} {{ letter_day_mapping[role_name[0]] }} * *'
