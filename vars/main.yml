@@ -22,7 +22,7 @@ image_docker_hub_url_mapping:
   fedora: "https://hub.docker.com/r/{{ docker_namespace }}/fedora/"
   opensuse: "https://hub.docker.com/r/{{ docker_namespace }}/opensuse"
   ubuntu: "https://hub.docker.com/r/{{ docker_namespace }}/ubuntu"
- 
+
 # This maps the Galaxy distribution and version to Docker images.
 # A map that relates the `meta/main.yml` - `galaxy_info.platforms.versions` to the tag of the Docker container.
 distribution_version_mapping:
