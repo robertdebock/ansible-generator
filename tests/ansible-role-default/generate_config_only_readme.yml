@@ -1,0 +1,26 @@
+---
+
+# This only generates the README.md file.
+generate_readme: yes
+
+# The rest of the files generated are disabled.
+generate_gitignore: no
+generate_yamllint: no
+generate_pre_commit: no
+generate_ansible_lint: no
+generate_tox: no
+generate_github_settings: no
+generate_license: no
+generate_security: no
+generate_molecule: no
+generate_contributing: no
+generate_github_action_molecule: no
+generate_github_action_galaxy: no
+generate_github_action_todo: no
+generate_gitlab_ci: no
+generate_requirements_txt: no
+generate_requirements2png: no
+generate_github_funding: no
+generate_github_issue_template: no
+generate_github_feature_template: no
+generate_install_pre_commit: no

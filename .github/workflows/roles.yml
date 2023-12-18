@@ -17,7 +17,15 @@ jobs:
           - role: ansible-role-minimal
           - role: ansible-role-version
           - role: ansible-role-default
-            generate_config_file: generate_config.yml
+            generate_config_file: generate_config_only_readme.yml
+          - role: ansible-role-default
+            generate_config_file: generate_config_no_tox.yml
+          - role: ansible-role-default
+            generate_config_file: generate_config_no_pre_commit.yml
+          - role: ansible-role-default
+            generate_config_file: generate_config_no_gitlab.yml
+          - role: ansible-role-default
+            generate_config_file: generate_config_no_github.yml
 
     steps:
       - name: checkout
