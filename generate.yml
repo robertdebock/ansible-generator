@@ -19,11 +19,17 @@
     - name: Load generators defaults/main.yml
       ansible.builtin.include_vars:
         file: defaults/main.yml
+      when:
+        - generate_readme
 
     - name: Load meta/main.yml
       ansible.builtin.include_vars:
         file: "{{ role_path }}/meta/main.yml"
         name: meta
+      when:
+        - generate_readme or
+          generate_github_action_molecule or
+          generate_gitlab_ci
 
     - name: Check meta/preferences.yml
       ansible.builtin.stat:
@@ -64,29 +70,37 @@
       ansible.builtin.slurp:
         src: "{{ role_path }}/molecule/default/converge.yml"
       register: example
+      when:
+        - generate_readme
 
     - name: Check molecule/default/prepare.yml
       ansible.builtin.stat:
         path: "{{ role_path }}/molecule/default/prepare.yml"
       register: check_prepare
+      when:
+        - generate_readme
 
     - name: Load molecule/default/prepare.yml
       ansible.builtin.slurp:
         src: "{{ role_path }}/molecule/default/prepare.yml"
       register: prepare
       when:
+        - generate_readme
         - check_prepare.stat.exists | bool
 
     - name: Check molecule/default/verify.yml
       ansible.builtin.stat:
         path: "{{ role_path }}/molecule/default/verify.yml"
       register: verify
+      when:
+        - generate_readme
 
     - name: Load molecule/default/verify.yml
       ansible.builtin.slurp:
         src: "{{ role_path }}/molecule/default/verify.yml"
       register: verifyyml
       when:
+        - generate_readme
         - verify.stat.exists | bool
 
     - name: Load galaxy_id
@@ -95,6 +109,8 @@
       register: galaxy_id
       changed_when: no
       failed_when: no
+      when:
+        - generate_readme
 
     - name: Create .github directories
       ansible.builtin.file:
@@ -105,6 +121,14 @@
         - .github
         - .github/workflows
         - .github/ISSUE_TEMPLATE
+      when:
+        - generate_github_settings or
+          generate_github_action_molecule or
+          generate_github_action_galaxy or
+          generate_github_action_todo or
+          generate_github_funding or
+          generate_github_issue_template or
+          generate_github_feature_template
 
     - name: Copy file
       ansible.builtin.copy:
@@ -163,3 +187,5 @@
       ansible.builtin.command:
         cmd: pre-commit install
         creates: .git/hooks/pre-commit
+      when:
+        - generate_pre_commit
