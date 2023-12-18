@@ -25,7 +25,7 @@ jobs:
       - run: |
           pip install pre-commit
           cd tests/${{ matrix.config.role }}
-          if [ ! -z "${{ matrix.config.generate_config_file }}" ]; then
+          if [ -z "${${{ matrix.config.generate_config_file }}+x}" ]; then
             echo "Testing generating all default files."
             ../../generate.yml
           else
