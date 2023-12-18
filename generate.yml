@@ -143,43 +143,141 @@
       loop_control:
         label: "{{ item.source }}"
 
-    - name: Render file
+    - name: Render file README.md
       ansible.builtin.template:
-        src: "{{ playbook_dir }}/templates/{{ item.source }}.j2"
-        dest: "{{ role_path }}/{{ item.dest | default(item.source) }}"
+        src: "{{ playbook_dir }}/templates/README.md.j2"
+        dest: "{{ role_path }}/README.md"
         mode: "0644"
-      with_items:
-        - source: README.md
-        - source: ansible-lint
-          dest: .ansible-lint
-        - source: tox.ini
-        - source: settings.yml
-          dest: .github/settings.yml
-        - source: LICENSE-2.0.txt
-          dest: LICENSE
-        - source: SECURITY.md
-        - source: molecule.yml
-          dest: molecule/default/molecule.yml
-        - source: CONTRIBUTING.md
-        - source: molecule-action.yml
-          dest: .github/workflows/molecule.yml
-        - source: galaxy.yml
-          dest: .github/workflows/galaxy.yml
-        - source: todo-action.yml
-          dest: .github/workflows/todo.yml
-        - source: gitlab-ci.yml
-          dest: .gitlab-ci.yml
-        - source: requirements.txt
-        - source: requirements2png.yml
-          dest: .github/workflows/requirements2png.yml
-        - source: FUNDING.yml
-          dest: .github/FUNDING.yml
-        - source: bug_report.md
-          dest: .github/ISSUE_TEMPLATE/bug_report.md
-        - source: feature_request.md
-          dest: .github/ISSUE_TEMPLATE/feature_request.md
-      loop_control:
-        label: "{{ item.source }}"
+      when:
+        - generate_readme
+
+    - name: Render file .ansible-lint
+      ansible.builtin.template:
+        src: "{{ playbook_dir }}/templates/ansible-lint.j2"
+        dest: "{{ role_path }}/.ansible-lint"
+        mode: "0644"
+      when:
+        - generate_ansible_lint
+
+    - name: Render file tox.ini
+      ansible.builtin.template:
+        src: "{{ playbook_dir }}/templates/tox.ini.j2"
+        dest: "{{ role_path }}/tox.ini"
+        mode: "0644"
+      when:
+        - generate_tox
+
+    - name: Render file .github/settings.yml
+      ansible.builtin.template:
+        src: "{{ playbook_dir }}/templates/settings.yml.j2"
+        dest: "{{ role_path }}/.github/settings.yml"
+        mode: "0644"
+      when:
+        - generate_github_settings
+
+    - name: Render file LICENSE
+      ansible.builtin.template:
+        src: "{{ playbook_dir }}/templates/LICENSE-2.0.txt.j2"
+        dest: "{{ role_path }}/LICENSE"
+        mode: "0644"
+      when:
+        - generate_license
+
+    - name: Render file SECURITY.md
+      ansible.builtin.template:
+        src: "{{ playbook_dir }}/templates/SECURITY.md.j2"
+        dest: "{{ role_path }}/SECURITY.md"
+        mode: "0644"
+      when:
+        - generate_security
+
+    - name: Render file molecule/default/molecule.yml
+      ansible.builtin.template:
+        src: "{{ playbook_dir }}/templates/molecule.yml.j2"
+        dest: "{{ role_path }}/molecule/default/molecule.yml"
+        mode: "0644"
+      when:
+        - generate_molecule
+
+    - name: Render file CONTRIBUTING.md
+      ansible.builtin.template:
+        src: "{{ playbook_dir }}/templates/CONTRIBUTING.md.j2"
+        dest: "{{ role_path }}/CONTRIBUTING.md"
+        mode: "0644"
+      when:
+        - generate_contributing
+
+    - name: Render file .github/workflows/molecule.yml
+      ansible.builtin.template:
+        src: "{{ playbook_dir }}/templates/molecule-action.yml.j2"
+        dest: "{{ role_path }}/.github/workflows/molecule.ymlmd"
+        mode: "0644"
+      when:
+        - generate_github_action_molecule
+
+    - name: Render file .github/workflows/galaxy.yml
+      ansible.builtin.template:
+        src: "{{ playbook_dir }}/templates/galaxy.yml.j2"
+        dest: "{{ role_path }}/.github/workflows/galaxy.yml"
+        mode: "0644"
+      when:
+        - generate_github_action_galaxy
+
+    - name: Render file .github/workflows/todo.yml
+      ansible.builtin.template:
+        src: "{{ playbook_dir }}/templates/todo-action.yml.j2"
+        dest: "{{ role_path }}/.github/workflows/todo.yml"
+        mode: "0644"
+      when:
+        - generate_github_action_todo
+
+    - name: Render file .gitlab-ci.yml
+      ansible.builtin.template:
+        src: "{{ playbook_dir }}/templates/gitlab-ci.yml.j2"
+        dest: "{{ role_path }}/.gitlab-ci.yml"
+        mode: "0644"
+      when:
+        - generate_gitlab_ci
+
+    - name: Render file requirements.txt
+      ansible.builtin.template:
+        src: "{{ playbook_dir }}/templates/requirements.txt.j2"
+        dest: "{{ role_path }}/requirements.txt"
+        mode: "0644"
+      when:
+        - generate_requirements_txt
+
+    - name: Render file .github/workflows/requirements2png.yml
+      ansible.builtin.template:
+        src: "{{ playbook_dir }}/templates/requirements2png.yml.j2"
+        dest: "{{ role_path }}/.github/workflows/requirements2png.yml"
+        mode: "0644"
+      when:
+        - generate_requirements2png
+
+    - name: Render file .github/FUNDING.yml.md
+      ansible.builtin.template:
+        src: "{{ playbook_dir }}/templates/FUNDING.yml.j2"
+        dest: "{{ role_path }}/.github/FUNDING.yml"
+        mode: "0644"
+      when:
+        - generate_github_funding
+
+    - name: Render file github/ISSUE_TEMPLATE/bug_report.md
+      ansible.builtin.template:
+        src: "{{ playbook_dir }}/templates/bug_report.md.j2"
+        dest: "{{ role_path }}/.github/ISSUE_TEMPLATE/bug_report.md"
+        mode: "0644"
+      when:
+        - generate_github_issue_template
+
+    - name: Render file .github/ISSUE_TEMPLATE/feature_request.md
+      ansible.builtin.template:
+        src: "{{ playbook_dir }}/templates/feature_request.md.j2"
+        dest: "{{ role_path }}/.github/ISSUE_TEMPLATE/feature_request.md"
+        mode: "0644"
+      when:
+        - generate_github_feature_template
 
     - name: Install pre-commit
       ansible.builtin.command:
