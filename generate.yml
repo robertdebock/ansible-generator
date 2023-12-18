@@ -19,8 +19,6 @@
     - name: Load generators defaults/main.yml
       ansible.builtin.include_vars:
         file: defaults/main.yml
-      when:
-        - generate_readme
 
     - name: Load meta/main.yml
       ansible.builtin.include_vars:
