@@ -24,10 +24,6 @@
       ansible.builtin.include_vars:
         file: "{{ role_path }}/meta/main.yml"
         name: meta
-      when:
-        - generate_readme or
-          generate_github_action_molecule or
-          generate_gitlab_ci
 
     - name: Check meta/preferences.yml
       ansible.builtin.stat:
@@ -37,8 +33,6 @@
     - name: Load meta/preferences.yml
       ansible.builtin.include_vars:
         file: "{{ role_path }}/meta/preferences.yml"
-      when:
-        - preferencesymlstat.stat.exists | bool
 
     - name: Check defaults/main.yml
       ansible.builtin.stat:
@@ -49,8 +43,6 @@
       ansible.builtin.slurp:
         src: "{{ role_path }}/defaults/main.yml"
       register: variables
-      when:
-        - defaultsmainyml.stat.exists | bool
 
     - name: Check requirements.yml
       ansible.builtin.stat:
@@ -61,45 +53,31 @@
       ansible.builtin.include_vars:
         file: "{{ role_path }}/requirements.yml"
         name: requirements
-      when:
-        - check_requirements.stat.exists | bool
 
     - name: Load molecule/default/converge.yml
       ansible.builtin.slurp:
         src: "{{ role_path }}/molecule/default/converge.yml"
       register: example
-      when:
-        - generate_readme
 
     - name: Check molecule/default/prepare.yml
       ansible.builtin.stat:
         path: "{{ role_path }}/molecule/default/prepare.yml"
       register: check_prepare
-      when:
-        - generate_readme
 
     - name: Load molecule/default/prepare.yml
       ansible.builtin.slurp:
         src: "{{ role_path }}/molecule/default/prepare.yml"
       register: prepare
-      when:
-        - generate_readme
-        - check_prepare.stat.exists | bool
 
     - name: Check molecule/default/verify.yml
       ansible.builtin.stat:
         path: "{{ role_path }}/molecule/default/verify.yml"
       register: verify
-      when:
-        - generate_readme
 
     - name: Load molecule/default/verify.yml
       ansible.builtin.slurp:
         src: "{{ role_path }}/molecule/default/verify.yml"
       register: verifyyml
-      when:
-        - generate_readme
-        - verify.stat.exists | bool
 
     - name: Load galaxy_id
       ansible.builtin.shell:
@@ -107,8 +85,6 @@
       register: galaxy_id
       changed_when: no
       failed_when: no
-      when:
-        - generate_readme
 
     - name: Create .github directories
       ansible.builtin.file:
