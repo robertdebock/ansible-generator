@@ -25,8 +25,8 @@ jobs:
       - run: |
           pip install pre-commit
           cd tests/${{ matrix.config.role }}
-          if [ ! -z "${{ generate_config }}" ]; then
+          if [ ! -z "${{ matrix.config.generate_config }}" ]; then
             ../../generate.yml
           else
-            ../../generate.yml --extra-vars @${{ generate_config }}
+            ../../generate.yml --extra-vars @${{ matrix.config.generate_config }}
           fi
