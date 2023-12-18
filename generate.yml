@@ -33,6 +33,8 @@
     - name: Load meta/preferences.yml
       ansible.builtin.include_vars:
         file: "{{ role_path }}/meta/preferences.yml"
+      when:
+        - preferencesymlstat.stat.exists
 
     - name: Check defaults/main.yml
       ansible.builtin.stat:
