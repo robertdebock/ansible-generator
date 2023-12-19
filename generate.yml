@@ -196,7 +196,7 @@
     - name: Render file .github/workflows/molecule.yml
       ansible.builtin.template:
         src: "{{ playbook_dir }}/templates/molecule-action.yml.j2"
-        dest: "{{ role_path }}/.github/workflows/molecule.ymlmd"
+        dest: "{{ role_path }}/.github/workflows/molecule.yml"
         mode: "0644"
       when:
         - generate_github_action_molecule
