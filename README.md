@@ -24,9 +24,9 @@ The intention is to focus on writing or maintaining the Ansible role, and use th
 | templates/*       |    |                            | molecule/default/molecule.yml          |
 +-------------------+    |    +--- this tool ---+     | .github/workflows/requirements2png.yml |
                          +--> | generate.yml    | --> | SECURITY.md                            |
-+--- Galaxy ---+         |    +-----------------+     | settings.yml                           |
-| galaxy_id    | --------+                            | .github/workflows/todo.yml             |
-+--------------+                                      | .tox.ini                               |
+                              +-----------------+     | settings.yml                           |
+                                                      | .github/workflows/todo.yml             |
+                                                      | .tox.ini                               |
                                                       +----------------------------------------+
 ```
 

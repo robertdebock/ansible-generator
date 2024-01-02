@@ -89,13 +89,6 @@
       when:
         - verify.stat.exists
 
-    - name: Load galaxy_id
-      ansible.builtin.shell:
-        cmd: "set -o pipefail ; ansible-galaxy info {{ galaxy_namespace }}.{{ role_name }} | grep '	id: ' | awk '{print $NF}'"  # noqa no-tabs
-      register: galaxy_id
-      changed_when: no
-      failed_when: no
-
     - name: Create .github directories
       ansible.builtin.file:
         path: "{{ role_path }}/{{ item }}"
