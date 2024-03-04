@@ -19,7 +19,7 @@ image_docker_hub_url_mapping:
   archlinux: "https://hub.docker.com/r/{{ docker_namespace }}/archlinux"
   debian: "https://hub.docker.com/r/{{ docker_namespace }}/debian"
   el: "https://hub.docker.com/r/{{ docker_namespace }}/enterpriselinux"
-  fedora: "https://hub.docker.com/r/{{ docker_namespace }}/fedora/"
+  fedora: "https://hub.docker.com/r/{{ docker_namespace }}/fedora"
   opensuse: "https://hub.docker.com/r/{{ docker_namespace }}/opensuse"
   ubuntu: "https://hub.docker.com/r/{{ docker_namespace }}/ubuntu"
 
