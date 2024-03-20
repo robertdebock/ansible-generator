@@ -24,7 +24,7 @@ jobs:
       - lint
     runs-on: ubuntu-20.04
     strategy:
-      fail-fast: no
+      fail-fast: false
       matrix:
         config:
 {% for platform in meta.galaxy_info.platforms %}
