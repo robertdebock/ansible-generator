@@ -119,6 +119,8 @@
           dest: .yamllint
         - source: pre-commit-config.yaml
           dest: .pre-commit-config.yaml
+        - source: pull_request_template.md
+          dest: .github/pull_request_template.md
       loop_control:
         label: "{{ item.source }}"
 
