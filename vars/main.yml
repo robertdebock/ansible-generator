@@ -77,15 +77,15 @@ distribution_version_mapping:
       - latest
   Ubuntu:
     all:
-      - latest
+      - latest  # noble as of 2024-04-25.
+      - jammy
       - focal
-      - bionic
-    jammy:
+    noble:
       - latest
+    jammy:
+      - jammy
     focal:
       - focal
-    bionic:
-      - bionic
 
 # To schedule CI on different days of the month, this is a map that relates a letter to a day of the month.
 letter_day_mapping:
