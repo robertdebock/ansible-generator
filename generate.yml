@@ -139,14 +139,21 @@
         mode: "0644"
       when:
         - generate_ansible_lint
+    # Since May 2024, tox stopped working, throwing this error:
+    # CRITICAL Unable to contact the Docker daemon. Please refer to https://docs.docker.com/config/daemon/ for managing the daemon
+    # It's disabled for now.
+    # - name: Render file tox.ini
+    #   ansible.builtin.template:
+    #     src: "{{ playbook_dir }}/templates/tox.ini.j2"
+    #     dest: "{{ role_path }}/tox.ini"
+    #     mode: "0644"
+    #   when:
+    #     - generate_tox
 
-    - name: Render file tox.ini
-      ansible.builtin.template:
-        src: "{{ playbook_dir }}/templates/tox.ini.j2"
-        dest: "{{ role_path }}/tox.ini"
-        mode: "0644"
-      when:
-        - generate_tox
+    - name: Remove tox.ini
+      ansible.builtin.file:
+        path: "{{ role_path }}/tox.ini"
+        state: absent
 
     - name: Render file .github/settings.yml
       ansible.builtin.template:

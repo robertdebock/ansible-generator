@@ -52,7 +52,6 @@ distribution_version_mapping:
       - latest
   EL:
     all:
-      - 7
       - 8
       - latest
     "7":
@@ -66,6 +65,8 @@ distribution_version_mapping:
       - 39
       - latest
       - rawhide
+    "38":
+      - 38
     "39":
       - 39
     "40":
