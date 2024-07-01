@@ -52,12 +52,7 @@ distribution_version_mapping:
       - latest
   EL:
     all:
-      - 8
       - latest
-    "7":
-      - 7
-    "8":
-      - 8
     "9":
       - latest
   Fedora:
@@ -73,9 +68,6 @@ distribution_version_mapping:
       - latest
     "41":
       - rawhide
-  opensuse:
-    all:
-      - latest
   Ubuntu:
     all:
       - latest  # noble as of 2024-04-25.
