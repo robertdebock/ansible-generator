@@ -121,6 +121,8 @@
           dest: .pre-commit-config.yaml
         - source: pull_request_template.md
           dest: .github/pull_request_template.md
+        - source: requirements.txt
+          dest: requirements.txt
       loop_control:
         label: "{{ item.source }}"
 
@@ -226,14 +228,6 @@
         mode: "0644"
       when:
         - generate_gitlab_ci
-
-    - name: Render file requirements.txt
-      ansible.builtin.template:
-        src: "{{ playbook_dir }}/templates/requirements.txt.j2"
-        dest: "{{ role_path }}/requirements.txt"
-        mode: "0644"
-      when:
-        - generate_requirements_txt
 
     - name: Render file .github/workflows/requirements2png.yml
       ansible.builtin.template:
