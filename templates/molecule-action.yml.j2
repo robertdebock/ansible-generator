@@ -41,15 +41,23 @@ jobs:
         with:
           path: {% raw %}"${{ github.repository }}"{% endraw %}
 
-      - name: molecule
-        uses: {{ molecule_action }}
+      - name: Set up Python 3.
+        uses: actions/setup-python@v5
         with:
-          image: {% raw %}${{ matrix.config.image }}{% endraw %}
+          python-version: '3.x'
 
-          tag: {% raw %}${{ matrix.config.tag }}{% endraw %}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          # pip install molecule molecule-plugins[docker] docker ansible
+          pip install -r requirements.txt
 
-{% if github_variables_mapping is defined %}
+      - name: molecule
+        run: molecule converge
         env:
+          image: {% raw %}${{ matrix.config.image }}{% endraw %}
+          tag: {% raw %}${{ matrix.config.tag }}{% endraw %}
+{% if github_variables_mapping is defined %}
 {% for item in github_variables_mapping %}
           {{ item.variable }}: {% raw %}${{ {%endraw %}{{ item.name }} {% raw %}}}{% endraw %}
 {% endfor %}
