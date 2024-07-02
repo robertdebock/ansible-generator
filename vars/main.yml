@@ -31,10 +31,7 @@ distribution_version_mapping:
       - latest
   Amazon:
     all:
-      - 1
       - latest
-    "2018.03":
-      - 1
     Candidate:
       - latest
   Archlinux:
