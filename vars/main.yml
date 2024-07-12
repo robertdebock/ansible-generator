@@ -105,16 +105,16 @@ letter_day_mapping:
   x: 24
   y: 25
   z: 26
-  0: 27
-  1: 27
-  2: 27
-  3: 27
-  4: 27
-  5: 27
-  6: 27
-  7: 27
-  8: 27
-  9: 27
+  "0": 27
+  "1": 27
+  "2": 27
+  "3": 27
+  "4": 27
+  "5": 27
+  "6": 27
+  "7": 27
+  "8": 27
+  "9": 27
 
 # To schedule CI on different hours of the day, this is a map that relates a letter to an hour of the day.
 letter_hour_mapping:
@@ -144,16 +144,16 @@ letter_hour_mapping:
   x: 22
   y: 22
   z: 22
-  0: 23
-  1: 23
-  2: 23
-  3: 23
-  4: 23
-  5: 23
-  6: 23
-  7: 23
-  8: 23
-  9: 23
+  "0": 23
+  "1": 23
+  "2": 23
+  "3": 23
+  "4": 23
+  "5": 23
+  "6": 23
+  "7": 23
+  "8": 23
+  "9": 23
 
 # To schedule CI on different days of the month, this is a map that relates a letter to a minute of the hour.
 letter_minute_mapping:
@@ -183,13 +183,13 @@ letter_minute_mapping:
   x: 47
   y: 49
   z: 51
-  0: 53
-  1: 55
-  2: 57
-  3: 59
-  4: 59
-  5: 59
-  6: 59
-  7: 59
-  8: 59
-  9: 59
+  "0": 53
+  "1": 55
+  "2": 57
+  "3": 59
+  "4": 59
+  "5": 59
+  "6": 59
+  "7": 59
+  "8": 59
+  "9": 59
