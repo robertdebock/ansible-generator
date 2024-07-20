@@ -1,6 +1,12 @@
 ---
 # Setting to generate files.
 
+# A list of python version to test.
+default_python_version:
+  - "python:3.8"
+  - "python:3.9"
+  - "python:3.10"
+
 # A map that relates the `meta/main.yml` - `galaxy_info.platforms.name` to a name of a container.
 platform_image_mapping:
   Alpine: alpine

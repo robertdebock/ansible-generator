@@ -1,13 +1,16 @@
 ---
-image: "{{ gitlab_container }}"
 
 variables:
-  PY_COLORS: 1
+  DEBIAN_FRONTEND: noninteractive
 
 molecule:
+  image: $python
   script:
+    - apt-get update -qq
+    - apt-get -y -qq install yamllint docker.io
+    - pip install --no-cache-dir tox
     - if [ -f tox.ini ] ; then tox ; fi
-    - if [ ! -f tox.ini ] ; then molecule test ; fi
+    - if [ ! -f tox.ini ] ; then pip install -r requirements.yml ; pip install ansible-lint ansible-core ; molecule test ; fi
   rules:
     - if: $CI_COMMIT_REF_NAME == "master"
   parallel:
@@ -17,6 +20,7 @@ molecule:
 {% for tag in distribution_version_mapping[platform.name][version] %}
       - image: "{{ platform_image_mapping[platform.name] }}"
         tag: "{{ tag }}"
+        python: {{ matrix_overrides[platform_image_mapping[platform.name] | lower ]["python"] | default(default_python_version) }}
 {% endfor %}
 {% endfor %}
 {% endfor %}

@@ -19,38 +19,50 @@ jobs:
         uses: actions/checkout@v4
       - name: ansible-lint
         uses: ansible-community/ansible-lint-action@main
-  test:
+{% for python_version in default_python_version %}
+
+  {{ python_version | replace('.', '-') | replace(':', '-') }}:
     needs:
       - lint
     runs-on: ubuntu-20.04
+    container:
+      image: {{ python_version }}
     strategy:
       fail-fast: false
       matrix:
         config:
 {% for platform in meta.galaxy_info.platforms %}
 {% for version in platform.versions %}
+{% if matrix_overrides is defined %}
+{% if matrix_overrides[platform_image_mapping[platform.name]] is defined %}
+{% for override_python_version in matrix_overrides[platform_image_mapping[platform.name]]["python"] %}
+{% if override_python_version == python_version %}
 {% for tag in distribution_version_mapping[platform.name][version] %}
           - image: "{{ platform_image_mapping[platform.name] }}"
             tag: "{{ tag }}"
 {% endfor %}
+{% endif %}
+{% endfor %}
+{% else %}
+{% for tag in distribution_version_mapping[platform.name][version] %}
+          - image: "{{ platform_image_mapping[platform.name] }}"
+            tag: "{{ tag }}"
+{% endfor %}
+{% endif %}
+{% endif %}
 {% endfor %}
 {% endfor %}
     steps:
       - name: checkout
         uses: actions/checkout@v4
 
-      - name: Set up Python 3.
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
       - name: molecule
-        run: molecule converge
+        run: |
+          apt-get update -qq
+          apt-get -y -qq install yamllint docker.io
+          pip install --no-cache-dir tox
+          if [ -f tox.ini ] ; then tox ; fi
+          if [ ! -f tox.ini ] ; then pip install -r requirements.yml ; pip install ansible-lint ansible-core ; molecule test ; fi
         env:
           image: {% raw %}${{ matrix.config.image }}{% endraw %}
 
@@ -60,3 +72,4 @@ jobs:
           {{ item.variable }}: {% raw %}${{ {%endraw %}{{ item.name }} {% raw %}}}{% endraw %}
 {% endfor %}
 {% endif %}
+{% endfor %}
