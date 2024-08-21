@@ -3,9 +3,9 @@
 
 # A list of python version to test.
 default_python_version:
-  - "python:3.8"
   - "python:3.9"
   - "python:3.10"
+  # - "python:3:13"
 
 # A map that relates the `meta/main.yml` - `galaxy_info.platforms.name` to a name of a container.
 platform_image_mapping:
@@ -45,14 +45,14 @@ distribution_version_mapping:
       - latest
   Debian:
     all:
-      - latest
-      - bullseye
+      - latest  # 12
+      - bullseye  # 11
     bullseye:
       - bullseye
-    buster:
-      - buster
     bookworm:
       - latest
+    buster:
+      - buster
   EL:
     all:
       - latest
@@ -73,9 +73,9 @@ distribution_version_mapping:
       - rawhide
   Ubuntu:
     all:
-      - latest  # noble as of 2024-04-25.
-      - jammy
-      - focal
+      - latest  # 24
+      - jammy  # 22
+      - focal  # 22
     noble:
       - latest
     jammy:
