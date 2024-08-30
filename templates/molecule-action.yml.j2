@@ -68,6 +68,7 @@ jobs:
 
           tag: {% raw %}${{ matrix.config.tag }}{% endraw %}
 {% if github_variables_mapping is defined %}
+
 {% for item in github_variables_mapping %}
           {{ item.variable }}: {% raw %}${{ {%endraw %}{{ item.name }} {% raw %}}}{% endraw %}
 {% endfor %}

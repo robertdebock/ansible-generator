@@ -75,7 +75,7 @@ distribution_version_mapping:
     all:
       - latest  # 24
       - jammy  # 22
-      - focal  # 22
+      - focal  # 20
     noble:
       - latest
     jammy:
