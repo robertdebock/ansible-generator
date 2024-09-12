@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: "TODO to Issue"
-        uses: "alstr/todo-to-issue-action@v2.3"
+        uses: "alstr/todo-to-issue-action@v4"
         id: "todo"
         with:
           TOKEN: ${% raw %}{{ secrets.GITHUB_TOKEN }}{% endraw %}
