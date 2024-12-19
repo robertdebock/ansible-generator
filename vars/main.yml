@@ -60,7 +60,7 @@ distribution_version_mapping:
       - latest
   Fedora:
     all:
-      - 39
+      - 40
       - latest
       - rawhide
     "38":
@@ -68,8 +68,10 @@ distribution_version_mapping:
     "39":
       - 39
     "40":
-      - latest
+      - 40
     "41":
+      - latest
+    "42":
       - rawhide
   Ubuntu:
     all:
