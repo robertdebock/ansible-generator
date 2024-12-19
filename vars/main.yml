@@ -5,7 +5,7 @@
 default_python_version:
   - "python:3.9"
   - "python:3.10"
-  # - "python:3:13"
+  - "python:3.13"
 
 # A map that relates the `meta/main.yml` - `galaxy_info.platforms.name` to a name of a container.
 platform_image_mapping:
