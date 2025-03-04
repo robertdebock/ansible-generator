@@ -11,13 +11,13 @@
 This example is taken from [`molecule/default/converge.yml`](https://github.com/{{ github_namespace }}/ansible-role-{{ role_name }}/blob/master/molecule/default/converge.yml) and is tested on each push, pull request and release.
 
 ```yaml
-{{ example.content | b64decode | regex_replace('ansible-role-', galaxy_namespace ~ '.') }}```
+{{ example.content | b64decode }}```
 
 {% if prepare.content is defined %}
 The machine needs to be prepared. In CI this is done using [`molecule/default/prepare.yml`](https://github.com/{{ github_namespace }}/ansible-role-{{ role_name }}/blob/master/molecule/default/prepare.yml):
 
 ```yaml
-{{ prepare.content | b64decode | regex_replace('ansible-role-', galaxy_namespace ~ '.') }}```
+{{ prepare.content | b64decode }}```
 
 {% endif %}
 {% if custom_message is defined %}
