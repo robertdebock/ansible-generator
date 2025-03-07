@@ -62,7 +62,6 @@ distribution_version_mapping:
     all:
       - 40
       - latest
-      - rawhide
     "38":
       - 38
     "39":

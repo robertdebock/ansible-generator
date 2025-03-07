@@ -40,7 +40,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
         with:
-          path: ansible-role-tailscale
+          path: ansible-role-{{ role_name }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -65,21 +65,21 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install ansible-lint molecule molecule-plugins[docker] ansible-core
-          if [ -f ansible-role-tailscale/requirements.txt ]; then pip install -r ansible-role-tailscale/requirements.txt; fi
-          if [ -f ansible-role-tailscale/requirements.yml ]; then ansible-galaxy install -r ansible-role-tailscale/requirements.yml; fi
+          if [ -f ansible-role-{{ role_name }}/requirements.txt ]; then pip install -r ansible-role-{{ role_name }}/requirements.txt; fi
+          if [ -f ansible-role-{{ role_name }}/requirements.yml ]; then ansible-galaxy install -r ansible-role-{{ role_name }}/requirements.yml; fi
 
           # Create proper role directory structure for molecule
           mkdir -p ~/.ansible/roles
-          ln -s ${GITHUB_WORKSPACE}/ansible-role-tailscale ~/.ansible/roles/tailscale
+          ln -s ${GITHUB_WORKSPACE}/ansible-role-{{ role_name }} ~/.ansible/roles/{{ galaxy_namespace }}.{{ role_name }}
 
       - name: Test with molecule
         run: |
-          cd ansible-role-tailscale
+          cd ansible-role-{{ role_name }}
           molecule test
         env:
           PY_COLORS: 1
           ANSIBLE_FORCE_COLOR: 1
-          ANSIBLE_ROLES_PATH: ~/.ansible/roles:${GITHUB_WORKSPACE}/ansible-role-tailscale
+          ANSIBLE_ROLES_PATH: ~/.ansible/roles:${GITHUB_WORKSPACE}/ansible-role-{{ role_name }}
           image: {% raw %}${{ matrix.distro.image }}{% endraw %}
 
           tag: {% raw %}${{ matrix.distro.tag }}{% endraw %}
