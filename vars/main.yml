@@ -60,7 +60,7 @@ distribution_version_mapping:
       - latest
   Fedora:
     all:
-      - 40
+      # - 41  # This is a broken image.
       - latest
     "38":
       - 38
@@ -68,9 +68,11 @@ distribution_version_mapping:
       - 39
     "40":
       - 40
-    "41":
-      - latest
+    "41": []
+      # - 41  # This is a broken image.
     "42":
+      - latest
+    "43":
       - rawhide
   Ubuntu:
     all:
