@@ -107,6 +107,15 @@
           generate_github_issue_template or
           generate_github_feature_template
 
+    - name: Create directories
+      ansible.builtin.file:
+        path: "{{ role_path }}/{{ item }}"
+        state: directory
+        mode: "0755"
+      loop:
+        - .cursor
+        - .cursor/rules
+
     - name: Copy file
       ansible.builtin.copy:
         src: "{{ playbook_dir }}/files/{{ item.source }}"
@@ -123,6 +132,8 @@
           dest: .github/pull_request_template.md
         - source: requirements.txt
           dest: requirements.txt
+        - source: ansible.mdc
+          dest: .cursor/rules/ansible.mdc
       loop_control:
         label: "{{ item.source }}"
 

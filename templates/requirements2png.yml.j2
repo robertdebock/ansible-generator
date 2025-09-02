@@ -2,7 +2,9 @@
 {{ ansible_managed | comment }}
 
 on:
-  - push
+  release:
+    types:
+      - published
 
 name: Ansible Graphviz
 
@@ -33,4 +35,4 @@ jobs:
           directory: {% raw %}${{ github.repository }}{% endraw %}
 
           force: true
-          branch: png
+          branch: refs/heads/png
