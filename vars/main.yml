@@ -45,14 +45,15 @@ distribution_version_mapping:
       - latest
   Debian:
     all:
-      - latest  # 12
+      - latest  # 13 (trixie)
+      - bookworm  # 12
       - bullseye  # 11
+    trixie:
+      - latest
     bullseye:
       - bullseye
     bookworm:
       - latest
-    buster:
-      - buster
   EL:
     all:
       - latest
