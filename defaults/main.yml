@@ -52,4 +52,3 @@ generate_requirements2png: yes
 generate_github_funding: yes
 generate_github_issue_template: yes
 generate_github_feature_template: yes
-generate_install_pre_commit: yes
