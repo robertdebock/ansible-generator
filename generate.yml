@@ -124,18 +124,24 @@
       with_items:
         - source: gitignore
           dest: .gitignore
+          when_flag: "{{ generate_gitignore }}"
         - source: yamllint
           dest: .yamllint
+          when_flag: "{{ generate_yamllint }}"
         - source: pre-commit-config.yaml
           dest: .pre-commit-config.yaml
+          when_flag: "{{ generate_pre_commit }}"
         - source: pull_request_template.md
           dest: .github/pull_request_template.md
+          when_flag: "{{ generate_github_settings }}"
         - source: requirements.txt
           dest: requirements.txt
         - source: ansible.mdc
           dest: .cursor/rules/ansible.mdc
       loop_control:
         label: "{{ item.source }}"
+      when:
+        - item.when_flag | default(true) | bool
 
     - name: Render file README.md
       ansible.builtin.template:
