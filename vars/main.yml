@@ -53,7 +53,7 @@ distribution_version_mapping:
     bullseye:
       - bullseye
     bookworm:
-      - latest
+      - bookworm
   EL:
     all:
       - latest
