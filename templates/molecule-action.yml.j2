@@ -17,7 +17,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
       - name: ansible-lint
-        uses: ansible/ansible-lint@main
+        uses: ansible/ansible-lint@v25.9.2
 
   molecule:
     needs:
@@ -44,7 +44,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.*"
+          python-version: "3.13"
 
       - name: Configure Docker for systemd
         run: |

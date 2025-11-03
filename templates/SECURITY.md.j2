@@ -8,15 +8,9 @@ These version of [ansible](https://pypi.org/project/ansible/) are supported:
 
 | Version | Supported          |
 | ------- | ------------------ |
-{% if tox_ansible_versions is defined %}
-{% for version in tox_ansible_versions %}
-| {{ version }}       | :white_check_mark: |
-{% endfor %}
-{% else %}
 | 7       | :white_check_mark: |
 | 6       | :white_check_mark: |
 | 5       | :white_check_mark: |
-{% endif %}
 
 ## [Reporting a Vulnerability](#reporting-a-vulnarability)
 

@@ -38,7 +38,6 @@ generate_yamllint: yes
 generate_pre_commit: yes
 generate_readme: yes
 generate_ansible_lint: yes
-generate_tox: yes
 generate_github_settings: yes
 generate_license: yes
 generate_security: yes
