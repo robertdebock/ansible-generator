@@ -20,6 +20,10 @@ author: Robert de Bock (robert@meinit.nl)
 # The full URL to your website.
 author_website: "https://robertdebock.nl/"
 
+# The GitHub Actions runner to run workflows on. Pinned to a version rather
+# than ubuntu-latest, which migrates to Ubuntu 26 from October 19, 2026.
+github_runner: ubuntu-24.04
+
 # The container to use for GitLab CI.
 gitlab_container: "robertdebock/github-action-molecule:6.0.1"
 

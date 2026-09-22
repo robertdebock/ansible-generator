@@ -16,7 +16,7 @@ on:
 
 jobs:
   lint:
-    runs-on: ubuntu-latest
+    runs-on: {{ github_runner }}
     steps:
       - name: checkout
         uses: actions/checkout@v5
@@ -27,7 +27,7 @@ jobs:
     needs:
       - lint
     if: github.event_name != 'pull_request'
-    runs-on: ubuntu-latest
+    runs-on: {{ github_runner }}
     strategy:
       fail-fast: false
       matrix:
