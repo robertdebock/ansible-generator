@@ -56,6 +56,8 @@ distribution_version_mapping:
       - latest
     "9":
       - latest
+    # There is no EL 10 container image yet, so EL 10 is not tested.
+    "10": []
   Fedora:
     all:
       - latest
