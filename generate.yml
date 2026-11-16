@@ -107,14 +107,10 @@
           generate_github_issue_template or
           generate_github_feature_template
 
-    - name: Create directories
+    - name: Remove Cursor specific files
       ansible.builtin.file:
-        path: "{{ role_path }}/{{ item }}"
-        state: directory
-        mode: "0755"
-      loop:
-        - .cursor
-        - .cursor/rules
+        path: "{{ role_path }}/.cursor"
+        state: absent
 
     - name: Copy file
       ansible.builtin.copy:
@@ -136,8 +132,8 @@
           when_flag: "{{ generate_github_settings }}"
         - source: requirements.txt
           dest: requirements.txt
-        - source: ansible.mdc
-          dest: .cursor/rules/ansible.mdc
+        - source: AGENTS.md
+        - source: CLAUDE.md
       loop_control:
         label: "{{ item.source }}"
       when:
