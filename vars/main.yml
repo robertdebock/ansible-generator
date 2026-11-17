@@ -67,7 +67,10 @@ distribution_version_mapping:
       - 43
     "44":
       - latest
+    # Fedora 45 ships Python 3.15, which ansible-core does not support yet: not "latest".
     "45":
+      - 45
+    "46":
       - rawhide
   Ubuntu:
     all:
