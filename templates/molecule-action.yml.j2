@@ -69,6 +69,12 @@ jobs:
           sudo ln -sf /etc/apparmor.d/unix-chkpwd /etc/apparmor.d/disable/
           sudo apparmor_parser -R /etc/apparmor.d/unix-chkpwd || true
 
+      # The host's AppArmor profile for `haveged` denies creating its semaphore in /dev/shm inside the containers.
+      - name: Disable the AppArmor profile for haveged
+        run: |
+          sudo ln -sf /etc/apparmor.d/usr.sbin.haveged /etc/apparmor.d/disable/ || true
+          sudo apparmor_parser -R /etc/apparmor.d/usr.sbin.haveged || true
+
       - name: Install Docker
         uses: docker/setup-buildx-action@v4
 
