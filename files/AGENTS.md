@@ -90,7 +90,26 @@
     An added benefit is that it's very obvious that when, failed_when, changed_when, and handlers are actually (AND) lists.
 
 - Never use equal signs (=) where colons (:) are possible.
-- Never use Jinja in tasks or handlers. Instead, use a mapping in vars/main.yml to determine a value.
+- Never use Jinja expressions in tasks or handlers: no filters, no `default()`, no conditionals, no string joining. Compute the value in `vars/main.yml` (for example with a mapping) and refer to that role variable by its name, `"{{ xyz_state }}"`.
+- Lists are always written top to bottom, one item per line, also when there is a single item (`when`, `failed_when`, `changed_when`, `notify`, `tags`, `loop`, packages). Never `[ "a", "b" ]`.
+- Do not write an empty list or map (`[]`, `{}`) as a default. Leave the variable undefined (show an example in a comment) and guard its use with `when: xyz is defined`.
+- A condition that needs `and` and `or` is written as list items (AND) with the `or` group in parentheses, one condition per line, for example:
+
+    ```yaml
+    when:
+      - >-
+        (
+          ansible_facts['distribution'] == "Amazon"
+          and ansible_facts['distribution_major_version'] == "2"
+        )
+        or
+        (
+          ansible_facts['os_family'] == "RedHat"
+        )
+    ```
+
+- Task names start with a lowercase prefix that names the area, then a capitalised sentence, for example `assert | Test xyz_port`. Tasks in `tasks/main.yml` don't need a prefix: `Install xyz`.
+- Use `ansible_facts['os_family']`, never the injected `ansible_os_family` (injected facts are deprecated).
 - Try to resolve values in vars/main.yml to prevent unnecessary when conditions.
 - Prefer modules over `ansible.builtin.shell` and `ansible.builtin.command`.
 - Packages should not use `latest` as a version, unless the role is intended to update the package.
