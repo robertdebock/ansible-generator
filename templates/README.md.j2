@@ -76,11 +76,7 @@ This role has been tested on these [container images](https://hub.docker.com/u/{
 |[{{ platform.name }}]({{ image_docker_hub_url_mapping[platform.name | lower] }})|{% for version in platform.versions %}{{ version }}{% if not loop.last %}, {% endif %}{% endfor %}|
 {% endfor %}
 
-The minimum version of Ansible required is {{ meta.galaxy_info.min_ansible_version }}, tests have been done on:
-
-- The previous version.
-- The current version.
-- The development version.
+The minimum version of Ansible (ansible-core) required is {{ meta.galaxy_info.min_ansible_version }}, tests are done with the latest release of ansible-core.
 
 If you find issues, please register them on [GitHub](https://github.com/{{ github_namespace }}/ansible-role-{{ role_name }}/issues).
 
