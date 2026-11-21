@@ -91,8 +91,7 @@
 
 - Never use equal signs (=) where colons (:) are possible.
 - Never use Jinja expressions in tasks or handlers: no filters, no `default()`, no conditionals, no string joining. Compute the value in `vars/main.yml` (for example with a mapping) and refer to that role variable by its name, `"{{ xyz_state }}"`.
-- Lists are always written top to bottom, one item per line, also when there is a single item (`when`, `failed_when`, `changed_when`, `notify`, `tags`, `loop`, packages). Never `[ "a", "b" ]`.
-- Do not write an empty list or map (`[]`, `{}`) as a default. Leave the variable undefined (show an example in a comment) and guard its use with `when: xyz is defined`.
+- Lists with items are always written top to bottom, one item per line, also when there is a single item (`when`, `failed_when`, `changed_when`, `notify`, `tags`, `loop`, packages). Never `key: [ "a", "b" ]`. An empty list or map is written as `[]` or `{}`. A list literal inside a condition, `xyz in [ "a", "b" ]`, is fine: it is the most readable form there.
 - A condition that needs `and` and `or` is written as list items (AND) with the `or` group in parentheses, one condition per line, for example:
 
     ```yaml
