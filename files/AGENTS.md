@@ -90,7 +90,7 @@
     An added benefit is that it's very obvious that when, failed_when, changed_when, and handlers are actually (AND) lists.
 
 - Never use equal signs (=) where colons (:) are possible.
-- Never use Jinja expressions in tasks or handlers: no filters, no `default()`, no conditionals, no string joining. Compute the value in `vars/main.yml` (for example with a mapping) and refer to that role variable by its name, `"{{ xyz_state }}"`.
+- Keep Jinja in tasks and handlers simple. A plain variable `"{{ xyz_state }}"` or a short, readable filter such as `"{{ item.state | default('present') }}"` is fine. Anything harder to read (conditionals, string joining, several chained filters, regular expressions) is computed in `vars/main.yml` and the task refers to that role variable by its name. Readability is what counts.
 - Lists with items are always written top to bottom, one item per line, also when there is a single item (`when`, `failed_when`, `changed_when`, `notify`, `tags`, `loop`, packages). Never `key: [ "a", "b" ]`. An empty list or map is written as `[]` or `{}`. A list literal inside a condition, `xyz in [ "a", "b" ]`, is fine: it is the most readable form there.
 - A condition that needs `and` and `or` is written as list items (AND) with the `or` group in parentheses, one condition per line, for example:
 
